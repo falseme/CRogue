@@ -12,28 +12,4 @@ RWindow* RWindow::get() {
 	return instance;
 }
 
-void RWindow::init() {
-	get()->loop();
-}
 
-void RWindow::draw() {
-
-}
-
-void RWindow::loop() {
-
-	while (isOpen()) {
-
-		Event event;
-		while (pollEvent(event)) {
-			if (event.type == Event::Closed)
-				close();
-		}
-
-		clear();
-		draw();
-		display();
-
-	}
-
-}

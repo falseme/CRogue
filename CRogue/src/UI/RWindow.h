@@ -10,8 +10,5 @@ private:
 	RWindow();
 public:
 	static RWindow* get();
-	static void init();
-	static void draw();
-	void loop();
 };
 

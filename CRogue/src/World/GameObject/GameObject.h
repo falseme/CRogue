@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../../UI/RWindow.h"
 
 using namespace sf;
 
@@ -11,7 +12,7 @@ public:
 	GameObject(Vector2f pos);
 
 	virtual void update() = 0;
-	void draw();
+	void draw(RWindow* render);
 
 	void move(Vector2f delta);
 };
