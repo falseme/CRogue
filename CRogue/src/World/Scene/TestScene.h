@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-#include "../GameObject/TestGameObject.h"
+#include "../../GameObject/TestGameObject.h"
 
 /**
 * A Scene used just for testing

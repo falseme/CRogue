@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "../../UI/RWindow.h"
+#include "../UI/RWindow.h"
 
 using namespace sf;
 

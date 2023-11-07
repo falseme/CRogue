@@ -1,7 +1,7 @@
 #pragma once
 
 #include <list>
-#include "../GameObject/GameObject.h"
+#include "../../GameObject/GameObject.h"
 #include "../../UI/RWindow.h"
 
 using namespace std;
