@@ -10,8 +10,12 @@ void TestScene::init() {
 
 void TestScene::update() {
 
-	for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end(); it++) {
+	/*for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end(); it++) {
 		GameObject* go = *it;
+		go->update();
+	}*/
+
+	for (GameObject* go : gameObjects) {
 		go->update();
 	}
 

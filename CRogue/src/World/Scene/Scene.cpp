@@ -14,10 +14,12 @@ void Scene::update() {
 }
 
 void Scene::draw(RWindow* render) {
-	for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end(); it++) {
+	/*for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end(); it++) {
 		GameObject *go = *it;
 		go->draw(render);
-	}
+	}*/
+	for (GameObject* go : gameObjects)
+		go->draw(render);
 }
 
 void Scene::addGameObject(GameObject* go) {
