@@ -1,11 +1,12 @@
 #include "TestScene.h"
+#include "../../assets/Assets.h"
 
 TestScene::TestScene() {
 
 }
 
 void TestScene::init() {
-	addGameObject(new TestGameObject());
+	addGameObject(new TestGameObject(Vector2f(10, 10), Assets::player));
 }
 
 void TestScene::update() {

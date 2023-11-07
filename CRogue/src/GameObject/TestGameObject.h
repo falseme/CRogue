@@ -4,7 +4,7 @@
 
 class TestGameObject : public GameObject {
 public:
-	TestGameObject();
+	TestGameObject(Vector2f pos, Texture* tex);
 	void update() override;
 };
 

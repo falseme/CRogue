@@ -3,10 +3,11 @@
 #include <iostream>
 using namespace std;
 
-TestGameObject::TestGameObject() {
+TestGameObject::TestGameObject(Vector2f pos, Texture* tex) : GameObject(pos, tex) {
 
 }
 
 void TestGameObject::update() { // JUST TESTING
-	cout << "testing";
+	move(Vector2f(0.1f, 0.f));
+	sprite.setPosition(pos);
 }

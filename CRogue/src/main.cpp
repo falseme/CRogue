@@ -1,5 +1,6 @@
 #include "UI/RWindow.h"
 #include "World/World.h"
+#include "assets/Assets.h"
 
 void loop(RWindow* r) {
 
@@ -21,6 +22,8 @@ void loop(RWindow* r) {
 }
 
 int main() {
+
+	Assets::load();
 
 	World::loadScene();
 

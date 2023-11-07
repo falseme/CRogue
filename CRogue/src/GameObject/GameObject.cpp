@@ -11,8 +11,13 @@ GameObject::GameObject(Vector2f pos) {
 	this->pos = pos;
 }
 
+GameObject::GameObject(Vector2f pos, Texture* tex) {
+	this->pos = pos;
+	sprite.setTexture(*tex); // testing
+}
+
 void GameObject::draw(RWindow* render) {
-	cout << "draw";
+	render->draw(sprite);
 }
 
 void GameObject::move(Vector2f delta) {
