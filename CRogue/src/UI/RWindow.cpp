@@ -1,8 +1,8 @@
 #include "RWindow.h"
 
-RWindow *RWindow::instance = NULL;
+RWindow* RWindow::instance = NULL;
 
-RWindow::RWindow() : RenderWindow(VideoMode(800,600), "CROGUE [/]") {
+RWindow::RWindow() : RenderWindow(VideoMode(800, 600), "CROGUE [/]") {
 
 }
 

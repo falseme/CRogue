@@ -1,5 +1,5 @@
 #include "UI/RWindow.h"
-#include "World/World.h"
+#include "Scene/SceneManager.h"
 #include "assets/Assets.h"
 
 void loop(RWindow* r) {
@@ -13,8 +13,8 @@ void loop(RWindow* r) {
 		}
 
 		r->clear();
-		World::update();
-		World::draw(r);
+		SceneManager::update();
+		SceneManager::draw(r);
 		r->display();
 
 	}
@@ -25,7 +25,7 @@ int main() {
 
 	Assets::load();
 
-	World::loadScene();
+	SceneManager::loadScene();
 
 	loop(RWindow::get());
 
