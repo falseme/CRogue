@@ -6,7 +6,7 @@ TestScene::TestScene() {
 }
 
 void TestScene::init() {
-	addGameObject(new TestGameObject(Vector2f(10, 10), Assets::player));
+	addGameObject(new Player(Vector2f(10, 10), Assets::player, 10, 5));
 }
 
 void TestScene::update() {
