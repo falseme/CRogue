@@ -11,9 +11,10 @@ GameObject::GameObject(Vector2f pos) {
 	this->pos = pos;
 }
 
-GameObject::GameObject(Vector2f pos, Texture* tex) {
+GameObject::GameObject(Vector2f pos, Animation anim) {
 	this->pos = pos;
-	sprite.setTexture(*tex); // testing
+	animation = anim;
+	sprite.setTexture(*animation.getFrame());
 }
 
 void GameObject::draw(RWindow* render) {

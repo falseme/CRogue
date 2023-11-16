@@ -1,5 +1,5 @@
 #include "Entity.h"
-Entity::Entity(Vector2f pos, Texture* tex, float h, float d): GameObject(pos,tex) {
+Entity::Entity(Vector2f pos, Animation anim, float h, float d) : GameObject(pos, anim) {
 	SetHealth(h);
 	SetDamage(d);
 
@@ -11,7 +11,7 @@ void Entity::SetHealth(float h) {
 	health = h;
 }
 void Entity::Attacked(float d) {
-	 health -= d;
+	health -= d;
 }
 float Entity::GetDamage() {
 	return damage;

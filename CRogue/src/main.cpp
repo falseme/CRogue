@@ -4,6 +4,8 @@
 
 void loop(RWindow* r) {
 
+	r->setFramerateLimit(60);
+
 	while (r->isOpen()) {
 
 		Event event;
