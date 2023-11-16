@@ -6,10 +6,12 @@ Animation::Animation() {
 	currentFrame = 0;
 }
 
-Animation::Animation(float timeSecs) {
+Animation::Animation(float timeSecs, Texture** frames, int framesCount) {
 	this->timeSecs = timeSecs;
 	frameTime = 0;
 	currentFrame = 0;
+	for (int i = 0; i < framesCount; i++)
+		addTexture(frames[i]);
 }
 
 void Animation::addTexture(Texture* tex) {

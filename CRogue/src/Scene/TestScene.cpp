@@ -8,11 +8,7 @@ TestScene::TestScene() {
 
 void TestScene::init() {
 
-	Animation playerAnimation(0.85f);
-	playerAnimation.addTexture(Assets::player_idle0);
-	playerAnimation.addTexture(Assets::player_idle1);
-	playerAnimation.addTexture(Assets::player_idle2);
-	playerAnimation.addTexture(Assets::player_idle3);
+	Animation playerAnimation(0.85f, Assets::playerIdle_anim, 4);
 	addGameObject(new Player(Vector2f(10, 10), playerAnimation, 10, 5));
 
 }

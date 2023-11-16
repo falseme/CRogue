@@ -14,7 +14,7 @@ private:
 	float currentFrame;
 public:
 	Animation();
-	Animation(float timeSecs);
+	Animation(float timeSecs, Texture** frames, int framesCount);
 	void addTexture(Texture* tex);
 	Texture* getFrame();
 	void play();
