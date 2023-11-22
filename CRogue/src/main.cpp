@@ -1,6 +1,7 @@
 #include "UI/RWindow.h"
 #include "Scene/SceneManager.h"
 #include "assets/Assets.h"
+#include "UI/Render.h"
 
 void loop(RWindow* r) {
 
@@ -16,6 +17,7 @@ void loop(RWindow* r) {
 
 		r->clear();
 		SceneManager::update();
+		Render::get()->render();
 		SceneManager::draw(r);
 		r->display();
 
@@ -27,6 +29,7 @@ int main() {
 
 	Assets::load();
 
+	Render::get()->loadTileSet(); // test
 	SceneManager::loadScene();
 
 	loop(RWindow::get());
