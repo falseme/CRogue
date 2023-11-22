@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Vector2f pos, Texture* tex, float h, float d) : Entity(pos, tex,  h, d){
+Enemy::Enemy(Vector2f pos, Animation anim, float h, float d) : Entity(pos, anim, h, d) {
 
 }
 void Enemy::update() {}

@@ -2,7 +2,6 @@
 #include "../GameObject/Player.h"
 
 #include "Scene.h"
-#include "../GameObject/TestGameObject.h"
 
 /**
 * A Scene used just for testing

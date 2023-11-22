@@ -7,7 +7,7 @@ using namespace sf;
 
 class Assets {
 public:
-	static Texture* player;
+	static Texture** playerIdle_anim;
 	static void load();
 };
 

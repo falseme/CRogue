@@ -1,12 +1,16 @@
 #include "TestScene.h"
 #include "../assets/Assets.h"
+#include "../animation/Animation.h"
 
 TestScene::TestScene() {
 
 }
 
 void TestScene::init() {
-	addGameObject(new Player(Vector2f(10, 10), Assets::player, 10, 5));
+
+	Animation playerAnimation(0.85f, Assets::playerIdle_anim, 4);
+	addGameObject(new Player(Vector2f(10, 10), playerAnimation, 10, 5));
+
 }
 
 void TestScene::update() {
