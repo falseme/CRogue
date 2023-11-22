@@ -1,7 +1,7 @@
 #include "Assets.h"
 
 Texture** Assets::playerIdle_anim = NULL;
-
+Texture* Assets::Tileset = NULL;
 void Assets::load() {
 
 	playerIdle_anim = new Texture*[4] {
@@ -10,5 +10,8 @@ void Assets::load() {
 		Loader::loadTexture("data/assets/textures/characters/animations/player/idle/idle2.png"),
 		Loader::loadTexture("data/assets/textures/characters/animations/player/idle/idle3.png")
 	};
+
+	Tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset.png")
+
 
 }
