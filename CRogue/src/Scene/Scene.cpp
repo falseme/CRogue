@@ -1,5 +1,8 @@
 #include "Scene.h"
 
+#include <fstream>
+#include <sstream>
+
 Scene::Scene() {
 
 }
@@ -48,4 +51,34 @@ void Scene::removeGameObject(GameObject* go) {
 }
 void Scene::addTile(Tile* t) {
 	tileset.push_back(t);
+}
+
+void Scene::loadLevel(int level) {
+
+	stringstream ss;
+	ss << "data/assets/levels/" << level << ".leveldat";
+
+	ifstream levelFile(ss.str());
+	if (!levelFile.is_open())
+		return;
+
+	string l;
+	int py = 0;
+	while (getline(levelFile, l)) {
+
+		for (int i = 0; i < l.size(); i++) {
+
+			string sx = l.substr(i, 1);
+			string sy = l.substr(++i, 1);
+
+			int tx = stoi(sx);
+			int ty = stoi(sy);
+
+			addTile(new Tile(Vector2f(i / 2, py), Vector2f(tx, ty), Assets::Tileset->copyToImage()));
+
+		}
+
+		py++;
+
+	}
 }

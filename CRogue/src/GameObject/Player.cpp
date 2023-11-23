@@ -11,6 +11,5 @@ void Player::update() {
 
 	move(Vector2f(0.1f, 0.f));
 	sprite.setPosition(pos);
-	sprite.setScale(Vector2f(3, 2));
 
 }

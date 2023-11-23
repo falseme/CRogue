@@ -6,15 +6,18 @@ void loop(RWindow* r) {
 
 	r->setFramerateLimit(60);
 
+	View view = r->getDefaultView();
+
 	while (r->isOpen()) {
 
 		Event event;
 		while (r->pollEvent(event)) {
-			if (event.type == Event::Closed)
+			if (event.type == Event::Closed) {
 				r->close();
+			}
 		}
 
-		r->clear();
+		r->clear(Color(37, 19, 26));
 		SceneManager::update();
 		SceneManager::draw(r);
 		r->display();
