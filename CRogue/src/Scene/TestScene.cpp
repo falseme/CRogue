@@ -16,9 +16,16 @@ void TestScene::init() {
 }
 
 void TestScene::update() {
-	
+
 	for (GameObject* go : gameObjects) {
 		go->update();
 	}
+
+}
+void TestScene::loadLevel() {
+	for (int i = 0; i < 5; i++) {
+		addTile(new Tile(Vector2f(i, 0), Vector2f(2, 0), Assets::Tileset->copyToImage()));
+	}
+
 
 }

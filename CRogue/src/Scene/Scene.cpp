@@ -46,11 +46,6 @@ void Scene::removeGameObject(GameObject* go) {
 	it = gameObjects.erase(it);
 
 }
-
-void Scene::loadLevel() {
-
-	for (int i = 0; i < 5; i++) {
-		tileset.push_back(new Tile(Vector2f(i,0),Vector2f(2,0), Assets::Tileset->copyToImage()));
-	}
-
+void Scene::addTile(Tile* t) {
+	tileset.push_back(t);
 }
