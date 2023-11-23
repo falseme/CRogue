@@ -1,8 +1,11 @@
 #pragma once
 
 #include <list>
+
 #include "../GameObject/GameObject.h"
 #include "../UI/RWindow.h"
+#include "../Scene/Tile.h"
+#include "../assets/Assets.h"
 
 using namespace std;
 
@@ -12,6 +15,7 @@ using namespace std;
 class Scene {
 protected:
 	list<GameObject*> gameObjects;
+	list<Tile*> tileset;
 public:
 	Scene();
 	~Scene();
@@ -22,5 +26,7 @@ public:
 
 	void addGameObject(GameObject* go);
 	void removeGameObject(GameObject* go);
+
+	void loadLevel();
 };
 

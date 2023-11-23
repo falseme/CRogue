@@ -11,7 +11,7 @@ void Assets::load() {
 		Loader::loadTexture("data/assets/textures/characters/animations/player/idle/idle3.png")
 	};
 
-	Tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset.png")
+	Tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset.png");
 
 
 }
