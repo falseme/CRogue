@@ -1,12 +1,12 @@
 #include "Tile.h"
-Tile::Tile(unsigned int x, unsigned int y, const Image& imagen) {
+
+Tile::Tile(Vector2f pos, Vector2f offsetTex, const Image& image) {
 	Texture* texture = new Texture();
-	texture->loadFromImage(imagen, IntRect(x * 16, y * 16, 16, 16));
+	texture->loadFromImage(image, IntRect(offsetTex.x * 16, offsetTex.y * 16, 16, 16));
 	sprite.setTexture(*texture);
-	sprite.setScale(Vector2f(2, 2));
-	sprite.setPosition(x * 16*2, y * 16*2);
+	sprite.setPosition(pos.x * 16, pos.y * 16);
 }
 
-void Tile::render(RWindow* render) {
+void Tile::draw(RWindow* render) {
 	render->draw(sprite);
 }

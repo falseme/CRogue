@@ -9,8 +9,8 @@ using namespace sf;
 class Tile
 {
 public:
-	Tile(unsigned int x, unsigned int y, const Image& imagen);
-	void render(RWindow* render);
+	Tile(Vector2f pos, Vector2f offsetTex, const Image& image);
+	void draw(RWindow* render);
 private:
 	Sprite sprite;
 };
