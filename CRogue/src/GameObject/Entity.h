@@ -6,7 +6,7 @@ private:
 	float damage;
 public:
 	void update() override;
-	Entity(Vector2f pos, Animation anim, float h, float d);
+	Entity(Vector2f pos, Animation anim, CollisionBox collider, float h, float d);
 	float GetHealth();
 	void SetHealth(float h);
 	float GetDamage();

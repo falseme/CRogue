@@ -9,12 +9,19 @@ GameObject::GameObject() {
 
 GameObject::GameObject(Vector2f pos) {
 	this->pos = pos;
+	sprite.setOrigin(Vector2f(0.5f, 0.5f));
+	sprite.setPosition(pos);
 }
 
-GameObject::GameObject(Vector2f pos, Animation anim) {
-	this->pos = pos;
+GameObject::GameObject(Vector2f pos, Animation anim) : GameObject(pos) {
 	animation = anim;
 	sprite.setTexture(*animation.getFrame());
+}
+
+GameObject::GameObject(Vector2f pos, Animation anim, CollisionBox collider) : GameObject(pos, anim) {
+	sprite.setTexture(*animation.getFrame());
+	this->collider = collider;
+	collider.setPos(pos);
 }
 
 void GameObject::draw(RWindow* render) {
@@ -24,4 +31,6 @@ void GameObject::draw(RWindow* render) {
 void GameObject::move(Vector2f delta) {
 	pos.x += delta.x;
 	pos.y += delta.y;
+	sprite.setPosition(pos);
+	collider.setPos(pos);
 }

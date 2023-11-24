@@ -11,7 +11,7 @@ void LevelScene1::init() {
 	loadLevel(1);
 
 	Animation playerAnimation(0.85f, Assets::playerIdle_anim, 4);
-	addGameObject(new Player(Vector2f(10, 10), playerAnimation, 10, 5));
+	addGameObject(new Player(Vector2f(10, 10), playerAnimation, CollisionBox(Vector2f(14,14)), 10, 5));
 
 }
 
