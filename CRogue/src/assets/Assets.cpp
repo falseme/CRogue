@@ -13,5 +13,4 @@ void Assets::load() {
 
 	Tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset.png");
 
-
 }

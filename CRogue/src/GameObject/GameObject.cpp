@@ -18,7 +18,7 @@ GameObject::GameObject(Vector2f pos, Animation anim) : GameObject(pos) {
 	sprite.setTexture(*animation.getFrame());
 }
 
-GameObject::GameObject(Vector2f pos, Animation anim, CollisionBox collider) : GameObject(pos, anim) {
+GameObject::GameObject(Vector2f pos, Animation anim, BoxCollider collider) : GameObject(pos, anim) {
 	sprite.setTexture(*animation.getFrame());
 	this->collider = collider;
 	collider.setPos(pos);
@@ -33,4 +33,8 @@ void GameObject::move(Vector2f delta) {
 	pos.y += delta.y;
 	sprite.setPosition(pos);
 	collider.setPos(pos);
+}
+
+BoxCollider GameObject::getCollider() {
+	return collider;
 }

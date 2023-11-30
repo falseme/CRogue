@@ -1,5 +1,6 @@
 #include "Entity.h"
-Entity::Entity(Vector2f pos, Animation anim, CollisionBox collider, float h, float d) : GameObject(pos, anim, collider) {
+
+Entity::Entity(Vector2f pos, Animation anim, BoxCollider collider, float h, float d) : GameObject(pos, anim, collider) {
 	SetHealth(h);
 	SetDamage(d);
 
@@ -20,3 +21,5 @@ void Entity::SetDamage(float d) {
 	damage = d;
 }
 void Entity::update() {}
+void Entity::onCollision(BoxCollider other){}
+
