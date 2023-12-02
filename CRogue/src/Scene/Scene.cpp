@@ -68,13 +68,22 @@ void Scene::loadLevel(int level) {
 
 		for (int i = 0; i < l.size(); i++) {
 
+			string complete = l.substr(i, 3);
+			if (complete == "non") {
+				i += 3;
+				continue;
+			}
+
 			string sx = l.substr(i, 1);
 			string sy = l.substr(++i, 1);
+			string col = l.substr(++i, 1);
+			i++; // so as to ignore the blanck space
 
 			int tx = stoi(sx);
 			int ty = stoi(sy);
+			bool tcol = (bool)stoi(col);
 
-			addTile(new Tile(Vector2f(i / 2, py), Vector2f(tx, ty), Assets::Tileset->copyToImage()));
+			addTile(new Tile(Vector2f(i / 4, py), Vector2f(tx, ty), Assets::Tileset->copyToImage(), tcol));
 
 		}
 
