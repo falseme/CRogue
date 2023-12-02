@@ -68,6 +68,12 @@ void Scene::loadLevel(int level) {
 
 		for (int i = 0; i < l.size(); i++) {
 
+			string complete = l.substr(i, 3);
+			if (complete == "non") {
+				i += 3;
+				continue;
+			}
+
 			string sx = l.substr(i, 1);
 			string sy = l.substr(++i, 1);
 			string col = l.substr(++i, 1);

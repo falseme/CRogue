@@ -8,7 +8,7 @@ Tile::Tile(Vector2f pos, Vector2f offsetTex, const Image& image, bool hasCollide
 	sprite.setPosition(pos.x * 16, pos.y * 16);
 
 	if (hasCollider) {
-		this->collider = BoxCollider(Vector2f(pos.x * 16, pos.y * 16), Vector2f(16, 16));
+		this->collider = BoxCollider(Vector2f(pos.x * 16 + 8, pos.y * 16 + 8), Vector2f(16, 16));
 	}
 
 }
