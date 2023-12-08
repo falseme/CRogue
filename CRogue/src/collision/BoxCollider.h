@@ -12,7 +12,7 @@ public:
 	BoxCollider();
 	BoxCollider(Vector2f size);
 	BoxCollider(Vector2f pos, Vector2f size);
-	bool collide(BoxCollider box);
+	Vector2f collide(BoxCollider box);
 	void setPos(Vector2f pos);
 	Vector2f getSize();
 	Vector2f getPos();

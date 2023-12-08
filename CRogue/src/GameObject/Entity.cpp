@@ -21,5 +21,5 @@ void Entity::SetDamage(float d) {
 	damage = d;
 }
 void Entity::update() {}
-void Entity::onCollision(BoxCollider other){}
+void Entity::onCollision(BoxCollider other, Vector2f delta){}
 

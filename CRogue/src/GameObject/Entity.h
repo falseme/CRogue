@@ -14,6 +14,6 @@ public:
 	float GetDamage();
 	void SetDamage(float d);
 	void Attacked(float d);
-	void onCollision(BoxCollider other) override;
+	void onCollision(BoxCollider other, Vector2f delta) override;
 };
 

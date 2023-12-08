@@ -20,7 +20,7 @@ GameObject::GameObject(Vector2f pos, Animation anim) : GameObject(pos) {
 
 GameObject::GameObject(Vector2f pos, Animation anim, BoxCollider collider) : GameObject(pos, anim) {
 	this->collider = collider;
-	collider.setPos(pos);
+	this->collider.setPos(pos);
 }
 
 void GameObject::draw(RWindow* render) {
