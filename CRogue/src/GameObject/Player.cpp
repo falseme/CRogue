@@ -26,19 +26,24 @@ void Player::update() {
 		speed += Vector2f(1, 0);
 	}
 
+	if (speed.x < 0)
+		sprite.setScale(Vector2f(-1, 1));
+	else if (speed.x > 0)
+		sprite.setScale(Vector2f(1, 1));
+
 	move(speed);
 
 }
 
-void Player::onCollision(BoxCollider other) {
+void Player::onCollision(BoxCollider other, Vector2f delta) {
 
-	Vector2f delta = other.getPos() - collider.getPos();
+	Vector2f d = other.getPos() - pos;
 
-	if (abs(delta.x) > abs(delta.y)) {
-		move(Vector2f(-speed.x, 0));
+	if (abs(d.x) > abs(d.y)) {
+		move(Vector2f(delta.x, 0));
 	}
-	else if (abs(delta.x) < abs(delta.y)) {
-		move(Vector2f(0, -speed.y));
+	else if (abs(d.x) < abs(d.y)) {
+		move(Vector2f(0, delta.y));
 	}
 
 }

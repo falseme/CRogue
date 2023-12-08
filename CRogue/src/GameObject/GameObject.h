@@ -23,7 +23,7 @@ public:
 	void draw(RWindow* render);
 
 	void move(Vector2f delta);
-	virtual void onCollision(BoxCollider other) = 0;
+	virtual void onCollision(BoxCollider other, Vector2f delta) = 0;
 
 	BoxCollider getCollider();
 };

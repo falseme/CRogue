@@ -30,9 +30,10 @@ void LevelScene1::checkCollision(GameObject* gameObject) {
 	for (GameObject* go : gameObjects) {
 		if (go == gameObject)
 			continue;
-		if (gameObject->getCollider().collide(go->getCollider())) {
-			gameObject->onCollision(go->getCollider());
-		}
+		Vector2f d = gameObject->getCollider().collide(go->getCollider());
+		if (d == Vector2f(0, 0))
+			continue;
+		gameObject->onCollision(go->getCollider(), d);
 	}
 
 }
@@ -40,9 +41,10 @@ void LevelScene1::checkCollision(GameObject* gameObject) {
 void LevelScene1::checkTileCollision(GameObject* gameObject) {
 
 	for (Tile* t : tileset) {
-		if (gameObject->getCollider().collide(t->getCollider())) {
-			gameObject->onCollision(t->getCollider());
-		}
+		Vector2f d = gameObject->getCollider().collide(t->getCollider());
+		if (d == Vector2f(0, 0))
+			continue;
+		gameObject->onCollision(t->getCollider(), d);
 	}
 
 }
