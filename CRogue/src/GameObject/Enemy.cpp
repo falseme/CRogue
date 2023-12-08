@@ -4,6 +4,8 @@ Enemy::Enemy(Vector2f pos, Animation anim, BoxCollider collider, float h, float 
 
 }
 
+void Enemy::update() {};
+
 void Enemy::onCollision(BoxCollider other, Vector2f delta) {
 
 	Vector2f d = other.getPos() - pos;
