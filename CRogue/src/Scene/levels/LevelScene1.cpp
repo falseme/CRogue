@@ -10,8 +10,7 @@ void LevelScene1::init() {
 
 	loadLevel(1);
 
-	Animation playerAnimation(0.85f, Assets::playerIdle_anim, 4);
-	addGameObject(new Player(Vector2f(40, 40), playerAnimation, BoxCollider(Vector2f(12, 12)), 10, 5));
+	addGameObject(new Player(Vector2f(40, 40), BoxCollider(Vector2f(16, 16)), 10, 5));
 
 }
 

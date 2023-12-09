@@ -12,10 +12,16 @@ private:
 	vector<Texture*> frames;
 	float frameTime, timeSecs;
 	float currentFrame;
+	bool end;
 public:
 	Animation();
 	Animation(float timeSecs, Texture** frames, int framesCount);
+
 	void addTexture(Texture* tex);
 	Texture* getFrame();
+
 	void play();
+	void reset();
+
+	bool ended();
 };

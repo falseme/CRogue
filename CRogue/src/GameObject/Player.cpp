@@ -1,29 +1,51 @@
 #include "Player.h"
 
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Mouse.hpp>
+#include "../assets/Assets.h";
 
-Player::Player(Vector2f pos, Animation anim, BoxCollider collider, float h, float d) : Entity(pos, anim, collider, h, d) {
+Player::Player(Vector2f pos, BoxCollider collider, float h, float d) : Entity(pos, vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3)}, collider, h, d) {
 
 }
 
 void Player::update() {
 
-	animation.play();
-	sprite.setTexture(*animation.getFrame());
-
+	float sp = 1.5f;
 	speed = Vector2f(0, 0);
 
+	if (Mouse::isButtonPressed(Mouse::Left)) {
+		setSelfState(attack);
+	}
+
+	if (getSelfState() == attack && !(animations[getSelfState()]).ended()) {
+		playStateAnimation();
+		return;
+	}
+
+	setSelfState(idle);
+
 	if (Keyboard::isKeyPressed(Keyboard::Key::W)) {
-		speed += Vector2f(0, -1);
+		speed += Vector2f(0, -sp);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Key::S)) {
-		speed += Vector2f(0, 1);
+		speed += Vector2f(0, sp);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Key::A)) {
-		speed += Vector2f(-1, 0);
+		speed += Vector2f(-sp, 0);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Key::D)) {
-		speed += Vector2f(1, 0);
+		speed += Vector2f(sp, 0);
+	}
+
+	if (speed.x != 0 || speed.y != 0)
+		setSelfState(run);
+
+	if (speed.x != 0 && speed.y != 0) {
+		float mod = sqrt(speed.x * speed.x + speed.y * speed.y);
+		speed.x /= mod;
+		speed.y /= mod;
+		speed.x *= sp;
+		speed.y *= sp;
 	}
 
 	if (speed.x < 0)
@@ -32,6 +54,7 @@ void Player::update() {
 		sprite.setScale(Vector2f(1, 1));
 
 	move(speed);
+	playStateAnimation();
 
 }
 

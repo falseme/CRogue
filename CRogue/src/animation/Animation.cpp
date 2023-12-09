@@ -29,7 +29,18 @@ Texture* Animation::getFrame() {
 void Animation::play() {
 
 	currentFrame += frameTime;
-	if (currentFrame >= frames.size())
+	if (currentFrame >= frames.size()) {
 		currentFrame = 0;
+		end = true;
+	}
 
+}
+
+void Animation::reset() {
+	currentFrame = 0;
+	end = false;
+}
+
+bool Animation::ended() {
+	return end;
 }

@@ -1,14 +1,30 @@
 #include "Assets.h"
 
-Texture** Assets::playerIdle_anim = NULL;
+Texture** Assets::playerIdle = NULL;
+Texture** Assets::playerRun = NULL;
+Texture** Assets::playerAttack = NULL;
 Texture* Assets::Tileset = NULL;
+
 void Assets::load() {
 
-	playerIdle_anim = new Texture*[4] {
-		Loader::loadTexture("data/assets/textures/characters/animations/player/idle/idle0.png"),
-		Loader::loadTexture("data/assets/textures/characters/animations/player/idle/idle1.png"),
-		Loader::loadTexture("data/assets/textures/characters/animations/player/idle/idle2.png"),
-		Loader::loadTexture("data/assets/textures/characters/animations/player/idle/idle3.png")
+	playerIdle = new Texture * [6] {
+		Loader::loadTexture("data/assets/textures/animations/player/player_idle0.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_idle1.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_idle2.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_idle2.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_idle1.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_idle0.png")
+	};
+
+	playerRun = new Texture * [2] {
+		Loader::loadTexture("data/assets/textures/animations/player/player_run0.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_run1.png")
+	};
+
+	playerAttack = new Texture * [3] {
+		Loader::loadTexture("data/assets/textures/animations/player/player_attack0.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_attack1.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_attack2.png")
 	};
 
 	Tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset.png");

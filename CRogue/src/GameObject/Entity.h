@@ -1,19 +1,30 @@
 #pragma once
 #include "GameObject.h"
 class Entity :public GameObject {
-private:
-	float health;
-	float damage;
-protected:
-	Vector2f speed;
 public:
+	static const enum state { idle, run, attack };
+
+	Entity(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d);
+
 	void update() override;
-	Entity(Vector2f pos, Animation anim, BoxCollider collider, float h, float d);
+
 	float GetHealth();
 	void SetHealth(float h);
 	float GetDamage();
 	void SetDamage(float d);
+
 	void Attacked(float d);
 	void onCollision(BoxCollider other, Vector2f delta) override;
+
+	void playStateAnimation();
+
+	state getSelfState();
+	void setSelfState(state s);
+private:
+	float health;
+	float damage;
+	state selfState;
+protected:
+	Vector2f speed;
 };
 

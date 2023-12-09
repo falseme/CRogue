@@ -1,10 +1,12 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Vector2f pos, Animation anim, BoxCollider collider, float h, float d) : Entity(pos, anim, collider, h, d) {
+Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d) : Entity(pos, anim, collider, h, d) {
 
 }
 
-void Enemy::update() {};
+void Enemy::update() {
+
+};
 
 void Enemy::onCollision(BoxCollider other, Vector2f delta) {
 
