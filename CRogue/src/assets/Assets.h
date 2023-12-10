@@ -10,6 +10,7 @@ public:
 	static Texture** playerIdle;
 	static Texture** playerRun;
 	static Texture** playerAttack;
+	static Texture** skelyIdle;
 	static Texture* Tileset;//puntero que apunta a donde esta guardada la imagen del fondo
 
 	static void load();

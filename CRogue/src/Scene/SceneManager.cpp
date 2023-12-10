@@ -1,11 +1,11 @@
 #include "SceneManager.h"
 
-#include "levels/LevelScene1.h"
+#include "LevelScene.h"
 
 Scene * SceneManager::mainScene = NULL;
 
 void SceneManager::loadScene() {
-	mainScene = new LevelScene1();
+	mainScene = new LevelScene(1);
 	mainScene->init();
 }
 

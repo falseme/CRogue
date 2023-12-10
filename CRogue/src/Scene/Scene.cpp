@@ -1,8 +1,5 @@
 #include "Scene.h"
 
-#include <fstream>
-#include <sstream>
-
 Scene::Scene() {
 
 }
@@ -53,41 +50,3 @@ void Scene::addTile(Tile* t) {
 	tileset.push_back(t);
 }
 
-void Scene::loadLevel(int level) {
-
-	stringstream ss;
-	ss << "data/assets/levels/" << level << ".leveldat";
-
-	ifstream levelFile(ss.str());
-	if (!levelFile.is_open())
-		return;
-
-	string l;
-	int py = 0;
-	while (getline(levelFile, l)) {
-
-		for (int i = 0; i < l.size(); i++) {
-
-			string complete = l.substr(i, 3);
-			if (complete == "non") {
-				i += 3;
-				continue;
-			}
-
-			string sx = l.substr(i, 1);
-			string sy = l.substr(++i, 1);
-			string col = l.substr(++i, 1);
-			i++; // so as to ignore the blanck space
-
-			int tx = stoi(sx);
-			int ty = stoi(sy);
-			bool tcol = (bool)stoi(col);
-
-			addTile(new Tile(Vector2f(i / 4, py), Vector2f(tx, ty), Assets::Tileset->copyToImage(), tcol));
-
-		}
-
-		py++;
-
-	}
-}

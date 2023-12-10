@@ -27,7 +27,7 @@ public:
 	void addGameObject(GameObject* go);
 	void removeGameObject(GameObject* go);
 
-	void loadLevel(int level);
+	virtual void loadScene() = 0;
 	void addTile(Tile* t);
 };
 

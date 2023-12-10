@@ -1,12 +1,17 @@
 #pragma once
 
-#include "../Scene.h"
+#include "Scene.h"
 
-class LevelScene1 : public Scene {
+class LevelScene : public Scene {
+private:
+	int level;
 public:
-	LevelScene1();
+	LevelScene(int level);
 	void init() override;
 	void update() override;
+
+	void loadScene() override;
+
 	void checkCollision(GameObject* gameObject);
 	void checkTileCollision(GameObject* gameObject);
 };

@@ -4,7 +4,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include "../assets/Assets.h";
 
-Player::Player(Vector2f pos, BoxCollider collider, float h, float d) : Entity(pos, vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3)}, collider, h, d) {
+Player::Player(Vector2f pos, BoxCollider collider, float h, float d) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3)}, collider, h, d) {
 
 }
 

@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d) : GameObject(pos, anim, collider) {
+Entity::Entity(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider, float h, float d) : GameObject(pos, name, anim, collider) {
 	SetHealth(h);
 	SetDamage(d);
 	selfState = idle;
