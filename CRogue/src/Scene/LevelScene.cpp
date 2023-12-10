@@ -14,7 +14,7 @@ void LevelScene::init() {
 
 	loadScene();
 
-	addGameObject(new Player(Vector2f(40, 40), BoxCollider(Vector2f(14, 14)), 10, 5));
+	addGameObject(new Player(Vector2f(40, 40), BoxCollider(Vector2f(12, 12), Vector2f(0,2)), 10, 5));
 	addGameObject(new Enemy(Vector2f(80, 40), std::vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6)}, BoxCollider(Vector2f(12, 16)), 10, 5));
 
 	GameObject::setGameObjectCurrentList(&gameObjects);

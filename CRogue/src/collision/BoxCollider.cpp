@@ -1,15 +1,18 @@
 #include "BoxCollider.h"
 
 BoxCollider::BoxCollider() {
-	pos = Vector2f(0, 0);
-	size = Vector2f(0, 0);
+	
 }
 
 BoxCollider::BoxCollider(Vector2f size) {
 	this->size = size;
 }
 
-BoxCollider::BoxCollider(Vector2f pos, Vector2f size) : BoxCollider(size) {
+BoxCollider::BoxCollider(Vector2f size, Vector2f offset) : BoxCollider(size) {
+	this->offset = offset;
+}
+
+BoxCollider::BoxCollider(Vector2f size, Vector2f offset, Vector2f pos) : BoxCollider(size, offset) {
 	this->pos = pos;
 }
 
@@ -44,7 +47,7 @@ Vector2f BoxCollider::collide(BoxCollider other) {
 }
 
 void BoxCollider::setPos(Vector2f pos) {
-	this->pos = pos;
+	this->pos = pos + offset;
 }
 
 Vector2f BoxCollider::getPos() {
