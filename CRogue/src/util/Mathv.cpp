@@ -31,7 +31,7 @@ float Mathv::distance(Vector2f v1, Vector2f v2) {
 	if (d.y == 0)
 		return abs(d.x);
 
-	return abs(sqrt(d.x * d.x + d.y * d.y));
+	return sqrt(d.x * d.x + d.y * d.y);
 
 }
 

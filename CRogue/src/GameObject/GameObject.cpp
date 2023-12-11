@@ -6,20 +6,20 @@ GameObject::GameObject() {
 	currentAnimation = 0;
 }
 
-GameObject::GameObject(Vector2f pos, std::string name) {
+GameObject::GameObject(Vector2f pos, string name) {
 	this->pos = pos;
 	this->name = name;
 	sprite.setPosition(pos);
 	currentAnimation = 0;
 }
 
-GameObject::GameObject(Vector2f pos, std::string name, vector<Animation> anim) : GameObject(pos, name) {
+GameObject::GameObject(Vector2f pos, string name, vector<Animation> anim) : GameObject(pos, name) {
 	animations = anim;
 	sprite.setTexture(*animations[currentAnimation].getFrame());
 	sprite.setOrigin(Vector2f(animations[currentAnimation].getFrame()->getSize().x / 2.f, animations[currentAnimation].getFrame()->getSize().y / 2.f));
 }
 
-GameObject::GameObject(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider) : GameObject(pos, name, anim) {
+GameObject::GameObject(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider) : GameObject(pos, name, anim) {
 	this->collider = collider;
 	this->collider.setPos(pos);
 }
@@ -49,7 +49,7 @@ void GameObject::setGameObjectCurrentList(list<GameObject*>* currentList) {
 
 }
 
-GameObject* GameObject::find(std::string name) {
+GameObject* GameObject::find(string name) {
 
 	for (GameObject* go : *sceneGameObjects) {
 		if (go->name == name)

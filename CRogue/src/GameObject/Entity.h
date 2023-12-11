@@ -4,7 +4,7 @@ class Entity :public GameObject {
 public:
 	static const enum state { idle, run, attack };
 
-	Entity(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed);
+	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed);
 
 	void update() override;
 

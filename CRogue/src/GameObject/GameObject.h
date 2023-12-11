@@ -7,12 +7,10 @@
 #include "../animation/Animation.h"
 #include "../collision/BoxCollider.h"
 
-using namespace sf;
-
 class GameObject {
 private:
 	static list<GameObject*>* sceneGameObjects;
-	std::string name;
+	string name;
 protected:
 	Vector2f pos;
 	Sprite sprite;
@@ -21,9 +19,9 @@ protected:
 	BoxCollider collider;
 public:
 	GameObject();
-	GameObject(Vector2f pos, std::string name);
-	GameObject(Vector2f pos, std::string name, vector<Animation> anim);
-	GameObject(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider);
+	GameObject(Vector2f pos, string name);
+	GameObject(Vector2f pos, string name, vector<Animation> anim);
+	GameObject(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider);
 
 	virtual void update() = 0;
 	void draw(RWindow* render);
@@ -35,7 +33,7 @@ public:
 	Vector2f getPos();
 
 	static void setGameObjectCurrentList(list<GameObject*>* currentList);
-	static GameObject* find(std::string name);
+	static GameObject* find(string name);
 
 	bool comp(GameObject* g);
 };

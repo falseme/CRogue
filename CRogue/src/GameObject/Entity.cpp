@@ -2,7 +2,7 @@
 
 #include "../util/Mathv.h"
 
-Entity::Entity(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed) : GameObject(pos, name, anim, collider) {
+Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed) : GameObject(pos, name, anim, collider) {
 	SetHealth(h);
 	SetDamage(d);
 	selfState = idle;
@@ -26,11 +26,10 @@ void Entity::SetDamage(float d) {
 
 void Entity::moveTo(Vector2f target) {
 
-	Vector2f delta = target - pos;
-	Mathv::normalizeAndScale(delta, sp);
+	speed = target - pos;
+	Mathv::normalizeAndScale(speed, sp);
 
-	speed = delta;
-	move(delta);
+	move(speed);
 
 }
 
