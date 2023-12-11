@@ -11,10 +11,6 @@ Scene::~Scene() {
 		delete t;
 }
 
-void Scene::update() {
-
-}
-
 void Scene::draw(RWindow* render) {
 
 	for (Tile* t : tileset)

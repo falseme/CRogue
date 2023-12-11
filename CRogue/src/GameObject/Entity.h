@@ -4,7 +4,7 @@ class Entity :public GameObject {
 public:
 	static const enum state { idle, run, attack };
 
-	Entity(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider, float h, float d);
+	Entity(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed);
 
 	void update() override;
 
@@ -13,6 +13,7 @@ public:
 	float GetDamage();
 	void SetDamage(float d);
 
+	void moveTo(Vector2f target);
 	void Attacked(float d);
 	void onCollision(BoxCollider other, Vector2f delta) override;
 
@@ -25,6 +26,7 @@ private:
 	float damage;
 	state selfState;
 protected:
+	float sp; // speed vector mod
 	Vector2f speed;
 };
 

@@ -32,8 +32,11 @@ public:
 	virtual void onCollision(BoxCollider other, Vector2f delta) = 0;
 
 	BoxCollider getCollider();
+	Vector2f getPos();
 
 	static void setGameObjectCurrentList(list<GameObject*>* currentList);
-	GameObject* find(std::string name);
+	static GameObject* find(std::string name);
+
+	bool comp(GameObject* g);
 };
 

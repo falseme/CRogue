@@ -1,9 +1,12 @@
 #include "Entity.h"
 
-Entity::Entity(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider, float h, float d) : GameObject(pos, name, anim, collider) {
+#include "../util/Mathv.h"
+
+Entity::Entity(Vector2f pos, std::string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed) : GameObject(pos, name, anim, collider) {
 	SetHealth(h);
 	SetDamage(d);
 	selfState = idle;
+	sp = speed;
 }
 float Entity::GetHealth() {
 	return health;
@@ -19,6 +22,16 @@ float Entity::GetDamage() {
 }
 void Entity::SetDamage(float d) {
 	damage = d;
+}
+
+void Entity::moveTo(Vector2f target) {
+
+	Vector2f delta = target - pos;
+	Mathv::normalizeAndScale(delta, sp);
+
+	speed = delta;
+	move(delta);
+
 }
 
 void Entity::update() {}

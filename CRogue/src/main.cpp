@@ -15,6 +15,9 @@ void loop(RWindow* r) {
 			if (event.type == Event::Closed) {
 				r->close();
 			}
+			if (event.type == Event::MouseButtonPressed) {
+				r->setMousePosition(Vector2f(event.mouseButton.x, event.mouseButton.y));
+			}
 		}
 
 		r->clear(Color(37, 19, 26));

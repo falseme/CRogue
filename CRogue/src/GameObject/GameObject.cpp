@@ -39,6 +39,10 @@ BoxCollider GameObject::getCollider() {
 	return collider;
 }
 
+Vector2f GameObject::getPos() {
+	return pos;
+}
+
 void GameObject::setGameObjectCurrentList(list<GameObject*>* currentList) {
 
 	sceneGameObjects = currentList;
@@ -54,4 +58,10 @@ GameObject* GameObject::find(std::string name) {
 
 	return NULL;
 
+}
+
+bool GameObject::comp(GameObject* g) {
+	if (g->pos.y > pos.y)
+		return 1;
+	return 0;
 }
