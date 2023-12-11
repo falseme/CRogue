@@ -130,8 +130,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\util\Mathv.cpp" />
     <ClCompile Include="src\collision\BoxCollider.cpp" />
-    <ClCompile Include="src\Scene\levels\LevelScene1.cpp" />
+    <ClCompile Include="src\Scene\LevelScene.cpp" />
     <ClCompile Include="src\Scene\Tile.cpp" />
     <ClCompile Include="src\animation\Animation.cpp" />
     <ClCompile Include="src\assets\Loader.cpp" />
@@ -146,8 +147,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\util\Mathv.h" />
     <ClInclude Include="src\collision\BoxCollider.h" />
-    <ClInclude Include="src\Scene\levels\LevelScene1.h" />
+    <ClInclude Include="src\Scene\LevelScene.h" />
     <ClInclude Include="src\Scene\Tile.h" />
     <ClInclude Include="src\animation\Animation.h" />
     <ClInclude Include="src\assets\Loader.h" />
