@@ -27,19 +27,8 @@ void Scene::addGameObject(GameObject* go) {
 
 void Scene::removeGameObject(GameObject* go) {
 
-	int index = 0;
-	for (GameObject* g : gameObjects) {
-		if (g == go)
-			break;
-		index++;
-	}
-
-	list<GameObject*>::iterator it = gameObjects.begin();
-	advance(it, index);
-
-	if (it == gameObjects.end())
-		return;
-	it = gameObjects.erase(it);
+	gameObjects.remove(go);
+	delete go;
 
 }
 void Scene::addTile(Tile* t) {

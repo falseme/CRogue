@@ -3,33 +3,53 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-#include "../assets/Assets.h";
+#include "../assets/Assets.h"
 #include "../util/Mathv.h"
 
-Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3)}, collider, h, d, speed) {
+Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3), Animation(0.4f, Assets::playerStunned, 4)}, collider, h, d, speed, 18) {
 
 }
 
 void Player::update() {
 
+	if (selfState == stunned) {
+		playStateAnimation();
+		move(speed);
+		if (animations[currentAnimation].ended())
+			selfState = run;
+		return;
+	}
+
 	speed = Vector2f(0, 0);
 
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		setSelfState(attack);
+		selfState = attack;
 		// SCALE -1 IF MOUSE IS ON THE LEFT
-		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x)*2)
+		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 2)
 			sprite.setScale({ -1,1 });
 		else
 			sprite.setScale({ 1,1 });
 	}
 
-	// ATTACK ANIMATION
-	if (getSelfState() == attack && !(animations[getSelfState()]).ended()) {
-		playStateAnimation();
-		return;
+	// ATTACK ANIMATION & FUNCTION
+	if (selfState == attack) {
+		if ((animations[selfState]).ended()) {
+			list<GameObject*> enemies = GameObject::findRangeAt("enemy", pos, attackDistance);
+			for (GameObject* g : enemies) {
+				Entity* en = (Entity*)g;
+				if (sprite.getScale().x == -1 && en->getPos().x < pos.x)
+					attackEntity(en);
+				else if (sprite.getScale().x == 1 && en->getPos().x >= pos.x)
+					attackEntity(en);
+			}
+		}
+		else {
+			playStateAnimation();
+			return;
+		}
 	}
 
-	setSelfState(idle); // reset
+	selfState = idle; // reset
 
 	//MOVEMENT
 	if (Keyboard::isKeyPressed(Keyboard::Key::W)) {
@@ -46,14 +66,14 @@ void Player::update() {
 	}
 
 	if (speed.x != 0 || speed.y != 0)
-		setSelfState(run);
+		selfState = run;
 
 	Mathv::normalizeAndScale(speed, sp);
 
 	// SCALE -1 IF MOVING TO THE LEFT
-	if (speed.x < 0)
+	if (speed.x < 0 && selfState != stunned)
 		sprite.setScale(Vector2f(-1, 1));
-	else if (speed.x > 0)
+	else if (speed.x > 0 && selfState != stunned)
 		sprite.setScale(Vector2f(1, 1));
 
 	// MOVE THE PLAYER, THE CAMERA & PLAY THE ANIMATION

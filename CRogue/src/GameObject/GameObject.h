@@ -34,7 +34,9 @@ public:
 
 	static void setGameObjectCurrentList(list<GameObject*>* currentList);
 	static GameObject* find(string name);
+	static list<GameObject*> findRangeAt(string name, Vector2f pos, float range = 0);
 
+	static void erase(GameObject* go);
 	bool comp(GameObject* g);
 };
 

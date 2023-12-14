@@ -2,42 +2,47 @@
 
 #include "../util/Mathv.h"
 
-Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d, float speed) : Entity(pos, "enemy", anim, collider, h, d, speed) {
-
+Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, int followDistance) : Entity(pos, "enemy", anim, collider, h, d, speed, attackDistance) {
+	this->followDistance = followDistance;
 }
 
 void Enemy::update() {
 
 	GameObject* pl = GameObject::find("player");
 
-	speed = Vector2f(0, 0);
+	if (selfState != stunned)
+		speed = Vector2f(0, 0);
 
 	int followDistance = 100;
-	int attackDistance = 18;
 
-	switch (getSelfState()) {
+	switch (selfState) {
 	case idle:
 
 		if (pl == NULL)
 			break;
 
 		if (Mathv::distance(pos, pl->getPos()) < followDistance) {
-			setSelfState(run);
+			selfState = run;
 		}
 
 		break;
 	case run:
 
+		if (pl == NULL) {
+			selfState = idle;
+			break;
+		}
+
 		if (Mathv::distance(pos, pl->getPos()) < attackDistance) {
-			setSelfState(attack);
+			selfState = attack;
 			Vector2f d = pl->getPos() - pos;
 			if (d.x == 0)
 				break;
-			sprite.setScale(Vector2f(d.x/abs(d.x), 1));
+			sprite.setScale(Vector2f(d.x / abs(d.x), 1));
 			break;
 		}
 		else if (Mathv::distance(pos, pl->getPos()) >= followDistance) {
-			setSelfState(idle);
+			selfState = idle;
 			break;
 		}
 
@@ -46,15 +51,33 @@ void Enemy::update() {
 		break;
 	case attack:
 
-		if (animations[currentAnimation].ended())
-			setSelfState(run);
+		if (pl == NULL) {
+			selfState = idle;
+			break;
+		}
+
+		if (animations[currentAnimation].ended()) {
+			float delta = pl->getPos().x - pos.x;
+			if (delta < 0 && sprite.getScale().x < 0 || delta > 0 && sprite.getScale().x > 0)
+				attackEntity((Entity*)pl);
+			selfState = run;
+		}
+
+		break;
+	case stunned:
+
+		move(speed);
+
+		if (animations[currentAnimation].ended()) {
+			selfState = run;
+		}
 
 		break;
 	}
 
-	if (speed.x < 0)
+	if (speed.x < 0 && selfState != stunned)
 		sprite.setScale(Vector2f(-1, 1));
-	else if (speed.x > 0)
+	else if (speed.x > 0 && selfState != stunned)
 		sprite.setScale(Vector2f(1, 1));
 
 	playStateAnimation();

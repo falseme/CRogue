@@ -15,10 +15,10 @@ void LevelScene::init() {
 	loadScene();
 	GameObject::setGameObjectCurrentList(&gameObjects);
 
-	addGameObject(new Player(Vector2f(40, 40), BoxCollider(Vector2f(12, 12), Vector2f(0,2)), 10, 5, 1.5f));
-	addGameObject(new Enemy(Vector2f(80, 40), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(1.2f, Assets::skelyAttack, 6)}, BoxCollider(Vector2f(12, 16)), 10, 5, 0.75f));
+	addGameObject(new Player(Vector2f(40, 40), BoxCollider(Vector2f(12, 12), Vector2f(0,2)), 10, 2, 1.5f));
+	addGameObject(new Enemy(Vector2f(80, 40), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(0.6f, Assets::skelyAttack, 5), Animation(0.5f, Assets::skelyStunned, 4)}, BoxCollider(Vector2f(12, 16)), 10, 1, 0.75f, 20, 100));
 
-	addGameObject(new Enemy(Vector2f(40, 90), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(1.2f, Assets::skelyAttack, 6)}, BoxCollider(Vector2f(12, 16)), 10, 5, 0.75f));
+	addGameObject(new Enemy(Vector2f(40, 90), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(0.6f, Assets::skelyAttack, 5), Animation(0.5f, Assets::skelyStunned, 4)}, BoxCollider(Vector2f(12, 16)), 10, 1, 0.75f, 20, 90));
 
 }
 

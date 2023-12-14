@@ -2,9 +2,9 @@
 #include "GameObject.h"
 class Entity :public GameObject {
 public:
-	static const enum state { idle, run, attack };
+	static const enum state { idle, run, attack, stunned };
 
-	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed);
+	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance);
 
 	void update() override;
 
@@ -13,19 +13,19 @@ public:
 	float GetDamage();
 	void SetDamage(float d);
 
+	void attackEntity(Entity* en);
 	void moveTo(Vector2f target);
-	void Attacked(float d);
 	void onCollision(BoxCollider other, Vector2f delta) override;
 
 	void playStateAnimation();
 
-	state getSelfState();
-	void setSelfState(state s);
-private:
+protected:
 	float health;
 	float damage;
+	int attackDistance;
+
 	state selfState;
-protected:
+
 	float sp; // speed vector mod
 	Vector2f speed;
 };

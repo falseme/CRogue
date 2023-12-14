@@ -1,5 +1,7 @@
 #include "GameObject.h"
 
+#include "../util/Mathv.h"
+
 list<GameObject*>* GameObject::sceneGameObjects = NULL;
 
 GameObject::GameObject() {
@@ -57,6 +59,26 @@ GameObject* GameObject::find(string name) {
 	}
 
 	return NULL;
+
+}
+
+list<GameObject*> GameObject::findRangeAt(string name, Vector2f pos, float range) {
+
+	list<GameObject*> found;
+
+	for (GameObject* go : *sceneGameObjects) {
+		if (go->name == name && Mathv::distance(go->pos, pos) <= range)
+			found.push_back(go);
+	}
+
+	return found;
+
+}
+
+void GameObject::erase(GameObject* go) {
+
+	sceneGameObjects->remove(go);
+	delete go;
 
 }
 

@@ -3,9 +3,11 @@
 Texture** Assets::playerIdle = NULL;
 Texture** Assets::playerRun = NULL;
 Texture** Assets::playerAttack = NULL;
+Texture** Assets::playerStunned = NULL;
 Texture** Assets::skelyIdle = NULL;
 Texture** Assets::skelyRun = NULL;
 Texture** Assets::skelyAttack = NULL;
+Texture** Assets::skelyStunned = NULL;
 Texture* Assets::Tileset = NULL;
 
 void Assets::load() {
@@ -30,6 +32,13 @@ void Assets::load() {
 		Loader::loadTexture("data/assets/textures/animations/player/player_attack2.png")
 	};
 
+	playerStunned = new Texture * [4] {
+		Loader::loadTexture("data/assets/textures/animations/player/player_stunned0.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_stunned1.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_stunned0.png"),
+		Loader::loadTexture("data/assets/textures/animations/player/player_stunned1.png")
+	};
+
 	skelyIdle = new Texture * [6] {
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_idle0.png"),
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_idle1.png"),
@@ -44,13 +53,19 @@ void Assets::load() {
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_run1.png")
 	};
 
-	skelyAttack = new Texture * [6] {
+	skelyAttack = new Texture * [5] {
+		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_attack0.png"),
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_attack0.png"),
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_attack0.png"),
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_attack1.png"),
-		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_attack2.png"),
-		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_attack2.png"),
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_attack2.png")
+	};
+
+	skelyStunned = new Texture * [4] {
+		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_stunned0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_stunned1.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_stunned0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_stunned1.png")
 	};
 
 	Tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset.png");
