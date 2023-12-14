@@ -38,7 +38,7 @@ void LevelScene::update() {
 void LevelScene::loadScene() {
 
 	stringstream ss;
-	ss << "data/assets/levels/" << level << ".leveldat";
+	ss << "data/lvds/ld" << level << ".lvd";
 
 	ifstream levelFile(ss.str());
 	if (!levelFile.is_open())
@@ -48,28 +48,25 @@ void LevelScene::loadScene() {
 	int py = 0;
 	while (getline(levelFile, l)) {
 
-		for (int i = 0; i < l.size(); i++) {
+		int px = 0;
 
-			string complete = l.substr(i, 3);
-			if (complete == "non") {
-				i += 3;
+		for (int i = 0; i < l.size(); i+=3) {
+
+			string tileKey = l.substr(i, 2);
+			if (tileKey == "00") {
+				px += 16;
 				continue;
 			}
 
-			string sx = l.substr(i, 1);
-			string sy = l.substr(++i, 1);
-			string col = l.substr(++i, 1);
-			i++; // so as to ignore the blanck space
+			bool collider = tileKey.front() == '#' ? true : false;
+			int texIndex = rand() % Assets::tilemap[tileKey].size();
 
-			int tx = stoi(sx);
-			int ty = stoi(sy);
-			bool tcol = (bool)stoi(col);
-
-			addTile(new Tile(Vector2f(i / 4, py), Vector2f(tx, ty), Assets::Tileset->copyToImage(), tcol));
+			addTile(new Tile(Vector2f(px,py), Assets::tilemap[tileKey][texIndex], collider));
+			px += 16;
 
 		}
 
-		py++;
+		py+=16;
 
 	}
 

@@ -15,7 +15,7 @@ public:
 	static Texture** skelyRun;
 	static Texture** skelyAttack;
 	static Texture** skelyStunned;
-	static Texture* Tileset;//puntero que apunta a donde esta guardada la imagen del fondo
+	static map<string, vector<Texture*>> tilemap;
 
 	static void load();
 };
