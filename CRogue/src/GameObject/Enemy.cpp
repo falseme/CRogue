@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include "Enemy.h"
 
 #include "../util/Mathv.h"
@@ -10,16 +12,20 @@ void Enemy::update() {
 
 	GameObject* pl = GameObject::find("player");
 
-	if (selfState != stunned)
-		speed = Vector2f(0, 0);
-
-	int followDistance = 100;
-
 	switch (selfState) {
 	case idle:
 
-		if (pl == NULL)
+		speed = Vector2f(0, 0);
+
+		if (animations[currentAnimation].ended() || pl == NULL) {
+			int nDeg = (rand() % 45) * (rand() % 8);
+			float x = cos(nDeg * M_PI / 180);
+			float y = sin(nDeg * M_PI / 180);
+			speed = Vector2f(x, y);
+			Mathv::normalizeAndScale(speed, sp/3);
+			selfState = run;
 			break;
+		}
 
 		if (Mathv::distance(pos, pl->getPos()) < followDistance) {
 			selfState = run;
@@ -28,8 +34,10 @@ void Enemy::update() {
 		break;
 	case run:
 
-		if (pl == NULL) {
-			selfState = idle;
+		if (pl == NULL || Mathv::distance(pos, pl->getPos()) >= followDistance) {
+			move(speed);
+			if (animations[currentAnimation].ended())
+				selfState = idle;
 			break;
 		}
 
@@ -51,14 +59,9 @@ void Enemy::update() {
 		break;
 	case attack:
 
-		if (pl == NULL) {
-			selfState = idle;
-			break;
-		}
-
 		if (animations[currentAnimation].ended()) {
 			float delta = pl->getPos().x - pos.x;
-			if (delta < 0 && sprite.getScale().x < 0 || delta > 0 && sprite.getScale().x > 0)
+			if (delta < 0 && sprite.getScale().x < 0 || delta >=0 && sprite.getScale().x > 0)
 				attackEntity((Entity*)pl);
 			selfState = run;
 		}
@@ -67,10 +70,8 @@ void Enemy::update() {
 	case stunned:
 
 		move(speed);
-
-		if (animations[currentAnimation].ended()) {
+		if (animations[currentAnimation].ended())
 			selfState = run;
-		}
 
 		break;
 	}

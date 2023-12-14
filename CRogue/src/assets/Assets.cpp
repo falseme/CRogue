@@ -8,7 +8,10 @@ Texture** Assets::skelyIdle = NULL;
 Texture** Assets::skelyRun = NULL;
 Texture** Assets::skelyAttack = NULL;
 Texture** Assets::skelyStunned = NULL;
+
 map<string, vector<Texture*>> Assets::tilemap;
+
+Image Assets::mouse;
 
 void Assets::load() {
 
@@ -71,10 +74,10 @@ void Assets::load() {
 	//TILEMAP
 	Image tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset_v.png")->copyToImage();
 
-	vector<string> keys{ "O0","O0","O0","O1","O2","O3","O4","O5","O6","O7","O8","#0","#1","#2","#3","#4","#5","#6","#7"};
+	vector<string> keys{ "O0","O0","O0","O1","O2","O3","O4","O5","O6","O7","O8","#0","#1","#2","#3","#4","#5","#6","#7" };
 
 	for (int j = 0; j < tileset.getSize().y - 16; j += 16) {
-		for (int i = 0; i < tileset.getSize().x; i+=16) {
+		for (int i = 0; i < tileset.getSize().x; i += 16) {
 
 			Texture* tex = new Texture();
 			tex->loadFromImage(tileset, IntRect(i, j, 16, 16));
@@ -82,5 +85,8 @@ void Assets::load() {
 
 		}
 	}
+
+	//GUI
+	mouse = Loader::loadTexture("data/assets/textures/gui/mouse.png")->copyToImage();
 
 }

@@ -15,7 +15,10 @@ public:
 	static Texture** skelyRun;
 	static Texture** skelyAttack;
 	static Texture** skelyStunned;
+
 	static map<string, vector<Texture*>> tilemap;
+
+	static Image mouse;
 
 	static void load();
 };
