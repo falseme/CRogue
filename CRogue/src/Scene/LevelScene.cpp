@@ -13,7 +13,6 @@ LevelScene::LevelScene(int level) {
 
 void LevelScene::init() {
 
-	loadScene();
 	GameObject::setGameObjectCurrentList(&gameObjects);
 
 	addGameObject(new Player(Vector2f(40, 40), BoxCollider(Vector2f(12, 12), Vector2f(0,2)), 10, 2, 1.5f));
@@ -51,9 +50,11 @@ void LevelScene::loadScene() {
 	int py = 0;
 	while (getline(levelFile, l)) {
 
-		int px = 0;
+		if (l.empty() || l.front() == '%') // % -> comment
+			continue;
 
-		for (int i = 0; i < l.size(); i+=3) {
+		int px = 0;
+		for (int i = 0; i < l.size(); i += 3) {
 
 			string tileKey = l.substr(i, 2);
 			if (tileKey == "00") {
@@ -61,17 +62,24 @@ void LevelScene::loadScene() {
 				continue;
 			}
 
+			if (tileKey.front() == '&') {
+				//add GO
+				tileKey = "O0";
+			}
+
 			bool collider = tileKey.front() == '#' ? true : false;
 			int texIndex = rand() % Assets::tilemap[tileKey].size();
 
-			addTile(new Tile(Vector2f(px,py), Assets::tilemap[tileKey][texIndex], collider));
+			addTile(new Tile(Vector2f(px, py), Assets::tilemap[tileKey][texIndex], collider));
 			px += 16;
 
 		}
 
-		py+=16;
+		py += 16;
 
 	}
+
+	levelFile.close();
 
 }
 

@@ -6,6 +6,7 @@ Scene * SceneManager::mainScene = NULL;
 
 void SceneManager::loadScene() {
 	mainScene = new LevelScene(1);
+	mainScene->loadScene();
 	mainScene->init();
 }
 
