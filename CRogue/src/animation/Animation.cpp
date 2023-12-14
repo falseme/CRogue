@@ -4,6 +4,7 @@ Animation::Animation() {
 	timeSecs = 0;
 	frameTime = 0;
 	currentFrame = 0;
+	end = false;
 }
 
 Animation::Animation(float timeSecs, Texture** frames, int framesCount) {
@@ -12,6 +13,7 @@ Animation::Animation(float timeSecs, Texture** frames, int framesCount) {
 	currentFrame = 0;
 	for (int i = 0; i < framesCount; i++)
 		addTexture(frames[i]);
+	end = false;
 }
 
 void Animation::addTexture(Texture* tex) {
@@ -29,7 +31,18 @@ Texture* Animation::getFrame() {
 void Animation::play() {
 
 	currentFrame += frameTime;
-	if (currentFrame >= frames.size())
+	if (currentFrame >= frames.size()) {
 		currentFrame = 0;
+		end = true;
+	}
 
+}
+
+void Animation::reset() {
+	currentFrame = 0;
+	end = false;
+}
+
+bool Animation::ended() {
+	return end;
 }

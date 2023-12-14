@@ -21,13 +21,13 @@ public:
 	~Scene();
 
 	virtual void init() = 0;
-	virtual void update();
+	virtual void update() = 0;
 	void draw(RWindow* render);
 
 	void addGameObject(GameObject* go);
 	void removeGameObject(GameObject* go);
 
-	void loadLevel(int level);
+	virtual void loadScene() = 0;
 	void addTile(Tile* t);
 };
 

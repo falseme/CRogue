@@ -1,13 +1,20 @@
 #include "RWindow.h"
 
+#include "../util/Mathv.h"
+#include "../assets/Assets.h"
+
 RWindow* RWindow::instance = NULL;
 
-RWindow::RWindow() : RenderWindow(VideoMode(800, 600), "CROGUE [/]") {
+RWindow::RWindow() : RenderWindow(VideoMode(800, 600), "CROGUE [/]", sf::Style::Close) {
 
 	View v = getView();
-	v.setCenter(0,0);
+	v.setCenter(100, 100);
 	v.zoom(0.5f);
 	setView(v);
+
+	Cursor cursor;
+	if (cursor.loadFromPixels(Assets::mouse.getPixelsPtr(), { 24,24 }, { 0,0 }))
+		setMouseCursor(cursor);
 
 }
 
@@ -17,4 +24,25 @@ RWindow* RWindow::get() {
 	return instance;
 }
 
+Vector2f RWindow::getMousePosition() {
+	return mousePosition;
+}
 
+void RWindow::setMousePosition(Vector2f pos) {
+	mousePosition = pos;
+}
+
+void RWindow::follow(Vector2f pos, int offset) {
+
+	View v = getView();
+
+	if (Mathv::distance(pos, v.getCenter()) > offset) {
+		Vector2f delta = pos - v.getCenter();
+		Mathv::normalizeAndScale(delta, offset);
+		Vector2f vMove = pos - v.getCenter() - delta;
+		v.setCenter(v.getCenter() + vMove);
+	}
+
+	setView(v);
+
+}

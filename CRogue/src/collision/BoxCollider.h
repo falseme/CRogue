@@ -7,11 +7,12 @@ using namespace sf;
 
 class BoxCollider {
 private:
-	Vector2f pos, size;
+	Vector2f pos, size, offset;
 public:
 	BoxCollider();
 	BoxCollider(Vector2f size);
 	BoxCollider(Vector2f pos, Vector2f size);
+	BoxCollider(Vector2f size, Vector2f offset, Vector2f pos);
 	Vector2f collide(BoxCollider box);
 	void setPos(Vector2f pos);
 	Vector2f getSize();

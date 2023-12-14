@@ -6,11 +6,9 @@
 
 using namespace sf;
 
-
-class Tile
-{
+class Tile {
 public:
-	Tile(Vector2f pos, Vector2f offsetTex, const Image& image, bool collider);
+	Tile(Vector2f pos, Texture* texture, bool hasCollider);
 	void draw(RWindow* render);
 	BoxCollider getCollider();
 private:
