@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics.hpp>
-#include "../UI/RWindow.h"
-#include "../collision/BoxCollider.h"
+#include <UI/RWindow.h>
+#include <collision/BoxCollider.h>
 
 using namespace sf;
 

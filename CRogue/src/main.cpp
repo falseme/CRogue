@@ -1,8 +1,8 @@
-#include "UI/RWindow.h"
-#include "Scene/SceneManager.h"
-#include "assets/Assets.h"
+#include <UI/RWindow.h>
+#include <Scene/SceneManager.h>
+#include <assets/Assets.h>
 
-void loop(RWindow* r) {
+static void loop(RWindow* r) {
 
 	r->setFramerateLimit(60);
 
@@ -33,7 +33,7 @@ int main() {
 
 	Assets::load();
 
-	SceneManager::loadScene();
+	SceneManager::init();
 
 	loop(RWindow::get());
 

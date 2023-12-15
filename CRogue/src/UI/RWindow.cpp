@@ -1,7 +1,7 @@
 #include "RWindow.h"
 
-#include "../util/Mathv.h"
-#include "../assets/Assets.h"
+#include <util/Mathv.h>
+#include <assets/Assets.h>
 
 RWindow* RWindow::instance = NULL;
 
@@ -13,7 +13,7 @@ RWindow::RWindow() : RenderWindow(VideoMode(800, 600), "CROGUE [/]", sf::Style::
 	setView(v);
 
 	Cursor cursor;
-	if (cursor.loadFromPixels(Assets::mouse.getPixelsPtr(), { 24,24 }, { 0,0 }))
+	if (cursor.loadFromPixels(Assets::mouse.getPixelsPtr(), { 20,20 }, { 0,0 }))
 		setMouseCursor(cursor);
 
 }
@@ -30,19 +30,4 @@ Vector2f RWindow::getMousePosition() {
 
 void RWindow::setMousePosition(Vector2f pos) {
 	mousePosition = pos;
-}
-
-void RWindow::follow(Vector2f pos, int offset) {
-
-	View v = getView();
-
-	if (Mathv::distance(pos, v.getCenter()) > offset) {
-		Vector2f delta = pos - v.getCenter();
-		Mathv::normalizeAndScale(delta, offset);
-		Vector2f vMove = pos - v.getCenter() - delta;
-		v.setCenter(v.getCenter() + vMove);
-	}
-
-	setView(v);
-
 }

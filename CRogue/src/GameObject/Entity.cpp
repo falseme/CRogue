@@ -1,6 +1,7 @@
 #include "Entity.h"
 
-#include "../util/Mathv.h"
+#include <util/Mathv.h>
+#include <Scene/SceneManager.h>
 
 Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance) : GameObject(pos, name, anim, collider) {
 	health = h;
@@ -34,7 +35,7 @@ void Entity::attackEntity(Entity* en) {
 		Mathv::normalizeAndScale(en->speed, 0.05f);
 	}
 	if (en->health <= 0)
-		GameObject::erase(en);
+		SceneManager::getCurrentScene()->removeGameObject(en);
 }
 
 void Entity::moveTo(Vector2f target) {
@@ -60,4 +61,3 @@ void Entity::playStateAnimation() {
 	sprite.setTexture(*animations[currentAnimation].getFrame());
 
 }
-

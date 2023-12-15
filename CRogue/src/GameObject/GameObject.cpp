@@ -1,8 +1,6 @@
 #include "GameObject.h"
 
-#include "../util/Mathv.h"
-
-list<GameObject*>* GameObject::sceneGameObjects = NULL;
+#include <util/Mathv.h>
 
 GameObject::GameObject() {
 	currentAnimation = 0;
@@ -28,6 +26,13 @@ GameObject::GameObject(Vector2f pos, string name, vector<Animation> anim, BoxCol
 
 void GameObject::draw(RWindow* render) {
 	render->draw(sprite);
+	/*// DRAW BOX COLLIDER
+	RectangleShape rs(collider.getSize());
+	rs.setOrigin(Vector2f(collider.getSize().x / 2, collider.getSize().y / 2));
+	rs.setPosition(collider.getPos());
+	rs.setFillColor(Color::Green);
+	render->draw(rs);
+	//*/
 }
 
 void GameObject::move(Vector2f delta) {
@@ -45,41 +50,8 @@ Vector2f GameObject::getPos() {
 	return pos;
 }
 
-void GameObject::setGameObjectCurrentList(list<GameObject*>* currentList) {
-
-	sceneGameObjects = currentList;
-
-}
-
-GameObject* GameObject::find(string name) {
-
-	for (GameObject* go : *sceneGameObjects) {
-		if (go->name == name)
-			return go;
-	}
-
-	return NULL;
-
-}
-
-list<GameObject*> GameObject::findRangeAt(string name, Vector2f pos, float range) {
-
-	list<GameObject*> found;
-
-	for (GameObject* go : *sceneGameObjects) {
-		if (go->name == name && Mathv::distance(go->pos, pos) <= range)
-			found.push_back(go);
-	}
-
-	return found;
-
-}
-
-void GameObject::erase(GameObject* go) {
-
-	sceneGameObjects->remove(go);
-	delete go;
-
+string GameObject::getName() {
+	return name;
 }
 
 bool GameObject::comp(GameObject* g) {

@@ -3,15 +3,13 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 
-#include "../UI/RWindow.h"
-#include "../animation/Animation.h"
-#include "../collision/BoxCollider.h"
+#include <UI/RWindow.h>
+#include <animation/Animation.h>
+#include <collision/BoxCollider.h>
 
 class GameObject {
-private:
-	static list<GameObject*>* sceneGameObjects;
-	string name;
 protected:
+	string name;
 	Vector2f pos;
 	Sprite sprite;
 	vector<Animation> animations;
@@ -31,12 +29,8 @@ public:
 
 	BoxCollider getCollider();
 	Vector2f getPos();
+	string getName();
 
-	static void setGameObjectCurrentList(list<GameObject*>* currentList);
-	static GameObject* find(string name);
-	static list<GameObject*> findRangeAt(string name, Vector2f pos, float range = 0);
-
-	static void erase(GameObject* go);
 	bool comp(GameObject* g);
 };
 

@@ -3,8 +3,9 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-#include "../assets/Assets.h"
-#include "../util/Mathv.h"
+#include <assets/Assets.h>
+#include <util/Mathv.h>
+#include <Scene/SceneManager.h>
 
 Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3), Animation(0.4f, Assets::playerStunned, 4)}, collider, h, d, speed, 16) {
 
@@ -34,7 +35,7 @@ void Player::update() {
 	// ATTACK ANIMATION & FUNCTION
 	if (selfState == attack) {
 		if ((animations[selfState]).ended()) {
-			list<GameObject*> enemies = GameObject::findRangeAt("enemy", pos, attackDistance);
+			list<GameObject*> enemies = SceneManager::getCurrentScene()->findAt("enemy", pos, attackDistance);
 			for (GameObject* g : enemies) {
 				Entity* en = (Entity*)g;
 				if (sprite.getScale().x == -1 && en->getPos().x < pos.x)
@@ -78,7 +79,7 @@ void Player::update() {
 
 	// MOVE THE PLAYER, THE CAMERA & PLAY THE ANIMATION
 	move(speed);
-	RWindow::get()->follow(pos, 25);
+	SceneManager::getCurrentScene()->cameraFollow(pos, 20);
 	playStateAnimation();
 
 }

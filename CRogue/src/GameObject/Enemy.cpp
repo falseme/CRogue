@@ -1,8 +1,8 @@
 #define _USE_MATH_DEFINES
-
 #include "Enemy.h"
 
-#include "../util/Mathv.h"
+#include <util/Mathv.h>
+#include <Scene/SceneManager.h>
 
 Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, int followDistance) : Entity(pos, "enemy", anim, collider, h, d, speed, attackDistance) {
 	this->followDistance = followDistance;
@@ -10,7 +10,7 @@ Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h
 
 void Enemy::update() {
 
-	GameObject* pl = GameObject::find("player");
+	GameObject* pl = SceneManager::getCurrentScene()->find("player");
 
 	switch (selfState) {
 	case idle:
