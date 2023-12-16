@@ -80,7 +80,7 @@ void Scene::cameraFollow(Vector2f target, float offset) {
 
 bool Scene::zoomIn(float zoom, float step) {
 
-	if (camZoom < zoom)
+	if (camZoom <= zoom)
 		return true;
 
 	step = 1 - step;
@@ -93,7 +93,7 @@ bool Scene::zoomIn(float zoom, float step) {
 
 bool Scene::zoomOut(float zoom, float step) {
 
-	if (camZoom > zoom)
+	if (camZoom >= zoom)
 		return true;
 
 	step = 1 + step;

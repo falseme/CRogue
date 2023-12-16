@@ -6,6 +6,9 @@ class Player :public Entity {
 public:
 	Player(Vector2f pos, BoxCollider collider, float h, float d, float speed);
 	void update() override;
+
+	bool moving();
+	bool attacking();
 };
 
 

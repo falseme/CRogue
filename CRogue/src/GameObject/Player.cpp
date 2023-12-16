@@ -13,27 +13,27 @@ Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed
 
 void Player::update() {
 
-	if (selfState == stunned) {
-		playStateAnimation();
-		move(speed); // speed setted at Entity::attackEntity
-		if (animations[currentAnimation].ended())
+	switch (selfState) {
+	case idle:
+
+		if (moving())
 			selfState = run;
-		return;
-	}
+		if (attacking())
+			selfState = attack;
 
-	speed = Vector2f(0, 0);
+		break;
+	case run:
 
-	if (Mouse::isButtonPressed(Mouse::Left)) {
-		selfState = attack;
-		// SCALE -1 IF MOUSE IS ON THE LEFT
-		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 2)
-			sprite.setScale({ -1,1 });
-		else
-			sprite.setScale({ 1,1 });
-	}
+		if (!moving())
+			selfState = idle;
+		if (attacking())
+			selfState = attack;
 
-	// ATTACK ANIMATION & FUNCTION
-	if (selfState == attack) {
+		break;
+	case attack:
+
+		speed = Vector2f(0, 0);
+
 		if ((animations[selfState]).ended()) {
 			list<GameObject*> enemies = SceneManager::getCurrentScene()->findAt("enemy", pos, attackDistance);
 			for (GameObject* g : enemies) {
@@ -43,16 +43,29 @@ void Player::update() {
 				else if (sprite.getScale().x == 1 && en->getPos().x > pos.x)
 					attackEntity(en);
 			}
+			selfState = idle;
 		}
-		else {
-			playStateAnimation();
-			return;
-		}
+
+		break;
+	case stunned:
+
+		if (animations[currentAnimation].ended())
+			selfState = run;
+
+		break;
 	}
 
-	selfState = idle; // reset
+	Mathv::normalizeAndScale(speed, sp);
+	move(speed);
+	SceneManager::getCurrentScene()->cameraFollow(pos, 20);
+	playStateAnimation();
 
-	//MOVEMENT
+}
+
+bool Player::moving() {
+
+	speed = { 0,0 };
+
 	if (Keyboard::isKeyPressed(Keyboard::Key::W)) {
 		speed += Vector2f(0, -sp);
 	}
@@ -66,21 +79,29 @@ void Player::update() {
 		speed += Vector2f(sp, 0);
 	}
 
-	if (speed.x != 0 || speed.y != 0)
-		selfState = run;
-
-	Mathv::normalizeAndScale(speed, sp);
-
-	// SCALE -1 IF MOVING TO THE LEFT
-	if (speed.x < 0 && selfState != stunned)
+	if (speed.x < 0)
 		sprite.setScale(Vector2f(-1, 1));
-	else if (speed.x > 0 && selfState != stunned)
+	else if (speed.x > 0)
 		sprite.setScale(Vector2f(1, 1));
 
-	// MOVE THE PLAYER, THE CAMERA & PLAY THE ANIMATION
-	move(speed);
-	SceneManager::getCurrentScene()->cameraFollow(pos, 20);
-	playStateAnimation();
+	if (speed.x != 0 || speed.y != 0)
+		return true;
+	return false;
+
+}
+
+bool Player::attacking() {
+
+	if (Mouse::isButtonPressed(Mouse::Left)) {
+		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 2) // BORRAR '2'
+			sprite.setScale({ -1,1 });
+		else
+			sprite.setScale({ 1,1 });
+
+		return true;
+	}
+
+	return false;
 
 }
 

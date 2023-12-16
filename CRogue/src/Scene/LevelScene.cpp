@@ -13,12 +13,12 @@ LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
 
 void LevelScene::update() {
 
-	if (!zoomOut(0.5f, 0.02f)) {
+	if (!zoomOut(0.32f, 0.02f)) {
 		cameraFollow(find("player")->getPos());
 		return;
 	}
 
-	// SORT USING Y POSITION
+	// SORT USING 'Y' POSITION
 	gameObjects.sort([](GameObject* g1, GameObject* g2) { return g1->comp(g2); });
 
 	for (GameObject* go : gameObjects) {

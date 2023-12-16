@@ -43,14 +43,10 @@ void Enemy::update() {
 
 		if (Mathv::distance(pos, pl->getPos()) < attackDistance) {
 			selfState = attack;
-			Vector2f d = pl->getPos() - pos;
-			if (d.x == 0)
+			float delta = pl->getPos().x - pos.x;
+			if (delta == 0) // prevent "0/0"
 				break;
-			sprite.setScale(Vector2f(d.x / abs(d.x), 1));
-			break;
-		}
-		else if (Mathv::distance(pos, pl->getPos()) >= followDistance) {
-			selfState = idle;
+			sprite.setScale(Vector2f(delta / abs(delta), 1));
 			break;
 		}
 
@@ -63,7 +59,7 @@ void Enemy::update() {
 			float delta = pl->getPos().x - pos.x;
 			if (delta < 0 && sprite.getScale().x < 0 || delta >=0 && sprite.getScale().x > 0)
 				attackEntity((Entity*)pl);
-			selfState = run;
+			selfState = idle;
 		}
 
 		break;
@@ -71,7 +67,7 @@ void Enemy::update() {
 
 		move(speed);
 		if (animations[currentAnimation].ended())
-			selfState = run;
+			selfState = idle;
 
 		break;
 	}

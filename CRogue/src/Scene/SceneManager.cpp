@@ -8,7 +8,7 @@ const int SceneManager::MAX_LEVEL;
 
 void SceneManager::init() {
 	currentLevel = 1;
-	mainScene = new LevelScene(currentLevel, 0.1f);
+	mainScene = new LevelScene(currentLevel, 0.15f);
 	loadScene(mainScene);
 }
 
@@ -37,9 +37,10 @@ void SceneManager::loadNextLevel() {
 }
 
 void SceneManager::update() {
+	//*//
 	if (!mainScene->find("enemy"))
 		loadNextLevel();
-	else
+	else//*/
 		mainScene->update();
 }
 
