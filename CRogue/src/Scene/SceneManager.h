@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-#include <UI/RWindow.h>
+#include <ui/RWindow.h>
 
 /**
 * A static class that loads, updates & render scenes

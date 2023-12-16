@@ -1,7 +1,7 @@
 #include "Entity.h"
 
 #include <util/Mathv.h>
-#include <Scene/SceneManager.h>
+#include <scene/SceneManager.h>
 
 Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance) : GameObject(pos, name, anim, collider) {
 	health = h;

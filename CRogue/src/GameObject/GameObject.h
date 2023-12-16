@@ -3,7 +3,7 @@
 #include <list>
 #include <SFML/Graphics.hpp>
 
-#include <UI/RWindow.h>
+#include <ui/RWindow.h>
 #include <animation/Animation.h>
 #include <collision/BoxCollider.h>
 

@@ -4,8 +4,8 @@
 #include <sstream>
 #include <time.h>
 
-#include <GameObject/Player.h>
-#include <GameObject/Enemy.h>
+#include <gameObject/Player.h>
+#include <gameObject/Enemy.h>
 
 LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
 	this->level = level;

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics.hpp>
-#include <UI/RWindow.h>
+#include <ui/RWindow.h>
 #include <collision/BoxCollider.h>
 
 using namespace sf;

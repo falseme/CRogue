@@ -2,9 +2,9 @@
 
 #include <list>
 
-#include <GameObject/GameObject.h>
-#include <UI/RWindow.h>
-#include <Scene/Tile.h>
+#include <gameObject/GameObject.h>
+#include <ui/RWindow.h>
+#include <scene/Tile.h>
 #include <assets/Assets.h>
 
 using namespace std;

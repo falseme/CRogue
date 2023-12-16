@@ -2,7 +2,7 @@
 #include "Enemy.h"
 
 #include <util/Mathv.h>
-#include <Scene/SceneManager.h>
+#include <scene/SceneManager.h>
 
 Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, int followDistance) : Entity(pos, "enemy", anim, collider, h, d, speed, attackDistance) {
 	this->followDistance = followDistance;
