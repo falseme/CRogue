@@ -48,7 +48,19 @@ void Entity::moveTo(Vector2f target) {
 }
 
 void Entity::update() {}
-void Entity::onCollision(BoxCollider other, Vector2f delta) {}
+
+void Entity::onCollision(BoxCollider other, Vector2f delta) {
+
+	Vector2f d = other.getPos() - collider.getPos();
+
+	if (abs(d.x) > abs(d.y)) {
+		move(Vector2f(delta.x, 0));
+	}
+	else if (abs(d.x) < abs(d.y)) {
+		move(Vector2f(0, delta.y));
+	}
+
+}
 
 void Entity::playStateAnimation() {
 

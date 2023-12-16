@@ -9,7 +9,7 @@ Texture* Loader::loadTexture(string path) {
 	}
 	else {
 		delete tex;
-		return NULL;
+		return nullptr;
 	}
 
 }

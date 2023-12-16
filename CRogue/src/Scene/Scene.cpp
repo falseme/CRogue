@@ -3,7 +3,11 @@
 #include <util/Mathv.h>
 
 Scene::Scene() {
+	camZoom = 1;
+}
 
+Scene::Scene(float accCamZoom) {
+	camZoom = accCamZoom;
 }
 
 Scene::~Scene() {
@@ -69,17 +73,47 @@ void Scene::cameraFollow(Vector2f target, float offset) {
 	if (Mathv::distance(target, cameraView.getCenter()) > offset) {
 		Vector2f delta = target - cameraView.getCenter();
 		Mathv::normalizeAndScale(delta, offset);
-		Vector2f vMove = target - cameraView.getCenter() - delta;
-		cameraView.setCenter(cameraView.getCenter() + vMove);
+		cameraView.setCenter(target - delta);
 	}
+
+}
+
+bool Scene::zoomIn(float zoom, float step) {
+
+	if (camZoom < zoom)
+		return true;
+
+	step = 1 - step;
+	camZoom *= step;
+	cameraView.zoom(step);
+
+	return false;
+
+}
+
+bool Scene::zoomOut(float zoom, float step) {
+
+	if (camZoom > zoom)
+		return true;
+
+	step = 1 + step;
+	camZoom *= step;
+	cameraView.zoom(step);
+
+	return false;
 
 }
 
 void Scene::setCameraView(View view) {
 	cameraView = view;
+	cameraView.zoom(camZoom);
 }
 
 View Scene::getCameraView() {
 	return cameraView;
+}
+
+float Scene::getAccCamZoom() {
+	return camZoom;
 }
 

@@ -17,7 +17,7 @@ void Enemy::update() {
 
 		speed = Vector2f(0, 0);
 
-		if (animations[currentAnimation].ended() || pl == NULL) {
+		if (animations[currentAnimation].ended() || pl == nullptr) {
 			int nDeg = (rand() % 45) * (rand() % 8);
 			float x = cos(nDeg * M_PI / 180);
 			float y = sin(nDeg * M_PI / 180);
@@ -34,7 +34,7 @@ void Enemy::update() {
 		break;
 	case run:
 
-		if (pl == NULL || Mathv::distance(pos, pl->getPos()) >= followDistance) {
+		if (pl == nullptr || Mathv::distance(pos, pl->getPos()) >= followDistance) {
 			move(speed);
 			if (animations[currentAnimation].ended())
 				selfState = idle;
@@ -85,15 +85,3 @@ void Enemy::update() {
 
 }
 
-void Enemy::onCollision(BoxCollider other, Vector2f delta) {
-
-	Vector2f d = other.getPos() - collider.getPos();
-
-	if (abs(d.x) > abs(d.y)) {
-		move(Vector2f(delta.x, 0));
-	}
-	else if (abs(d.x) < abs(d.y)) {
-		move(Vector2f(0, delta.y));
-	}
-
-}

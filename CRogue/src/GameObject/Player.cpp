@@ -84,15 +84,3 @@ void Player::update() {
 
 }
 
-void Player::onCollision(BoxCollider other, Vector2f delta) {
-
-	Vector2f d = other.getPos() - collider.getPos();
-
-	if (abs(d.x) > abs(d.y)) {
-		move(Vector2f(delta.x, 0));
-	}
-	else if (abs(d.x) < abs(d.y)) {
-		move(Vector2f(0, delta.y));
-	}
-
-}

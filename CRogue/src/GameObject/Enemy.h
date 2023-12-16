@@ -7,7 +7,6 @@ protected:
 public:
 	Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, int followDistance);
 	void update()override;
-	void onCollision(BoxCollider other, Vector2f delta) override;
 };
 
 

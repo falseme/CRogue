@@ -13,15 +13,17 @@ using namespace std;
 * An Abstract Scene class
 */
 class Scene {
-protected:
+private:
 	View cameraView;
+	float camZoom; // zoom accumulated factor // zoom(1.05) + zoom(1.05) = zoom(1.1025)
+protected:
 	list<GameObject*> gameObjects;
 	list<Tile*> tileset;
 public:
 	Scene();
+	Scene(float accCamZoom);
 	~Scene();
 
-	virtual void init() = 0;
 	virtual void update() = 0;
 	void draw(RWindow* render);
 
@@ -33,8 +35,11 @@ public:
 	virtual void loadScene() = 0;
 	void addTile(Tile* t);
 
-	void cameraFollow(Vector2f target, float offset);
+	void cameraFollow(Vector2f target, float offset = 0);
+	bool zoomIn(float zoom, float step);
+	bool zoomOut(float zoom, float step);
 	void setCameraView(View view);
 	View getCameraView();
+	float getAccCamZoom();
 };
 

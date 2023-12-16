@@ -6,10 +6,8 @@ class LevelScene : public Scene {
 private:
 	int level;
 public:
-	LevelScene(int level);
-	void init() override;
+	LevelScene(int level, float accCamZoom);
 	void update() override;
-
 	void loadScene() override;
 
 	void checkCollision(GameObject* gameObject);
