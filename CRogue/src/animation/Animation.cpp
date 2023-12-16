@@ -16,6 +16,13 @@ Animation::Animation(float timeSecs, Texture** frames, int framesCount) {
 	end = false;
 }
 
+Animation::Animation(Texture* uniqueFrame) {
+	timeSecs = 1;
+	currentFrame = 0;
+	addTexture(uniqueFrame);
+	end = false;
+}
+
 void Animation::addTexture(Texture* tex) {
 	frames.push_back(tex);
 	frameTime = frames.size() / (float)FPS;

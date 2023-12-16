@@ -7,7 +7,7 @@
 #include <util/Mathv.h>
 #include <scene/SceneManager.h>
 
-Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3), Animation(0.4f, Assets::playerStunned, 4)}, collider, h, d, speed, 16) {
+Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle, 6), Animation(0.4f, Assets::playerRun, 2), Animation(0.36f, Assets::playerAttack, 3), Animation(0.4f, Assets::playerStunned, 4), Animation(Assets::skelyDead)}, collider, h, d, speed, 16) {
 
 }
 
@@ -55,7 +55,6 @@ void Player::update() {
 		break;
 	}
 
-	Mathv::normalizeAndScale(speed, sp);
 	move(speed);
 	SceneManager::getCurrentScene()->cameraFollow(pos, 20);
 	playStateAnimation();
@@ -79,6 +78,8 @@ bool Player::moving() {
 		speed += Vector2f(sp, 0);
 	}
 
+	Mathv::normalizeAndScale(speed, sp);
+
 	if (speed.x < 0)
 		sprite.setScale(Vector2f(-1, 1));
 	else if (speed.x > 0)
@@ -93,7 +94,7 @@ bool Player::moving() {
 bool Player::attacking() {
 
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 2) // BORRAR '2'
+		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 2)
 			sprite.setScale({ -1,1 });
 		else
 			sprite.setScale({ 1,1 });

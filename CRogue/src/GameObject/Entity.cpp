@@ -34,8 +34,10 @@ void Entity::attackEntity(Entity* en) {
 		en->speed = en->pos - pos;
 		Mathv::normalizeAndScale(en->speed, 0.05f);
 	}
-	if (en->health <= 0)
-		SceneManager::getCurrentScene()->removeGameObject(en);
+	if (en->health <= 0) {
+		en->selfState = dead;
+		en->collider = BoxCollider();
+	}
 }
 
 void Entity::moveTo(Vector2f target) {

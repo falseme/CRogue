@@ -15,6 +15,7 @@ public:
 	static Texture** skelyRun;
 	static Texture** skelyAttack;
 	static Texture** skelyStunned;
+	static Texture* skelyDead;
 
 	static map<string, vector<Texture*>> tilemap;
 

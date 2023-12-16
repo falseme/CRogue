@@ -26,7 +26,7 @@ GameObject::GameObject(Vector2f pos, string name, vector<Animation> anim, BoxCol
 
 void GameObject::draw(RWindow* render) {
 	render->draw(sprite);
-	//*// DRAW BOX COLLIDER
+	/*// DRAW BOX COLLIDER
 	RectangleShape rs(collider.getSize());
 	rs.setOrigin(Vector2f(collider.getSize().x / 2, collider.getSize().y / 2));
 	rs.setPosition(collider.getPos());

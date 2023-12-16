@@ -8,6 +8,7 @@ Texture** Assets::skelyIdle = NULL;
 Texture** Assets::skelyRun = NULL;
 Texture** Assets::skelyAttack = NULL;
 Texture** Assets::skelyStunned = NULL;
+Texture* Assets::skelyDead = NULL;
 
 map<string, vector<Texture*>> Assets::tilemap;
 
@@ -70,6 +71,8 @@ void Assets::load() {
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_stunned0.png"),
 		Loader::loadTexture("data/assets/textures/animations/skeleton/skely_stunned1.png")
 	};
+
+	skelyDead = Loader::loadTexture("data/assets/textures/animations/skeleton/skely_dead.png");
 
 	//TILEMAP
 	Image tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset_v.png")->copyToImage();

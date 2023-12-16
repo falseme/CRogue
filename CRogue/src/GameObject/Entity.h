@@ -2,7 +2,7 @@
 #include "GameObject.h"
 class Entity :public GameObject {
 public:
-	static const enum state { idle, run, attack, stunned };
+	static const enum state { idle, run, attack, stunned, dead };
 
 	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance);
 
