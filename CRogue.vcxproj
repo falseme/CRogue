@@ -90,14 +90,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories> [SFML/include absolute path] </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>[SFML/include absolute path];[CRogue/src absolute path]</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories> [SFML/lib absolute path] </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>[SFML/lib absolute path]</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);sfml-graphics-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,35 +132,35 @@
   <ItemGroup>
     <ClCompile Include="src\util\Mathv.cpp" />
     <ClCompile Include="src\collision\BoxCollider.cpp" />
-    <ClCompile Include="src\Scene\LevelScene.cpp" />
-    <ClCompile Include="src\Scene\Tile.cpp" />
+    <ClCompile Include="src\scene\LevelScene.cpp" />
+    <ClCompile Include="src\scene\Tile.cpp" />
     <ClCompile Include="src\animation\Animation.cpp" />
     <ClCompile Include="src\assets\Loader.cpp" />
     <ClCompile Include="src\assets\Assets.cpp" />
-    <ClCompile Include="src\GameObject\Enemy.cpp" />
-    <ClCompile Include="src\GameObject\Entity.cpp" />
-    <ClCompile Include="src\GameObject\Player.cpp" />
-    <ClCompile Include="src\Scene\Scene.cpp" />
-    <ClCompile Include="src\Scene\SceneManager.cpp" />
-    <ClCompile Include="src\UI\RWindow.cpp" />
-    <ClCompile Include="src\GameObject\GameObject.cpp" />
+    <ClCompile Include="src\gameObject\Enemy.cpp" />
+    <ClCompile Include="src\gameObject\Entity.cpp" />
+    <ClCompile Include="src\gameObject\Player.cpp" />
+    <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\scene\SceneManager.cpp" />
+    <ClCompile Include="src\ui\RWindow.cpp" />
+    <ClCompile Include="src\gameObject\GameObject.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\util\Mathv.h" />
     <ClInclude Include="src\collision\BoxCollider.h" />
-    <ClInclude Include="src\Scene\LevelScene.h" />
-    <ClInclude Include="src\Scene\Tile.h" />
+    <ClInclude Include="src\scene\LevelScene.h" />
+    <ClInclude Include="src\scene\Tile.h" />
     <ClInclude Include="src\animation\Animation.h" />
     <ClInclude Include="src\assets\Loader.h" />
     <ClInclude Include="src\assets\Assets.h" />
-    <ClInclude Include="src\GameObject\Enemy.h" />
-    <ClInclude Include="src\GameObject\Entity.h" />
-    <ClInclude Include="src\GameObject\Player.h" />
-    <ClInclude Include="src\Scene\Scene.h" />
-    <ClInclude Include="src\Scene\SceneManager.h" />
-    <ClInclude Include="src\UI\RWindow.h" />
-    <ClInclude Include="src\GameObject\GameObject.h" />
+    <ClInclude Include="src\gameObject\Enemy.h" />
+    <ClInclude Include="src\gameObject\Entity.h" />
+    <ClInclude Include="src\gameObject\Player.h" />
+    <ClInclude Include="src\scene\Scene.h" />
+    <ClInclude Include="src\scene\SceneManager.h" />
+    <ClInclude Include="src\ui\RWindow.h" />
+    <ClInclude Include="src\gameObject\GameObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
