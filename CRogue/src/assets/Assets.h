@@ -7,21 +7,21 @@ using namespace sf;
 
 class Assets {
 public:
-	static Texture** playerIdle;
-	static Texture** playerRun;
-	static Texture** playerAttack;
-	static Texture** playerStunned;
+	static vector<Texture*> playerIdle;
+	static vector<Texture*> playerRun;
+	static vector<Texture*> playerAttack;
+	static vector<Texture*> playerStunned;
 
-	static Texture** skelyIdle;
-	static Texture** skelyRun;
-	static Texture** skelyAttack;
-	static Texture** skelyStunned;
+	static vector<Texture*> skelyIdle;
+	static vector<Texture*> skelyRun;
+	static vector<Texture*> skelyAttack;
+	static vector<Texture*> skelyStunned;
 	static Texture* skelyDead;
 
-	static Texture** skelyIdleSW;
-	static Texture** skelyRunSW;
-	static Texture** skelyAttackSW;
-	static Texture** skelyStunnedSW;
+	static vector<Texture*> skelyIdleSW;
+	static vector<Texture*> skelyRunSW;
+	static vector<Texture*> skelyAttackSW;
+	static vector<Texture*> skelyStunnedSW;
 	static Texture* skelyDeadSW;
 
 	static map<string, vector<Texture*>> tilemap;

@@ -13,16 +13,16 @@ private:
 	float frameTime, timeSecs;
 	float currentFrame;
 	bool end;
+	bool repeat;
 public:
 	Animation();
-	Animation(float timeSecs, Texture** frames, int framesCount);
+	Animation(float timeSecs, vector<Texture*> frames, bool repeat = true);
 	Animation(Texture* uniqueFrame);
 
-	void addTexture(Texture* tex);
 	Texture* getFrame();
 
 	void play();
 	void reset();
 
-	bool ended();
+	bool ended() const;
 };
