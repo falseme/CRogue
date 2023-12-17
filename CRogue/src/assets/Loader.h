@@ -8,7 +8,7 @@ using namespace sf;
 class Loader {
 public:
 	static Texture* loadTexture(string path);
-	static vector<Texture*> loadSpriteSheet(string path, int spriteSize);
+	static vector<Texture*> loadSpriteSheet(string path, int spriteWidth, int spriteHeight);
 	static void loadTileMap(map<string, vector<Texture*>>& tilemap, const vector<string>& keys, string path, int tileSize);
 };
 

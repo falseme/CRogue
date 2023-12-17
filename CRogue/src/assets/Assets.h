@@ -39,6 +39,11 @@ public:
 
 	static map<string, vector<Texture*>> tilemap;
 
+	static Texture* doorClosed;
+	static vector<Texture*> doorOpen;
+
+	static Texture* key;
+
 	static Image mouse;
 
 	static void load();

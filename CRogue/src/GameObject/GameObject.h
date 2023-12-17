@@ -22,7 +22,7 @@ public:
 	GameObject(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider);
 
 	virtual void update() = 0;
-	void draw(RWindow* render);
+	virtual void draw(RWindow* render);
 
 	void move(Vector2f delta);
 	virtual void onCollision(BoxCollider other, Vector2f delta) = 0;

@@ -15,6 +15,9 @@ public:
 	Vector2f collide(BoxCollider box);
 	void setPos(Vector2f pos);
 	Vector2f getPos();
+	void setSize(Vector2f size);
 	Vector2f getSize();
+	bool operator==(BoxCollider& other);
+	bool operator!=(BoxCollider& other);
 };
 

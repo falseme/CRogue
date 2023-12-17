@@ -8,11 +8,10 @@
 #include <util/Timef.h>
 #include <scene/SceneManager.h>
 
-Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(Assets::playerDead)}, collider, 400, d, speed, 16) {
-
+Player::Player(Vector2f pos, float h, float d, float speed) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, d, speed, 16) {
+	showInventory = false;
 }
 
-#include <iostream>
 void Player::update() {
 
 	playStateAnimation();
@@ -62,6 +61,19 @@ void Player::update() {
 
 	move(speed);
 	SceneManager::getCurrentScene()->cameraFollow(pos, 20);
+
+	if (Keyboard::isKeyPressed(Keyboard::Tab))
+		showInventory = true;
+	else
+		showInventory = false;
+
+}
+
+void Player::draw(RWindow* render) {
+
+	render->draw(sprite);
+	if (showInventory)
+		drawInventory(render);
 
 }
 

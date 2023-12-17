@@ -13,14 +13,14 @@ Texture* Loader::loadTexture(string path) {
 
 }
 
-vector<Texture*> Loader::loadSpriteSheet(string path, int spriteSize) {
+vector<Texture*> Loader::loadSpriteSheet(string path, int spriteWidth, int spriteHeight) {
 
 	vector<Texture*> v;
 
 	Image spriteSheet = Loader::loadTexture(path)->copyToImage();
-	for (int i = 0; i < spriteSheet.getSize().x; i += spriteSize) {
+	for (int i = 0; i < spriteSheet.getSize().x; i += spriteWidth) {
 		Texture* t = new Texture();
-		if (t->loadFromImage(spriteSheet, IntRect(i, 0, spriteSize, spriteSize)))
+		if (t->loadFromImage(spriteSheet, IntRect(i, 0, spriteWidth, spriteHeight)))
 			v.push_back(t);
 		else
 			delete t;

@@ -30,6 +30,7 @@ public:
 	void addGameObject(GameObject* go);
 	void removeGameObject(GameObject* go);
 	GameObject* find(string name);
+	vector<GameObject*> findAll(string name);
 	list<GameObject*> findAt(string name, Vector2f pos, float range = 0);
 
 	virtual void loadScene() = 0;

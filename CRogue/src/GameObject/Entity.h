@@ -1,5 +1,8 @@
 #pragma once
+
 #include "GameObject.h"
+#include <item/Item.h>
+
 class Entity :public GameObject {
 public:
 	static const enum state { idle, run, attack, stunned, dead };
@@ -20,6 +23,10 @@ public:
 	void playStateAnimation();
 	state getSelfState() const;
 
+	void addItem(Item* i);
+	Item* getItem(string name);
+	void removeItem(Item* i);
+
 protected:
 	float health;
 	float damage;
@@ -29,5 +36,8 @@ protected:
 
 	float sp; // speed vector mod
 	Vector2f speed;
+
+	list<Item*> inventory;
+	void drawInventory(RWindow* render);
 };
 

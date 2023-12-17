@@ -52,6 +52,19 @@ GameObject* Scene::find(string name) {
 
 }
 
+vector<GameObject*> Scene::findAll(string name) {
+	
+	vector<GameObject*> found;
+
+	for (GameObject* go : gameObjects) {
+		if (go->getName() == name)
+			found.push_back(go);
+	}
+
+	return found;
+
+}
+
 list<GameObject*> Scene::findAt(string name, Vector2f pos, float range) {
 
 	list<GameObject*> found;

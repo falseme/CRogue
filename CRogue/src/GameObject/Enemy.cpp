@@ -5,7 +5,7 @@
 #include <util/Timef.h>
 #include <scene/SceneManager.h>
 
-Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, int followDistance) : Entity(pos, "enemy", anim, collider, h, d, speed, attackDistance) {
+Enemy::Enemy(Vector2f pos, vector<Animation> anim, float h, float d, float speed, int attackDistance, int followDistance) : Entity(pos, "enemy", anim, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, d, speed, attackDistance) {
 	this->followDistance = followDistance;
 }
 
@@ -80,5 +80,10 @@ void Enemy::update() {
 
 	playStateAnimation();
 
+}
+
+void Enemy::draw(RWindow* render) {
+	render->draw(sprite);
+	drawInventory(render);
 }
 

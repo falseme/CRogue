@@ -6,6 +6,7 @@
 
 #include <gameObject/Player.h>
 #include <gameObject/Enemy.h>
+#include <gameObject/Door.h>
 
 LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
 	this->level = level;
@@ -74,25 +75,33 @@ void LevelScene::loadScene() {
 
 	levelFile.close();
 
+	// GIVE KEYS TO ENEMIES
+	vector<GameObject*> enemies = findAll("enemy");
+	int n = rand() % enemies.size();
+	((Enemy*)enemies[n])->addItem(new Item(Assets::key, "key"));
+
 }
 
 void LevelScene::loadGameObject(char key, int x, int y) {
 
 	switch (key) {
 	case '0':
-		addGameObject(new Player(Vector2f(x, y), BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 2, 1.5f));
+		addGameObject(new Player(Vector2f(x, y), 10, 2, 1.5f));
 		break;
 	case '1':
-		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdle), Animation(0.6f, Assets::skelyRun), Animation(0.6f, Assets::skelyAttack), Animation(0.5f, Assets::skelyStunned), Animation(Assets::skelyDead)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 8, 2, 0.8f, 20, 90));
+		addGameObject(new Enemy(Vector2f(x, y), {Animation(1.2f, Assets::skelyIdle), Animation(0.6f, Assets::skelyRun), Animation(0.6f, Assets::skelyAttack), Animation(0.5f, Assets::skelyStunned), Animation(Assets::skelyDead)}, 8, 2, 0.8f, 20, 90));
 		break;
 	case '2':
-		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdleSW), Animation(0.6f, Assets::skelyRunSW), Animation(0.55f, Assets::skelyAttackSW), Animation(0.5f, Assets::skelyStunnedSW), Animation(Assets::skelyDeadSW)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 6, 1, 0.9f, 18, 90));
+		addGameObject(new Enemy(Vector2f(x, y), {Animation(1.2f, Assets::skelyIdleSW), Animation(0.6f, Assets::skelyRunSW), Animation(0.55f, Assets::skelyAttackSW), Animation(0.5f, Assets::skelyStunnedSW), Animation(Assets::skelyDeadSW)}, 6, 1, 0.9f, 18, 90));
 		break;
 	case '3':
-		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdle_pow), Animation(0.6f, Assets::skelyRun_pow), Animation(0.55f, Assets::skelyAttack_pow), Animation(0.5f, Assets::skelyStunned_pow), Animation(Assets::skelyDead_pow)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 12, 3, 1.05f, 20, 100));
+		addGameObject(new Enemy(Vector2f(x, y), {Animation(1.2f, Assets::skelyIdle_pow), Animation(0.6f, Assets::skelyRun_pow), Animation(0.55f, Assets::skelyAttack_pow), Animation(0.5f, Assets::skelyStunned_pow), Animation(Assets::skelyDead_pow)}, 12, 3, 1.05f, 20, 100));
 		break;
 	case '4':
-		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.5f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(Assets::skelyDeadSW_pow)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 2, 1.12f, 20, 100));
+		addGameObject(new Enemy(Vector2f(x, y), {Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.5f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(Assets::skelyDeadSW_pow)}, 10, 2, 1.12f, 20, 100));
+		break;
+	case '6':
+		addGameObject(new Door(Vector2f(x + 8, y)));
 		break;
 	}
 

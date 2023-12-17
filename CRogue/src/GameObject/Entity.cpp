@@ -33,12 +33,15 @@ void Entity::attackEntity(Entity* en) {
 		en->health -= damage;
 		en->selfState = stunned;
 		en->speed = en->pos - pos;
-		Mathv::normalizeAndScale(en->speed, 0.05f* Timef::deltaTimeFactor());
+		Mathv::normalizeAndScale(en->speed, 0.05f * Timef::deltaTimeFactor());
 	}
 	if (en->health <= 0) {
 		en->selfState = dead;
 		en->collider = BoxCollider();
 		en->speed = { 0,0 };
+		for (Item* i : en->inventory)
+			addItem(i);
+		en->inventory.clear();
 	}
 }
 
@@ -80,4 +83,46 @@ void Entity::playStateAnimation() {
 
 Entity::state Entity::getSelfState() const {
 	return selfState;
+}
+
+void Entity::addItem(Item* i) {
+	inventory.push_back(i);
+}
+
+Item* Entity::getItem(string name) {
+
+	for (Item* i : this->inventory) {
+		if (i->getName() == name)
+			return i;
+	}
+
+	return nullptr;
+
+}
+
+void Entity::removeItem(Item* i) {
+	inventory.remove(i);
+	delete i;
+}
+
+void Entity::drawInventory(RWindow* render) {
+
+	if (inventory.empty())
+		return;
+
+	float w = inventory.front()->getSprite().getLocalBounds().width * inventory.front()->getSprite().getScale().x;
+	float x = pos.x - w * inventory.size() / 2;
+	float y = pos.y - sprite.getLocalBounds().height * 2 / 3;
+
+	RectangleShape rs(Vector2f(w * inventory.size(), w));
+	rs.setPosition(x, y);
+	rs.setFillColor(Color(40, 20, 30, 100));
+	render->draw(rs);
+
+	for (Item* i : inventory) {
+		i->getSprite().setPosition(x, y);
+		render->draw(i->getSprite());
+		x += w;
+	}
+
 }
