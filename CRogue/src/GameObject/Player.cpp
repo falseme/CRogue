@@ -12,7 +12,10 @@ Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed
 
 }
 
+#include <iostream>
 void Player::update() {
+
+	playStateAnimation();
 
 	switch (selfState) {
 	case idle:
@@ -50,15 +53,15 @@ void Player::update() {
 		break;
 	case stunned:
 
-		if (animations[currentAnimation].ended())
+		if (animations[currentAnimation].ended()) {
 			selfState = run;
+		}
 
 		break;
 	}
 
 	move(speed);
 	SceneManager::getCurrentScene()->cameraFollow(pos, 20);
-	playStateAnimation();
 
 }
 
