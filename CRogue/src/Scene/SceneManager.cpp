@@ -19,7 +19,7 @@ void SceneManager::loadScene(Scene* scene) {
 
 void SceneManager::loadNextLevel() {
 
-	if (!mainScene->zoomIn(0.05f, 0.02f)) {
+	if (!mainScene->zoomIn(0.05f, 0.5f)) {
 		mainScene->cameraFollow(mainScene->find("player")->getPos());
 		return;
 	}

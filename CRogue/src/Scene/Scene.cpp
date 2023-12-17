@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include <util/Mathv.h>
+#include <util/Timef.h>
 
 Scene::Scene() {
 	camZoom = 1;
@@ -83,6 +84,8 @@ bool Scene::zoomIn(float zoom, float step) {
 	if (camZoom <= zoom)
 		return true;
 
+	step *= Timef::deltaTime();
+
 	step = 1 - step;
 	camZoom *= step;
 	cameraView.zoom(step);
@@ -95,6 +98,8 @@ bool Scene::zoomOut(float zoom, float step) {
 
 	if (camZoom >= zoom)
 		return true;
+
+	step *= Timef::deltaTime();
 
 	step = 1 + step;
 	camZoom *= step;

@@ -2,6 +2,7 @@
 #include "Enemy.h"
 
 #include <util/Mathv.h>
+#include <util/Timef.h>
 #include <scene/SceneManager.h>
 
 Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, int followDistance) : Entity(pos, "enemy", anim, collider, h, d, speed, attackDistance) {
@@ -22,7 +23,7 @@ void Enemy::update() {
 			float x = cos(nDeg * M_PI / 180);
 			float y = sin(nDeg * M_PI / 180);
 			speed = Vector2f(x, y);
-			Mathv::normalizeAndScale(speed, sp / 3);
+			Mathv::normalizeAndScale(speed, sp / 3 * Timef::deltaTimeFactor());
 			selfState = run;
 			break;
 		}

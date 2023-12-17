@@ -8,10 +8,8 @@ using namespace std;
 
 class Animation {
 private:
-	static const int FPS = 60; // testing will delete this later
 	vector<Texture*> frames;
-	float frameTime, timeSecs;
-	float currentFrame;
+	float timeSecs, frameTime, currentFrame, currentTime;
 	bool end;
 	bool repeat;
 public:

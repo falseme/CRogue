@@ -1,6 +1,7 @@
 #include "Entity.h"
 
 #include <util/Mathv.h>
+#include <util/Timef.h>
 #include <scene/SceneManager.h>
 
 Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance) : GameObject(pos, name, anim, collider) {
@@ -32,7 +33,7 @@ void Entity::attackEntity(Entity* en) {
 		en->health -= damage;
 		en->selfState = stunned;
 		en->speed = en->pos - pos;
-		Mathv::normalizeAndScale(en->speed, 0.05f);
+		Mathv::normalizeAndScale(en->speed, 0.05f* Timef::deltaTimeFactor());
 	}
 	if (en->health <= 0) {
 		en->selfState = dead;
@@ -44,7 +45,7 @@ void Entity::attackEntity(Entity* en) {
 void Entity::moveTo(Vector2f target) {
 
 	speed = target - pos;
-	Mathv::normalizeAndScale(speed, sp);
+	Mathv::normalizeAndScale(speed, sp * Timef::deltaTimeFactor());
 
 	move(speed);
 

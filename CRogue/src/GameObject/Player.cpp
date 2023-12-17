@@ -5,9 +5,10 @@
 
 #include <assets/Assets.h>
 #include <util/Mathv.h>
+#include <util/Timef.h>
 #include <scene/SceneManager.h>
 
-Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(Assets::playerDead)}, collider, h, d, speed, 16) {
+Player::Player(Vector2f pos, BoxCollider collider, float h, float d, float speed) : Entity(pos, "player", vector<Animation>{Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(Assets::playerDead)}, collider, 400, d, speed, 16) {
 
 }
 
@@ -78,7 +79,7 @@ bool Player::moving() {
 		speed += Vector2f(sp, 0);
 	}
 
-	Mathv::normalizeAndScale(speed, sp);
+	Mathv::normalizeAndScale(speed, sp * Timef::deltaTimeFactor());
 
 	if (speed.x < 0)
 		sprite.setScale(Vector2f(-1, 1));

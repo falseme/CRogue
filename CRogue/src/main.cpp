@@ -1,10 +1,9 @@
 #include <UI/RWindow.h>
 #include <Scene/SceneManager.h>
 #include <assets/Assets.h>
+#include <util/Timef.h>
 
 static void loop(RWindow* r) {
-
-	r->setFramerateLimit(60);
 
 	View view = r->getDefaultView();
 
@@ -22,6 +21,8 @@ static void loop(RWindow* r) {
 				r->setSwordCursor();
 		}
 
+		Timef::update();
+
 		r->clear(Color(37, 19, 26));
 		SceneManager::update();
 		SceneManager::draw(r);
@@ -34,6 +35,7 @@ static void loop(RWindow* r) {
 int main() {
 
 	Assets::load();
+	Timef::start(60);
 
 	SceneManager::init();
 

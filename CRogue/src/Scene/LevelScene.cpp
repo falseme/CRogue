@@ -13,7 +13,7 @@ LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
 
 void LevelScene::update() {
 
-	if (!zoomOut(0.32f, 0.02f)) {
+	if (!zoomOut(0.32f, 0.5f)) {
 		cameraFollow(find("player")->getPos());
 		return;
 	}
