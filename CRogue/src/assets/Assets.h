@@ -11,6 +11,7 @@ public:
 	static vector<Texture*> playerRun;
 	static vector<Texture*> playerAttack;
 	static vector<Texture*> playerStunned;
+	static Texture* playerDead;
 
 	static vector<Texture*> skelyIdle;
 	static vector<Texture*> skelyRun;

@@ -92,7 +92,7 @@ void LevelScene::loadGameObject(char key, int x, int y) {
 		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdle_pow), Animation(0.6f, Assets::skelyRun_pow), Animation(0.55f, Assets::skelyAttack_pow), Animation(0.5f, Assets::skelyStunned_pow), Animation(Assets::skelyDead_pow)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 12, 3, 1.05f, 20, 100));
 		break;
 	case '4':
-		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.55f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(Assets::skelyDeadSW_pow)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 2, 1.12f, 20, 100));
+		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.5f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(Assets::skelyDeadSW_pow)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 2, 1.12f, 20, 100));
 		break;
 	}
 

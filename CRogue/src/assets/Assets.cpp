@@ -4,6 +4,7 @@ vector<Texture*> Assets::playerIdle;
 vector<Texture*> Assets::playerRun;
 vector<Texture*> Assets::playerAttack;
 vector<Texture*> Assets::playerStunned;
+Texture* Assets::playerDead = nullptr;
 
 vector<Texture*> Assets::skelyIdle;
 vector<Texture*> Assets::skelyRun;
@@ -39,6 +40,7 @@ void Assets::load() {
 	playerRun = Loader::loadSpriteSheet("data/assets/textures/animations/player/player_run.png", 24);
 	playerAttack = Loader::loadSpriteSheet("data/assets/textures/animations/player/player_attack.png", 24);
 	playerStunned = Loader::loadSpriteSheet("data/assets/textures/animations/player/player_stunned.png", 24);
+	playerDead = Loader::loadTexture("data/assets/textures/animations/player/player_dead.png");
 
 	skelyIdle = Loader::loadSpriteSheet("data/assets/textures/animations/skeleton/skely_idle.png", 24);
 	skelyRun = Loader::loadSpriteSheet("data/assets/textures/animations/skeleton/skely_run.png", 24);
