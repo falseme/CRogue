@@ -9,6 +9,11 @@ Texture** Assets::skelyRun = NULL;
 Texture** Assets::skelyAttack = NULL;
 Texture** Assets::skelyStunned = NULL;
 Texture* Assets::skelyDead = NULL;
+Texture** Assets::skelyIdleSW = NULL;
+Texture** Assets::skelyRunSW = NULL;
+Texture** Assets::skelyAttackSW = NULL;
+Texture** Assets::skelyStunnedSW = NULL;
+Texture* Assets::skelyDeadSW = NULL;
 
 map<string, vector<Texture*>> Assets::tilemap;
 
@@ -73,6 +78,37 @@ void Assets::load() {
 	};
 
 	skelyDead = Loader::loadTexture("data/assets/textures/animations/skeleton/skely_dead.png");
+
+	skelyIdleSW = new Texture * [6] {
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_idle0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_idle1.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_idle2.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_idle2.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_idle1.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_idle0.png")
+	};
+
+	skelyRunSW = new Texture * [2] {
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_run0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_run1.png")
+	};
+
+	skelyAttackSW = new Texture * [5] {
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_attack0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_attack0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_attack0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_attack1.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_attack2.png")
+	};
+
+	skelyStunnedSW = new Texture * [4] {
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_stunned0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_stunned1.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_stunned0.png"),
+		Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_stunned1.png")
+	};
+
+	skelyDeadSW = Loader::loadTexture("data/assets/textures/animations/skeleton_sword/skely_dead.png");
 
 	//TILEMAP
 	Image tileset = Loader::loadTexture("data/assets/textures/tileset/dungeon_tileset_v.png")->copyToImage();

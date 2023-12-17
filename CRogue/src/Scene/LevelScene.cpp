@@ -56,7 +56,7 @@ void LevelScene::loadScene() {
 			}
 
 			if (tileKey.front() == '&') {
-				//add GO
+				loadGameObject(tileKey.back(), px, py);
 				tileKey = "O0";
 			}
 
@@ -74,13 +74,21 @@ void LevelScene::loadScene() {
 
 	levelFile.close();
 
-	//TEST GAMEOBJECTS
+}
 
-	addGameObject(new Player(Vector2f(40, 40), BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 2, 1.5f));
+void LevelScene::loadGameObject(char key, int x, int y) {
 
-	addGameObject(new Enemy(Vector2f(80, 40), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(0.6f, Assets::skelyAttack, 5), Animation(0.5f, Assets::skelyStunned, 4), Animation(Assets::skelyDead)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 1, 0.75f, 20, 100));
-	//addGameObject(new Enemy(Vector2f(80, 40), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(0.6f, Assets::skelyAttack, 5), Animation(0.5f, Assets::skelyStunned, 4), Animation(Assets::skelyDead)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 1, 0.75f, 20, 100));
-	//addGameObject(new Enemy(Vector2f(80, 40), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(0.6f, Assets::skelyAttack, 5), Animation(0.5f, Assets::skelyStunned, 4), Animation(Assets::skelyDead)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 1, 0.75f, 20, 100));
+	switch (key) {
+	case '0':
+		addGameObject(new Player(Vector2f(x, y), BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 10, 2, 1.5f));
+		break;
+	case '1':
+		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdle, 6), Animation(0.4f, Assets::skelyRun, 2), Animation(0.6f, Assets::skelyAttack, 5), Animation(0.5f, Assets::skelyStunned, 4), Animation(Assets::skelyDead)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 8, 1, 0.8f, 20, 90));
+		break;
+	case '2':
+		addGameObject(new Enemy(Vector2f(x, y), vector<Animation>{Animation(1.2f, Assets::skelyIdleSW, 6), Animation(0.4f, Assets::skelyRunSW, 2), Animation(0.55f, Assets::skelyAttackSW, 5), Animation(0.5f, Assets::skelyStunnedSW, 4), Animation(Assets::skelyDeadSW)}, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), 6, 1, 0.8f, 18, 90));
+		break;
+	}
 
 }
 

@@ -10,11 +10,11 @@ private:
 public:
 	BoxCollider();
 	BoxCollider(Vector2f size);
-	BoxCollider(Vector2f pos, Vector2f size);
+	BoxCollider(Vector2f size, Vector2f offset);
 	BoxCollider(Vector2f size, Vector2f offset, Vector2f pos);
 	Vector2f collide(BoxCollider box);
 	void setPos(Vector2f pos);
-	Vector2f getSize();
 	Vector2f getPos();
+	Vector2f getSize();
 };
 

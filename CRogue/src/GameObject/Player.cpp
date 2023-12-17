@@ -94,7 +94,7 @@ bool Player::moving() {
 bool Player::attacking() {
 
 	if (Mouse::isButtonPressed(Mouse::Left)) {
-		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 2)
+		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 3)
 			sprite.setScale({ -1,1 });
 		else
 			sprite.setScale({ 1,1 });

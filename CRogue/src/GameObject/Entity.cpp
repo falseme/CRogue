@@ -26,7 +26,7 @@ void Entity::SetDamage(float d) {
 }
 
 void Entity::attackEntity(Entity* en) {
-	if (en->selfState == stunned)
+	if (en->selfState == stunned || en->selfState == dead)
 		return;
 	if (Mathv::distance(pos, en->pos) < attackDistance) {
 		en->health -= damage;

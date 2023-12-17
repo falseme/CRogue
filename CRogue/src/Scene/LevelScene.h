@@ -10,6 +10,8 @@ public:
 	void update() override;
 	void loadScene() override;
 
+	void loadGameObject(char key, int x, int y);
+
 	void checkCollision(GameObject* gameObject);
 	void checkTileCollision(GameObject* gameObject);
 };
