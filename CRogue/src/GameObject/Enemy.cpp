@@ -10,7 +10,7 @@ Enemy::Enemy(Vector2f pos, vector<Animation> anim, BoxCollider collider, float h
 
 void Enemy::update() {
 
-	GameObject* pl = SceneManager::getCurrentScene()->find("player");
+	Entity* pl = (Entity*)SceneManager::getCurrentScene()->find("player");
 
 	switch (selfState) {
 	case idle:
@@ -22,19 +22,19 @@ void Enemy::update() {
 			float x = cos(nDeg * M_PI / 180);
 			float y = sin(nDeg * M_PI / 180);
 			speed = Vector2f(x, y);
-			Mathv::normalizeAndScale(speed, sp/3);
+			Mathv::normalizeAndScale(speed, sp / 3);
 			selfState = run;
 			break;
 		}
 
-		if (Mathv::distance(pos, pl->getPos()) < followDistance) {
+		if (Mathv::distance(pos, pl->getPos()) < followDistance && pl->getSelfState() != dead) {
 			selfState = run;
 		}
 
 		break;
 	case run:
 
-		if (pl == nullptr || Mathv::distance(pos, pl->getPos()) >= followDistance) {
+		if (pl == nullptr || Mathv::distance(pos, pl->getPos()) >= followDistance || pl->getSelfState() == dead) {
 			move(speed);
 			if (animations[currentAnimation].ended())
 				selfState = idle;
@@ -57,7 +57,7 @@ void Enemy::update() {
 
 		if (animations[currentAnimation].ended()) {
 			float delta = pl->getPos().x - pos.x;
-			if (delta < 0 && sprite.getScale().x < 0 || delta >=0 && sprite.getScale().x > 0)
+			if (delta < 0 && sprite.getScale().x < 0 || delta >= 0 && sprite.getScale().x > 0)
 				attackEntity((Entity*)pl);
 			selfState = idle;
 		}

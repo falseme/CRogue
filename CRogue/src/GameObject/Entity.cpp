@@ -37,6 +37,7 @@ void Entity::attackEntity(Entity* en) {
 	if (en->health <= 0) {
 		en->selfState = dead;
 		en->collider = BoxCollider();
+		en->speed = { 0,0 };
 	}
 }
 
@@ -74,4 +75,8 @@ void Entity::playStateAnimation() {
 	animations[currentAnimation].play();
 	sprite.setTexture(*animations[currentAnimation].getFrame());
 
+}
+
+Entity::state Entity::getSelfState() const {
+	return selfState;
 }

@@ -18,6 +18,7 @@ public:
 	void onCollision(BoxCollider other, Vector2f delta) override;
 
 	void playStateAnimation();
+	state getSelfState() const;
 
 protected:
 	float health;
