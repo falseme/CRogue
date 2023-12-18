@@ -6,11 +6,13 @@
 #include <util/Timef.h>
 #include <item/HealthPotion.h>
 
-Enemy::Enemy(Vector2f pos, vector<Animation> anim, float h, float d, float speed, int attackDistance, int followDistance) : Entity(pos, "enemy", anim, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, d, speed, attackDistance) {
+Enemy::Enemy(Vector2f pos, vector<Animation> anim, float h, float d, float speed, int attackDistance, int followDistance, float cooldownLimit) : Entity(pos, "enemy", anim, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, d, speed, attackDistance, cooldownLimit) {
 	this->followDistance = followDistance;
 }
 
 void Enemy::update() {
+
+	playStateAnimation();
 
 	Entity* pl = (Entity*)SceneManager::getCurrentScene()->find("player");
 
@@ -43,13 +45,13 @@ void Enemy::update() {
 			break;
 		}
 
-		if (Mathv::distance(pos, pl->getPos()) < attackDistance) {
+		if (Mathv::distance(pos, pl->getPos()) < attackDistance && cooldown >= cooldownLimit) {
 			selfState = attack;
+			cooldown = 0;
 			float delta = pl->getPos().x - pos.x;
 			if (delta == 0) // prevent "0/0"
 				break;
 			sprite.setScale(Vector2f(delta / abs(delta), 1));
-			break;
 		}
 
 		moveTo(pl->getPos());
@@ -101,17 +103,19 @@ void Enemy::update() {
 		break;
 	}
 
+	if (cooldown < cooldownLimit)
+		cooldown += Timef::deltaTime();
+
 	if (speed.x < 0 && selfState != stunned)
 		sprite.setScale(Vector2f(-1, 1));
 	else if (speed.x > 0 && selfState != stunned)
 		sprite.setScale(Vector2f(1, 1));
-
-	playStateAnimation();
 
 }
 
 void Enemy::draw(RWindow* render) {
 	render->draw(sprite);
 	drawInventory(render, false);
+	drawCooldown(render);
 }
 

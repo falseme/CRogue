@@ -9,7 +9,7 @@
 #include <util/Timef.h>
 #include <item/HealthPotion.h>
 
-Player::Player(Vector2f pos, float h, float d, float speed) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, d, speed, 16) {
+Player::Player(Vector2f pos, float h, float d, float speed) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, d, speed, 16, 0.9f) {
 	showInventory = false;
 }
 
@@ -52,6 +52,7 @@ void Player::update() {
 					attackEntity(en);
 			}
 			selfState = idle;
+			cooldown = 0;
 		}
 
 		break;
@@ -59,6 +60,12 @@ void Player::update() {
 
 		if (animations[currentAnimation].ended()) {
 			selfState = run;
+		}
+
+		if (health <= 0) {
+			selfState = dead;
+			collider = BoxCollider();
+			speed = { 0,0 };
 		}
 
 		break;
@@ -81,6 +88,9 @@ void Player::update() {
 		break;
 	}
 
+	if (cooldown < cooldownLimit)
+		cooldown += Timef::deltaTime();
+
 	move(speed);
 	SceneManager::getCurrentScene()->cameraFollow(pos, 20);
 
@@ -94,6 +104,7 @@ void Player::update() {
 void Player::draw(RWindow* render) {
 
 	render->draw(sprite);
+	drawCooldown(render);
 	if (showInventory)
 		drawInventory(render, true);
 
@@ -131,8 +142,8 @@ bool Player::moving() {
 
 bool Player::attacking() {
 
-	if (Mouse::isButtonPressed(Mouse::Left)) {
-		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2 + (pos.x - RWindow::get()->getView().getCenter().x) * 3)
+	if (Mouse::isButtonPressed(Mouse::Left) && cooldown >= cooldownLimit) {
+		if (RWindow::get()->getMousePosition().x < RWindow::get()->getSize().x / 2.f + (pos.x - RWindow::get()->getView().getCenter().x) * 3)
 			sprite.setScale({ -1,1 });
 		else
 			sprite.setScale({ 1,1 });

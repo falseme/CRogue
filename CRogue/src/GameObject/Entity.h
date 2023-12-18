@@ -7,7 +7,7 @@ class Entity :public GameObject {
 public:
 	static const enum state { idle, run, attack, stunned, heal, dead };
 
-	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance);
+	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, float cooldownLimit);
 
 	void update() override;
 
@@ -31,6 +31,7 @@ protected:
 	float health;
 	float damage;
 	int attackDistance;
+	float cooldown, cooldownLimit;
 
 	state selfState;
 
@@ -39,6 +40,7 @@ protected:
 
 	list<Item*> inventory;
 	void drawInventory(RWindow* render, bool background);
+	void drawCooldown(RWindow* render);
 
 	Entity* murderer;
 };

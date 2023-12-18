@@ -100,16 +100,16 @@ void LevelScene::loadGameObject(char key, int x, int y) {
 		addGameObject(new Player(Vector2f(x, y), 10, 2, 1.5f));
 		break;
 	case '1':
-		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdle), Animation(0.6f, Assets::skelyRun), Animation(0.6f, Assets::skelyAttack), Animation(0.5f, Assets::skelyStunned), Animation(0.5f, Assets::skelyHeal), Animation(Assets::skelyDead) }, 8, 2, 0.8f, 20, 90));
+		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdle), Animation(0.6f, Assets::skelyRun), Animation(0.6f, Assets::skelyAttack), Animation(0.5f, Assets::skelyStunned), Animation(0.5f, Assets::skelyHeal), Animation(Assets::skelyDead) }, 8, 2, 0.8f, 20, 90, 1.1f));
 		break;
 	case '2':
-		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdleSW), Animation(0.6f, Assets::skelyRunSW), Animation(0.55f, Assets::skelyAttackSW), Animation(0.5f, Assets::skelyStunnedSW), Animation(0.5f, Assets::skelyHealSW), Animation(Assets::skelyDeadSW) }, 6, 1, 0.9f, 18, 90));
+		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdleSW), Animation(0.6f, Assets::skelyRunSW), Animation(0.55f, Assets::skelyAttackSW), Animation(0.5f, Assets::skelyStunnedSW), Animation(0.5f, Assets::skelyHealSW), Animation(Assets::skelyDeadSW) }, 6, 1, 0.9f, 18, 90, 0.95f));
 		break;
 	case '3':
-		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdle_pow), Animation(0.6f, Assets::skelyRun_pow), Animation(0.55f, Assets::skelyAttack_pow), Animation(0.5f, Assets::skelyStunned_pow), Animation(0.5f, Assets::skelyHeal_pow), Animation(Assets::skelyDead_pow) }, 12, 3, 1.05f, 20, 100));
+		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdle_pow), Animation(0.6f, Assets::skelyRun_pow), Animation(0.55f, Assets::skelyAttack_pow), Animation(0.5f, Assets::skelyStunned_pow), Animation(0.5f, Assets::skelyHeal_pow), Animation(Assets::skelyDead_pow) }, 12, 3, 1.05f, 20, 100, 0.85));
 		break;
 	case '4':
-		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.5f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(0.5f, Assets::skelyHealSW_pow), Animation(Assets::skelyDeadSW_pow) }, 10, 2, 1.12f, 20, 100));
+		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.5f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(0.5f, Assets::skelyHealSW_pow), Animation(Assets::skelyDeadSW_pow) }, 10, 2, 1.12f, 20, 100, 0.65f));
 		break;
 	case '6':
 		addGameObject(new Door(Vector2f(x + 8, y)));
