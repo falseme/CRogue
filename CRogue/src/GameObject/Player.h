@@ -10,6 +10,7 @@ public:
 
 	bool moving();
 	bool attacking();
+	bool healing();
 private:
 	bool showInventory;
 };

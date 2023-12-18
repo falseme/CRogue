@@ -10,6 +10,7 @@ Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider co
 	selfState = idle;
 	sp = speed;
 	this->attackDistance = attackDistance;
+	murderer = nullptr;
 }
 
 float Entity::GetHealth() {
@@ -27,7 +28,7 @@ void Entity::SetDamage(float d) {
 }
 
 void Entity::attackEntity(Entity* en) {
-	if (en->selfState == stunned || en->selfState == dead)
+	if (en->selfState == stunned || en->selfState == dead || en->selfState == heal)
 		return;
 	if (Mathv::distance(pos, en->pos) < attackDistance) {
 		en->health -= damage;
@@ -35,14 +36,8 @@ void Entity::attackEntity(Entity* en) {
 		en->speed = en->pos - pos;
 		Mathv::normalizeAndScale(en->speed, 0.05f * Timef::deltaTimeFactor());
 	}
-	if (en->health <= 0) {
-		en->selfState = dead;
-		en->collider = BoxCollider();
-		en->speed = { 0,0 };
-		for (Item* i : en->inventory)
-			addItem(i);
-		en->inventory.clear();
-	}
+	if (en->health <= 0)
+		en->murderer = this;
 }
 
 void Entity::moveTo(Vector2f target) {
@@ -105,7 +100,7 @@ void Entity::removeItem(Item* i) {
 	delete i;
 }
 
-void Entity::drawInventory(RWindow* render) {
+void Entity::drawInventory(RWindow* render, bool background) {
 
 	if (inventory.empty())
 		return;
@@ -114,10 +109,12 @@ void Entity::drawInventory(RWindow* render) {
 	float x = pos.x - w * inventory.size() / 2;
 	float y = pos.y - sprite.getLocalBounds().height * 2 / 3;
 
-	RectangleShape rs(Vector2f(w * inventory.size(), w));
-	rs.setPosition(x, y);
-	rs.setFillColor(Color(40, 20, 30, 100));
-	render->draw(rs);
+	if (background) {
+		RectangleShape rs(Vector2f(w * inventory.size(), w));
+		rs.setPosition(x, y);
+		rs.setFillColor(Color(40, 20, 30, 100));
+		render->draw(rs);
+	}
 
 	for (Item* i : inventory) {
 		i->getSprite().setPosition(x, y);
