@@ -7,7 +7,7 @@ private:
 	int level;
 public:
 	LevelScene(int level, float accCamZoom);
-	void update() override;
+	void update(Vector2f mousePosition) override;
 	void loadScene() override;
 
 	void loadGameObject(char key, int x, int y);

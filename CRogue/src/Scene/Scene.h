@@ -3,7 +3,7 @@
 #include <list>
 
 #include <gameObject/GameObject.h>
-#include <ui/RWindow.h>
+#include <ui/Panel.h> // includes RWindow
 #include <scene/Tile.h>
 #include <assets/Assets.h>
 
@@ -19,12 +19,13 @@ private:
 protected:
 	list<GameObject*> gameObjects;
 	list<Tile*> tileset;
+	Panel GUIPanel;
 public:
 	Scene();
 	Scene(float accCamZoom);
 	~Scene();
 
-	virtual void update() = 0;
+	virtual void update(Vector2f mousePosition) = 0;
 	void draw(RWindow* render);
 
 	void addGameObject(GameObject* go);

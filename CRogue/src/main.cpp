@@ -14,8 +14,8 @@ static void loop(RWindow* r) {
 			if (event.type == Event::Closed) {
 				r->close();
 			}
-			if (event.type == Event::MouseButtonPressed) {
-				r->setMousePosition(Vector2f(event.mouseButton.x, event.mouseButton.y));
+			if (event.type == Event::MouseMoved) {
+				r->setMousePosition(Vector2f(event.mouseMove.x, event.mouseMove.y));
 			}
 			if (event.type == Event::MouseEntered)
 				r->setSwordCursor();
@@ -24,7 +24,7 @@ static void loop(RWindow* r) {
 		Timef::update();
 
 		r->clear(Color(37, 19, 26));
-		SceneManager::update();
+		SceneManager::update(r->getMousePosition());
 		SceneManager::draw(r);
 		r->display();
 

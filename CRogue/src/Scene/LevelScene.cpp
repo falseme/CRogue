@@ -14,7 +14,9 @@ LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
 	this->level = level;
 }
 
-void LevelScene::update() {
+void LevelScene::update(Vector2f mousePosition) {
+
+	GUIPanel.update(mousePosition);
 
 	if (!zoomOut(0.32f, 0.8f)) {
 		cameraFollow(find("player")->getPos());
@@ -98,6 +100,7 @@ void LevelScene::loadGameObject(char key, int x, int y) {
 	switch (key) {
 	case '0':
 		addGameObject(new Player(Vector2f(x, y), 10, 2, 1.5f));
+		cameraFollow(Vector2f(x, y));
 		break;
 	case '1':
 		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdle), Animation(0.6f, Assets::skelyRun), Animation(0.6f, Assets::skelyAttack), Animation(0.5f, Assets::skelyStunned), Animation(0.5f, Assets::skelyHeal), Animation(Assets::skelyDead) }, 8, 2, 0.8f, 20, 90, 1.1f));

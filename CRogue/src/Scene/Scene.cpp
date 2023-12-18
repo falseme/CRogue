@@ -28,6 +28,8 @@ void Scene::draw(RWindow* render) {
 	for (GameObject* go : gameObjects)
 		go->draw(render);
 
+	GUIPanel.draw(render);
+
 }
 
 void Scene::addGameObject(GameObject* go) {

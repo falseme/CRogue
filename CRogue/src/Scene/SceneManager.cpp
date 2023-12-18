@@ -1,20 +1,24 @@
 #include "SceneManager.h"
 
 #include "LevelScene.h"
+#include "MenuScene.h"
 
 Scene* SceneManager::mainScene = nullptr;
+Scene* SceneManager::auxScene = nullptr;
 int SceneManager::currentLevel = 1;
 const int SceneManager::MAX_LEVEL = 2;
 bool SceneManager::loadingNextLevel = false;
 
 void SceneManager::init() {
-	mainScene = new LevelScene(currentLevel, 0.15f);
+	auxScene = new LevelScene(currentLevel, 0.15f);
+	loadScene(auxScene);
+	mainScene = new MenuScene();
 	loadScene(mainScene);
 }
 
 void SceneManager::loadScene(Scene* scene) {
-	scene->loadScene();
 	scene->setCameraView(RWindow::get()->getDefaultView());
+	scene->loadScene();
 }
 
 void SceneManager::loadNextLevel() {
@@ -41,18 +45,32 @@ void SceneManager::gotoNextLevel() {
 	loadingNextLevel = true;
 }
 
-void SceneManager::update() {
+void SceneManager::startGame() {
+	mainScene = auxScene;
+	auxScene = nullptr;
+}
+
+void SceneManager::quitGame() {
+	exit(0);
+}
+
+void SceneManager::update(Vector2f mousePosition) {
 	if (loadingNextLevel) {
 		loadNextLevel();
 		return;
 	}
-	mainScene->update();
+	mainScene->update(mousePosition);
 }
 
 void SceneManager::draw(RWindow* render) {
+	if (auxScene) {
+		auxScene->draw(render);
+	}
 	mainScene->draw(render);
 }
 
 Scene* SceneManager::getCurrentScene() {
 	return mainScene;
 }
+
+

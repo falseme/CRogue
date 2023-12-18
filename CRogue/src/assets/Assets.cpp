@@ -47,6 +47,9 @@ Texture* Assets::healthPotion_small = nullptr;
 
 Image Assets::mouse;
 
+Font Assets::defaultFont;
+Font Assets::titleFont;
+
 void Assets::load() {
 
 	//ENTITIES
@@ -102,5 +105,9 @@ void Assets::load() {
 
 	//GUI
 	mouse = Loader::loadTexture("data/assets/textures/gui/mouse.png")->copyToImage();
+
+	//FONT
+	defaultFont.loadFromFile("data/assets/fonts/dogicapixelbold.ttf");
+	titleFont.loadFromFile("data/assets/fonts/Pixelmania.ttf");
 
 }

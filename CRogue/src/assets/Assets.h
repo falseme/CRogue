@@ -54,6 +54,9 @@ public:
 
 	static Image mouse;
 
+	static Font defaultFont;
+	static Font titleFont;
+
 	static void load();
 };
 

@@ -11,13 +11,16 @@ private:
 	static int currentLevel;
 	static const int MAX_LEVEL;
 	static Scene* mainScene;
+	static Scene* auxScene;
 	static bool loadingNextLevel;
 public:
 	static void init();
 	static void loadScene(Scene* scene);
 	static void loadNextLevel();
 	static void gotoNextLevel();
-	static void update();
+	static void startGame();
+	static void quitGame();
+	static void update(Vector2f mousePosition);
 	static void draw(RWindow* render);
 	static Scene* getCurrentScene();
 };
