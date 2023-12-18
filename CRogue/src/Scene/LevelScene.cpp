@@ -7,6 +7,7 @@
 #include <gameObject/Player.h>
 #include <gameObject/Enemy.h>
 #include <gameObject/Door.h>
+#include <gameObject/Ladder.h>
 #include <item/HealthPotion.h>
 
 LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
@@ -15,7 +16,7 @@ LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
 
 void LevelScene::update() {
 
-	if (!zoomOut(0.32f, 0.5f)) {
+	if (!zoomOut(0.32f, 0.8f)) {
 		cameraFollow(find("player")->getPos());
 		return;
 	}
@@ -112,6 +113,9 @@ void LevelScene::loadGameObject(char key, int x, int y) {
 		break;
 	case '6':
 		addGameObject(new Door(Vector2f(x + 8, y)));
+		break;
+	case '7':
+		addGameObject(new Ladder(Vector2f(x, y)));
 		break;
 	}
 

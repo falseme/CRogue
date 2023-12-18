@@ -64,6 +64,8 @@ void Player::update() {
 		break;
 	case heal:
 
+		speed = { 0,0 };
+
 		if (animations[currentAnimation].ended()) {
 
 			HealthPotion* p = (HealthPotion*)getItem("health_potion");

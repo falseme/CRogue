@@ -3,11 +3,11 @@
 #include "LevelScene.h"
 
 Scene* SceneManager::mainScene = nullptr;
-int SceneManager::currentLevel;
-const int SceneManager::MAX_LEVEL;
+int SceneManager::currentLevel = 1;
+const int SceneManager::MAX_LEVEL = 2;
+bool SceneManager::loadingNextLevel = false;
 
 void SceneManager::init() {
-	currentLevel = 1;
 	mainScene = new LevelScene(currentLevel, 0.15f);
 	loadScene(mainScene);
 }
@@ -19,7 +19,7 @@ void SceneManager::loadScene(Scene* scene) {
 
 void SceneManager::loadNextLevel() {
 
-	if (!mainScene->zoomIn(0.05f, 0.5f)) {
+	if (!mainScene->zoomIn(0.1f, 0.8f)) {
 		mainScene->cameraFollow(mainScene->find("player")->getPos());
 		return;
 	}
@@ -33,15 +33,20 @@ void SceneManager::loadNextLevel() {
 
 	delete mainScene;
 	mainScene = ls;
+	loadingNextLevel = false;
 
 }
 
+void SceneManager::gotoNextLevel() {
+	loadingNextLevel = true;
+}
+
 void SceneManager::update() {
-	//*//
-	if (!mainScene->find("enemy"))
+	if (loadingNextLevel) {
 		loadNextLevel();
-	else//*/
-		mainScene->update();
+		return;
+	}
+	mainScene->update();
 }
 
 void SceneManager::draw(RWindow* render) {

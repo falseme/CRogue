@@ -46,6 +46,7 @@ public:
 
 	static Texture* doorClosed;
 	static vector<Texture*> doorOpen;
+	static Texture* ladder;
 
 	static Texture* key;
 	static Texture* healthPotion;

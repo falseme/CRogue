@@ -39,10 +39,11 @@ map<string, vector<Texture*>> Assets::tilemap;
 
 Texture* Assets::doorClosed = nullptr;
 vector<Texture*> Assets::doorOpen;
+Texture* Assets::ladder = nullptr;
 
-Texture* Assets::key;
-Texture* Assets::healthPotion;
-Texture* Assets::healthPotion_small;
+Texture* Assets::key = nullptr;
+Texture* Assets::healthPotion = nullptr;
+Texture* Assets::healthPotion_small = nullptr;
 
 Image Assets::mouse;
 
@@ -92,6 +93,7 @@ void Assets::load() {
 	//SCENE OBJECTS
 	doorClosed = Loader::loadTexture("data/assets/textures/scene_objects/door/closed.png");
 	doorOpen = Loader::loadSpriteSheet("data/assets/textures/scene_objects/door/open.png", 32, 16);
+	ladder = Loader::loadTexture("data/assets/textures/scene_objects/ladder/ladder.png");
 
 	// ITEMS
 	key = Loader::loadTexture("data/assets/textures/items/key.png");

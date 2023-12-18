@@ -9,12 +9,14 @@
 class SceneManager {
 private:
 	static int currentLevel;
-	static const int MAX_LEVEL = 2;
+	static const int MAX_LEVEL;
 	static Scene* mainScene;
+	static bool loadingNextLevel;
 public:
 	static void init();
 	static void loadScene(Scene* scene);
 	static void loadNextLevel();
+	static void gotoNextLevel();
 	static void update();
 	static void draw(RWindow* render);
 	static Scene* getCurrentScene();
