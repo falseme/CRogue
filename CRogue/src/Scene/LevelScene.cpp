@@ -10,13 +10,17 @@
 #include <gameObject/Ladder.h>
 #include <item/HealthPotion.h>
 
-LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
+LevelScene::LevelScene(int level, float accCamZoom, int playerHealth) : Scene(accCamZoom) {
 	this->level = level;
 	for (int i = 0; i < 4; i++) {
 		SpriteImage* si = new SpriteImage(Assets::heart, Vector2f(275 + 12 * i, 210), Vector2f(0.75f, 0.75f), Vector2f(0, 0));
 		GUIHealth.push_back(si);
 		GUIPanel.addComponent(si);
 	}
+	if (level != 1)
+		updateGUIHealth(playerHealth);
+	else
+		this->playerHealth = Player::MAX_HEALTH;
 }
 
 void LevelScene::update(Vector2f mousePosition) {
@@ -113,7 +117,7 @@ string LevelScene::loadGameObject(char key, int x, int y) {
 
 	switch (key) {
 	case '0':
-		addGameObject(new Player(Vector2f(x, y), Player::MAX_HEALTH, 2, 1.5f));
+		addGameObject(new Player(Vector2f(x, y), playerHealth, 2, 1.5f));
 		cameraFollow(Vector2f(x, y));
 		newTileKey = "O0";
 		break;
@@ -203,4 +207,10 @@ void LevelScene::updateGUIHealth(int health) {
 	if (half != 0)
 		GUIHealth[whole]->setTexture(Assets::heart_half);
 
+	playerHealth = health;
+
+}
+
+int LevelScene::getPlayerHealth() {
+	return playerHealth;
 }

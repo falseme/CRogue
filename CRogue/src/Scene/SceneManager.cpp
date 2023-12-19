@@ -10,7 +10,7 @@ const int SceneManager::MAX_LEVEL = 3;
 bool SceneManager::loadingNextLevel = false;
 
 void SceneManager::init() {
-	auxScene = new LevelScene(currentLevel, 0.15f);
+	auxScene = new LevelScene(currentLevel, 0.15f, 0);
 	loadScene(auxScene);
 	mainScene = new MenuScene();
 	loadScene(mainScene);
@@ -32,7 +32,7 @@ void SceneManager::loadNextLevel() {
 	if (currentLevel > MAX_LEVEL)
 		currentLevel--;
 
-	LevelScene* ls = new LevelScene(currentLevel, mainScene->getAccCamZoom());
+	LevelScene* ls = new LevelScene(currentLevel, mainScene->getAccCamZoom(), ((LevelScene*)mainScene)->getPlayerHealth());
 	loadScene(ls);
 
 	delete mainScene;
