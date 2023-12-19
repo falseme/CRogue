@@ -57,6 +57,10 @@ public:
 	static Font defaultFont;
 	static Font titleFont;
 
+	static Texture* heart;
+	static Texture* heart_half;
+	static Texture* heart_empty;
+
 	static void load();
 };
 

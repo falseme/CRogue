@@ -11,6 +11,7 @@ public:
 
 	void setPosition(Vector2f position) override;
 	Vector2f getPosition() override;
+	void move(Vector2f delta) override;
 protected:
 	bool pressed;
 	Text text;

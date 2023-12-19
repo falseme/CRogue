@@ -63,3 +63,8 @@ Vector2f Button::getPosition() {
 	return text.getPosition();
 }
 
+void Button::move(Vector2f delta) {
+	text.move(delta);
+	background.move(delta);
+}
+

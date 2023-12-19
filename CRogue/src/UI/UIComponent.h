@@ -15,6 +15,7 @@ public:
 	virtual void draw(RWindow* render) = 0;
 	virtual void setPosition(Vector2f position) = 0;
 	virtual Vector2f getPosition() = 0;
+	virtual void move(Vector2f delta) = 0;
 };
 
 template <typename T>

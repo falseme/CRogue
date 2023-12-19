@@ -16,5 +16,7 @@ public:
 	void draw(RWindow* render);
 	void addComponent(UIComponent* component);
 	void removeComponent(UIComponent* component);
+	void move(Vector2f delta);
+	Vector2f getWorldPosition();
 };
 

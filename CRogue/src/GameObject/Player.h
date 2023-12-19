@@ -4,7 +4,8 @@
 
 class Player :public Entity {
 public:
-	Player(Vector2f pos, float h, float d, float speed);
+	const static int MAX_HEALTH = 8;
+	Player(Vector2f pos, int h, int d, float speed);
 	void update() override;
 	void draw(RWindow* render) override;
 

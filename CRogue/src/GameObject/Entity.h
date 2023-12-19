@@ -7,14 +7,15 @@ class Entity :public GameObject {
 public:
 	static const enum state { idle, run, attack, stunned, heal, dead };
 
-	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, float cooldownLimit);
+	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, int h, int mh, int d, float speed, int attackDistance, float cooldownLimit);
 
 	void update() override;
 
-	float GetHealth();
-	void SetHealth(float h);
-	float GetDamage();
-	void SetDamage(float d);
+	void setHealth(float h);
+	int getHealth();
+	int getMaxHealth();
+	void setDamage(float d);
+	int getDamage();
 
 	void attackEntity(Entity* en);
 	void moveTo(Vector2f target);
@@ -28,8 +29,9 @@ public:
 	void removeItem(Item* i);
 
 protected:
-	float health;
-	float damage;
+	int health;
+	int maxHealth;
+	int damage;
 	int attackDistance;
 	float cooldown, cooldownLimit;
 

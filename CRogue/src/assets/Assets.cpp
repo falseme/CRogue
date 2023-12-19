@@ -50,6 +50,10 @@ Image Assets::mouse;
 Font Assets::defaultFont;
 Font Assets::titleFont;
 
+Texture* Assets::heart;
+Texture* Assets::heart_half;
+Texture* Assets::heart_empty;
+
 void Assets::load() {
 
 	//ENTITIES
@@ -105,6 +109,9 @@ void Assets::load() {
 
 	//GUI
 	mouse = Loader::loadTexture("data/assets/textures/gui/mouse.png")->copyToImage();
+	heart = Loader::loadTexture("data/assets/textures/gui/heart2.png");
+	heart_half = Loader::loadTexture("data/assets/textures/gui/heart1.png");
+	heart_empty = Loader::loadTexture("data/assets/textures/gui/heart0.png");
 
 	//FONT
 	defaultFont.loadFromFile("data/assets/fonts/dogicapixelbold.ttf");

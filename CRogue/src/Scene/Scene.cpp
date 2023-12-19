@@ -55,7 +55,7 @@ GameObject* Scene::find(string name) {
 }
 
 vector<GameObject*> Scene::findAll(string name) {
-	
+
 	vector<GameObject*> found;
 
 	for (GameObject* go : gameObjects) {
@@ -86,11 +86,16 @@ void Scene::addTile(Tile* t) {
 
 void Scene::cameraFollow(Vector2f target, float offset) {
 
-	if (Mathv::distance(target, cameraView.getCenter()) > offset) {
-		Vector2f delta = target - cameraView.getCenter();
-		Mathv::normalizeAndScale(delta, offset);
-		cameraView.setCenter(target - delta);
-	}
+	if (Mathv::distance(target, cameraView.getCenter()) < offset)
+		return;
+
+	Vector2f previousPos = cameraView.getCenter();
+	Vector2f delta = target - cameraView.getCenter();
+	Mathv::normalizeAndScale(delta, offset);
+	cameraView.setCenter(target - delta);
+
+	Vector2f GUIMove = cameraView.getCenter() - previousPos;
+	GUIPanel.move(GUIMove);
 
 }
 

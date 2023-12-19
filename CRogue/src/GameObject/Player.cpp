@@ -5,11 +5,14 @@
 
 #include <assets/Assets.h>
 #include <scene/SceneManager.h>
+#include <scene/LevelScene.h>
 #include <util/Mathv.h>
 #include <util/Timef.h>
 #include <item/HealthPotion.h>
 
-Player::Player(Vector2f pos, float h, float d, float speed) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, d, speed, 16, 0.9f) {
+const int Player::MAX_HEALTH;
+
+Player::Player(Vector2f pos, int h, int d, float speed) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, MAX_HEALTH, d, speed, 16, 0.9f) {
 	showInventory = false;
 }
 
@@ -58,14 +61,15 @@ void Player::update() {
 		break;
 	case stunned:
 
+		((LevelScene*)SceneManager::getCurrentScene())->updateGUIHealth(health);
+
 		if (animations[currentAnimation].ended()) {
 			selfState = run;
-		}
-
-		if (health <= 0) {
-			selfState = dead;
-			collider = BoxCollider();
-			speed = { 0,0 };
+			if (health <= 0) {
+				selfState = dead;
+				collider.setSize({ 0,0 });
+				speed = { 0,0 };
+			}
 		}
 
 		break;
@@ -78,6 +82,9 @@ void Player::update() {
 			HealthPotion* p = (HealthPotion*)getItem("health_potion");
 			if (p) {
 				health += p->getHealing();
+				if (health > MAX_HEALTH)
+					health = MAX_HEALTH;
+				((LevelScene*)SceneManager::getCurrentScene())->updateGUIHealth(health);
 				inventory.remove(p);
 			}
 			delete p;

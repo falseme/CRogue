@@ -23,6 +23,8 @@ Vector2f BoxCollider::collide(BoxCollider other) {
 
 	if (other.size == Vector2f(0,0))
 		return { 0,0 };
+	if (size == Vector2f(0, 0))
+		return { 0,0 };
 
 	if (pos.x + size.x / 2 < other.pos.x - other.size.x / 2) // on the left
 		return { 0,0 };

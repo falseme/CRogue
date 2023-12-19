@@ -4,8 +4,9 @@
 #include <util/Timef.h>
 #include <scene/SceneManager.h>
 
-Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, float h, float d, float speed, int attackDistance, float cooldownLimit) : GameObject(pos, name, anim, collider) {
+Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, int h, int mh, int d, float speed, int attackDistance, float cooldownLimit) : GameObject(pos, name, anim, collider) {
 	health = h;
+	maxHealth = mh;
 	damage = d;
 	selfState = idle;
 	sp = speed;
@@ -15,18 +16,24 @@ Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider co
 	murderer = nullptr;
 }
 
-float Entity::GetHealth() {
-	return health;
-}
-void Entity::SetHealth(float h) {
+void Entity::setHealth(float h) {
 	health = h;
 }
 
-float Entity::GetDamage() {
-	return damage;
+int Entity::getHealth() {
+	return health;
 }
-void Entity::SetDamage(float d) {
+
+int Entity::getMaxHealth() {
+	return maxHealth;
+}
+
+void Entity::setDamage(float d) {
 	damage = d;
+}
+
+int Entity::getDamage() {
+	return damage;
 }
 
 void Entity::attackEntity(Entity* en) {
@@ -68,7 +75,7 @@ void Entity::onCollision(BoxCollider other, Vector2f delta) {
 
 void Entity::playStateAnimation() {
 
-	if (currentAnimation != selfState) { // idle = 0 // run = 1 // attack = 2 //
+	if (currentAnimation != selfState) {
 		animations[currentAnimation].reset();
 		currentAnimation = selfState;
 	}
@@ -143,7 +150,7 @@ void Entity::drawCooldown(RWindow* render) {
 	RectangleShape coolrs(Vector2f(w * cooldown / cooldownLimit, 1));
 	coolrs.setOrigin(0, 0.5f);
 	coolrs.setPosition(x + 1, y);
-	coolrs.setFillColor(Color(200, 180, 190, 150));
+	coolrs.setFillColor(Color(200, 180, 190));
 
 	render->draw(bg);
 	render->draw(coolrs);

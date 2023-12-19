@@ -26,3 +26,7 @@ void Label::setPosition(Vector2f position) {
 Vector2f Label::getPosition() {
 	return text.getPosition();
 }
+
+void Label::move(Vector2f delta) {
+	text.move(delta);
+}

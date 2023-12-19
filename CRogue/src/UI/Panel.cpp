@@ -29,3 +29,14 @@ void Panel::removeComponent(UIComponent* component) {
 	components.remove(component);
 	delete component;
 }
+
+void Panel::move(Vector2f delta) {
+	worldPosition += delta;
+	for (UIComponent* comp : components) {
+		comp->move(delta);
+	}
+}
+
+Vector2f Panel::getWorldPosition() {
+	return worldPosition;
+}

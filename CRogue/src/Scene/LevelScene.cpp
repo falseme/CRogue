@@ -12,6 +12,11 @@
 
 LevelScene::LevelScene(int level, float accCamZoom) : Scene(accCamZoom) {
 	this->level = level;
+	for (int i = 0; i < 4; i++) {
+		SpriteImage* si = new SpriteImage(Assets::heart, Vector2f(275 + 12 * i, 210), Vector2f(0.75f, 0.75f), Vector2f(0, 0));
+		GUIHealth.push_back(si);
+		GUIPanel.addComponent(si);
+	}
 }
 
 void LevelScene::update(Vector2f mousePosition) {
@@ -35,6 +40,8 @@ void LevelScene::update(Vector2f mousePosition) {
 }
 
 void LevelScene::loadScene() {
+
+	//GAMELEVEL
 
 	stringstream ss;
 	ss << "data/lvds/ld" << level << ".lvd";
@@ -89,7 +96,7 @@ void LevelScene::loadScene() {
 		int healProbability = rand() % 100;
 		if (healProbability < 10)
 			((Enemy*)enemies[i])->addItem(new HealthPotion(Assets::healthPotion, "health_potion", 2));
-		else if (healProbability < 35) // 25% (35-10)
+		else if (healProbability < 90) // 25% (35-10)
 			((Enemy*)enemies[i])->addItem(new HealthPotion(Assets::healthPotion_small, "health_potion", 1));
 	}
 
@@ -99,7 +106,7 @@ void LevelScene::loadGameObject(char key, int x, int y) {
 
 	switch (key) {
 	case '0':
-		addGameObject(new Player(Vector2f(x, y), 10, 2, 1.5f));
+		addGameObject(new Player(Vector2f(x, y), Player::MAX_HEALTH, 2, 1.5f));
 		cameraFollow(Vector2f(x, y));
 		break;
 	case '1':
@@ -146,27 +153,20 @@ void LevelScene::checkTileCollision(GameObject* gameObject) {
 		gameObject->onCollision(t->getCollider(), d);
 	}
 
-	/*/
-	#if 0
-		Vector2f v_max = { 0,0 }; double d_max = 0;
-		Tile* t_max = nullptr;
-		for (Tile* t : tileset) {
-			Vector2f v_aux = gameObject->getCollider().collide(t->getCollider());
-			double d_aux = std::max(std::fabs(v_aux.x), std::fabs(v_aux.y));
-			if (d_aux > d_max) { d_max = d_aux; v_max = v_aux; t_max = t; }
-		}
-		if (t_max)
-			gameObject->onCollision(t_max->getCollider(), v_max);
-	#else
-		for (Tile* t : tileset) {
-			Vector2f d = gameObject->getCollider().collide(t->getCollider());
-			Vector2f v = gameObject->getSpeed();
-			if (d.x * v.x > 0) d.x = 0;
-			if (d.y * v.y > 0) d.y = 0;
-			if (d == Vector2f(0, 0))
-				continue;
-			gameObject->onCollision(t->getCollider(), d);
-		}
-	#endif
-	//*/
+}
+
+void LevelScene::updateGUIHealth(int health) {
+
+	int whole = health / 2;
+	for (int i = 0; i < whole; i++)
+		GUIHealth[i]->setTexture(Assets::heart);
+
+	if (whole <= GUIHealth.size())
+		for (int i = whole; i < GUIHealth.size(); i++)
+			GUIHealth[i]->setTexture(Assets::heart_empty);
+
+	int half = health % 2;
+	if (half != 0)
+		GUIHealth[whole]->setTexture(Assets::heart_half);
+
 }
