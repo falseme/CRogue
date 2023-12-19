@@ -23,6 +23,7 @@ public:
 	static void quitGame();
 	static void pauseGame();
 	static void showStats();
+	static void showTutorial();
 	static void update(Vector2f mousePosition);
 	static void draw(RWindow* render);
 	static Scene* getCurrentScene();

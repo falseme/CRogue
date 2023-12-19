@@ -28,7 +28,7 @@ void RWindow::setMousePosition(Vector2f pos) {
 void RWindow::setSwordCursor() {
 
 	Cursor cursor;
-	if (cursor.loadFromPixels(Assets::mouse.getPixelsPtr(), { 20,20 }, { 0,0 }))
+	if (cursor.loadFromPixels(Assets::mouse->copyToImage().getPixelsPtr(), { 20,20 }, { 0,0 }))
 		setMouseCursor(cursor);
 
 }

@@ -23,7 +23,11 @@ void MenuScene::loadScene() {
 	statsButton->setCallback(&SceneManager::showStats);
 	GUIPanel.addComponent(statsButton);
 
-	Button* quitButton = new Button(Vector2f(400, 500), "Salir", 16);
+	Button* tutorialButton = new Button(Vector2f(400, 500), "Controles", 16);
+	tutorialButton->setCallback(&SceneManager::showTutorial);
+	GUIPanel.addComponent(tutorialButton);
+
+	Button* quitButton = new Button(Vector2f(400, 550), "Salir", 16);
 	quitButton->setCallback(&SceneManager::quitGame);
 	GUIPanel.addComponent(quitButton);
 

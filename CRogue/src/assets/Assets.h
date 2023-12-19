@@ -55,7 +55,11 @@ public:
 	static Texture* healthPotion;
 	static Texture* healthPotion_small;
 
-	static Image mouse;
+	static vector<Texture*> WASD;
+	static vector<Texture*> H;
+	static vector<Texture*> ESC;
+	static vector<Texture*> TAB;
+	static Texture* mouse;
 
 	static Font defaultFont;
 	static Font titleFont;

@@ -48,7 +48,11 @@ Texture* Assets::key = nullptr;
 Texture* Assets::healthPotion = nullptr;
 Texture* Assets::healthPotion_small = nullptr;
 
-Image Assets::mouse;
+vector<Texture*> Assets::WASD;
+vector<Texture*> Assets::H;
+vector<Texture*> Assets::ESC;
+vector<Texture*> Assets::TAB;
+Texture* Assets::mouse = nullptr;
 
 Font Assets::defaultFont;
 Font Assets::titleFont;
@@ -114,7 +118,11 @@ void Assets::load() {
 	healthPotion_small = Loader::loadTexture("data/assets/textures/items/health_small.png");
 
 	//GUI
-	mouse = Loader::loadTexture("data/assets/textures/gui/mouse.png")->copyToImage();
+	WASD = Loader::loadSpriteSheet("data/assets/textures/gui/keyboard/WASD.png", 63, 42);
+	H = Loader::loadSpriteSheet("data/assets/textures/gui/keyboard/H.png", 19, 21);
+	ESC = Loader::loadSpriteSheet("data/assets/textures/gui/keyboard/ESC.png", 41, 21);
+	TAB = Loader::loadSpriteSheet("data/assets/textures/gui/keyboard/TAB.png", 33, 21);
+	mouse = Loader::loadTexture("data/assets/textures/gui/mouse.png");
 	heart = Loader::loadTexture("data/assets/textures/gui/heart2.png");
 	heart_half = Loader::loadTexture("data/assets/textures/gui/heart1.png");
 	heart_empty = Loader::loadTexture("data/assets/textures/gui/heart0.png");

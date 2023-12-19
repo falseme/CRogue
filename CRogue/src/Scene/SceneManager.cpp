@@ -4,6 +4,7 @@
 #include "MenuScene.h"
 #include "PauseMenu.h"
 #include "StatsScene.h"
+#include "TutorialScene.h"
 #include <gameObject/Player.h>
 
 Scene* SceneManager::mainScene = nullptr;
@@ -15,7 +16,7 @@ bool SceneManager::gamePaused = true;
 
 void SceneManager::init() {
 	currentLevel = 1;
-	auxScene = new LevelScene(currentLevel, 0.15f, 0, 0, 0, 0, 0);
+	auxScene = new LevelScene(currentLevel, 0.15f, 0, 0, 0, 1, 0);
 	loadScene(auxScene);
 	mainScene = new MenuScene();
 	loadScene(mainScene);
@@ -91,6 +92,18 @@ void SceneManager::showStats() {
 		mainScene = new StatsScene("JUEGO TERMINADO");
 		loadScene(mainScene);
 	}
+
+}
+
+void SceneManager::showTutorial() {
+
+	if (gamePaused)
+		mainScene = new TutorialScene();
+	else
+		mainScene = new MenuScene();
+
+	loadScene(mainScene);
+	gamePaused = !gamePaused;
 
 }
 

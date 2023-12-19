@@ -211,7 +211,7 @@ void LevelScene::updateGUIHealth(int health) {
 			GUIHealth[i]->setTexture(Assets::heart_empty);
 
 	int half = health % 2;
-	if (half != 0 && health > 0)
+	if (half > 0)
 		GUIHealth[whole]->setTexture(Assets::heart_half);
 
 	playerHealth = health;
