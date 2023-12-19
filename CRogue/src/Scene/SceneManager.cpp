@@ -3,21 +3,23 @@
 #include "LevelScene.h"
 #include "MenuScene.h"
 #include "PauseMenu.h"
+#include "StatsScene.h"
+#include <gameObject/Player.h>
 
 Scene* SceneManager::mainScene = nullptr;
 Scene* SceneManager::auxScene = nullptr;
 int SceneManager::currentLevel = 1;
 const int SceneManager::MAX_LEVEL = 3;
 bool SceneManager::loadingNextLevel = false;
-bool SceneManager::gamePaused = false;
+bool SceneManager::gamePaused = true;
 
 void SceneManager::init() {
 	currentLevel = 1;
-	auxScene = new LevelScene(currentLevel, 0.15f, 0, 0, 0, 0);
+	auxScene = new LevelScene(currentLevel, 0.15f, 0, 0, 0, 0, 0);
 	loadScene(auxScene);
 	mainScene = new MenuScene();
 	loadScene(mainScene);
-	gamePaused = false;
+	gamePaused = true;
 }
 
 void SceneManager::loadScene(Scene* scene) {
@@ -36,11 +38,10 @@ void SceneManager::loadNextLevel() {
 	if (currentLevel > MAX_LEVEL)
 		currentLevel--;
 
-	LevelScene* prev = ((LevelScene*)mainScene);
-	LevelScene* ls = new LevelScene(currentLevel, mainScene->getAccCamZoom(), prev->getPlayerHealth(), prev->getPlayerKeys(), prev->getPlayerPotions(), prev->getPlayerSmallPotions());
+	Player* pl = (Player*)mainScene->find("player");
+	LevelScene* ls = new LevelScene(currentLevel, mainScene->getAccCamZoom(), pl->getHealth(), pl->getKeyCount(), pl->getPotionCount(), pl->getPotionSmallCount(), pl->getKills());
 	loadScene(ls);
 
-	delete prev;
 	mainScene = ls;
 	loadingNextLevel = false;
 
@@ -53,6 +54,7 @@ void SceneManager::gotoNextLevel() {
 void SceneManager::startGame() {
 	mainScene = auxScene;
 	auxScene = nullptr;
+	gamePaused = false;
 }
 
 void SceneManager::quitGame() {
@@ -71,6 +73,20 @@ void SceneManager::pauseGame() {
 		loadScene(mainScene);
 		gamePaused = true;
 	}
+}
+
+void SceneManager::showStats() {
+
+	if (gamePaused) {
+		mainScene = new StatsScene("ESTADISTICAS");
+		loadScene(mainScene);
+	}
+	else {
+		auxScene = mainScene;
+		mainScene = new StatsScene("JUEGO TERMINADO");
+		loadScene(mainScene);
+	}
+
 }
 
 void SceneManager::update(Vector2f mousePosition) {

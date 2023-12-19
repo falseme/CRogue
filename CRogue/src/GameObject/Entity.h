@@ -18,6 +18,11 @@ public:
 	int getMaxHealth();
 	void setDamage(float d);
 	int getDamage();
+	void addKill();
+	int getKills();
+	int getKeyCount();
+	int getPotionCount();
+	int getPotionSmallCount();
 
 	void attackEntity(Entity* en);
 	void moveTo(Vector2f target);
@@ -26,8 +31,8 @@ public:
 	void playStateAnimation();
 	state getSelfState() const;
 
-	virtual void addInventoryItem(string name, int count);
-	virtual void removeInventoryItem(string name);
+	void addInventoryItem(string name, int count);
+	void removeInventoryItem(string name);
 	bool hasItem(string name);
 	bool useHealthPotion();
 	void giveItems(Entity* en);
@@ -38,6 +43,7 @@ protected:
 	int damage;
 	int attackDistance;
 	float cooldown, cooldownLimit;
+	int kills;
 
 	state selfState;
 

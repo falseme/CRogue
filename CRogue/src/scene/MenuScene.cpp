@@ -20,7 +20,7 @@ void MenuScene::loadScene() {
 	GUIPanel.addComponent(playButton);
 
 	Button* statsButton = new Button(Vector2f(400, 450), "Estadísticas", 16);
-	statsButton->setCallback(&SceneManager::startGame);
+	statsButton->setCallback(&SceneManager::showStats);
 	GUIPanel.addComponent(statsButton);
 
 	Button* quitButton = new Button(Vector2f(400, 500), "Salir", 16);

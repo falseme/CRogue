@@ -81,6 +81,7 @@ void Enemy::update() {
 				collider = BoxCollider();
 				speed = { 0,0 };
 				giveItems(murderer);
+				murderer->addKill();
 			}
 		}
 

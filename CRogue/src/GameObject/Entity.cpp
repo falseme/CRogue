@@ -18,6 +18,7 @@ Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider co
 	this->cooldown = cooldownLimit;
 	this->cooldownLimit = cooldownLimit;
 	murderer = nullptr;
+	kills = 0;
 }
 
 void Entity::setHealth(float h) {
@@ -38,6 +39,26 @@ void Entity::setDamage(float d) {
 
 int Entity::getDamage() {
 	return damage;
+}
+
+void Entity::addKill() {
+	kills++;
+}
+
+int Entity::getKills() {
+	return kills;
+}
+
+int Entity::getKeyCount() {
+	return inventory[KEY_ID];
+}
+
+int Entity::getPotionCount() {
+	return inventory[HEALTH_POTION_ID];
+}
+
+int Entity::getPotionSmallCount() {
+	return inventory[HEALTH_POTION_SMALL_ID];
 }
 
 void Entity::attackEntity(Entity* en) {

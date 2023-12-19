@@ -10,7 +10,7 @@
 #include <gameObject/Ladder.h>
 #include <scene/SceneManager.h>
 
-LevelScene::LevelScene(int level, float accCamZoom, int playerHealth, int keyCount, int potionCount, int smallPotionCount) : Scene(accCamZoom) {
+LevelScene::LevelScene(int level, float accCamZoom, int playerHealth, int keyCount, int potionCount, int smallPotionCount, int playerKills) : Scene(accCamZoom) {
 	this->level = level;
 	for (int i = 0; i < 4; i++) {
 		SpriteImage* si = new SpriteImage(Assets::heart, Vector2f(275 + 12 * i, 210), Vector2f(0.75f, 0.75f), Vector2f(0, 0));
@@ -24,6 +24,7 @@ LevelScene::LevelScene(int level, float accCamZoom, int playerHealth, int keyCou
 	playerKeys = keyCount;
 	playerPotions = potionCount;
 	playerSmallPotions = smallPotionCount;
+	this->playerKills = playerKills;
 }
 
 void LevelScene::update(Vector2f mousePosition) {
@@ -123,7 +124,7 @@ string LevelScene::loadGameObject(char key, int x, int y) {
 
 	switch (key) {
 	case '0':
-		addGameObject(new Player(Vector2f(x, y), playerHealth, 2, 1.5f, playerKeys, playerPotions, playerSmallPotions));
+		addGameObject(new Player(Vector2f(x, y), playerHealth, 2, 1.5f, playerKeys, playerPotions, playerSmallPotions, playerKills));
 		cameraFollow(Vector2f(x, y));
 		newTileKey = "O0";
 		break;
@@ -210,31 +211,11 @@ void LevelScene::updateGUIHealth(int health) {
 			GUIHealth[i]->setTexture(Assets::heart_empty);
 
 	int half = health % 2;
-	if (half != 0)
+	if (half != 0 && health > 0)
 		GUIHealth[whole]->setTexture(Assets::heart_half);
 
 	playerHealth = health;
 
 }
 
-void LevelScene::updatePlayerInventory(int playerKeys, int playerPotions, int playerSmallPotions) {
-	this->playerKeys = playerKeys;
-	this->playerPotions = playerPotions;
-	this->playerSmallPotions = playerSmallPotions;
-}
 
-int LevelScene::getPlayerHealth() {
-	return playerHealth;
-}
-
-int LevelScene::getPlayerKeys() {
-	return playerKeys;
-}
-
-int LevelScene::getPlayerPotions() {
-	return playerPotions;
-}
-
-int LevelScene::getPlayerSmallPotions() {
-	return playerSmallPotions;
-}

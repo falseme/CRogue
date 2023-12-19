@@ -400,3 +400,4 @@ FodyWeavers.xsd
 CRogue/CRogue.vcxproj
 CRogue/CRogue.vcxproj.filters
 CRogue/CRogue.vcxproj.user
+/CRogue/data/save.dat

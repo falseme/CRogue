@@ -2,6 +2,7 @@
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <fstream>
 
 #include <assets/Assets.h>
 #include <scene/SceneManager.h>
@@ -11,12 +12,13 @@
 
 const int Player::MAX_HEALTH;
 
-Player::Player(Vector2f pos, int h, int d, float speed, int keys, int potions, int smallPotions) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, MAX_HEALTH, d, speed, 16, 0.9f) {
+Player::Player(Vector2f pos, int h, int d, float speed, int keys, int potions, int smallPotions, int kills) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, MAX_HEALTH, d, speed, 16, 0.9f) {
 
 	showInventory = false;
 	inventory[KEY_ID] = keys;
 	inventory[HEALTH_POTION_ID] = potions;
 	inventory[HEALTH_POTION_SMALL_ID] = smallPotions;
+	this->kills = kills;
 
 }
 
@@ -83,6 +85,14 @@ void Player::update() {
 
 		if (animations[currentAnimation].ended())
 			selfState = idle;
+
+		break;
+	case dead:
+
+		if (animations[currentAnimation].ended()) {
+			saveStats(false, true);
+			SceneManager::showStats();
+		}
 
 		break;
 	}
@@ -165,17 +175,30 @@ bool Player::healing() {
 
 }
 
-void Player::addInventoryItem(string name, int count) {
+void Player::saveStats(bool victory, bool loss) {
 
-	inventory[name] += count;
-	((LevelScene*)SceneManager::getCurrentScene())->updatePlayerInventory(inventory[KEY_ID], inventory[HEALTH_POTION_ID], inventory[HEALTH_POTION_SMALL_ID]);
+	int totalKills = 0;
+	int victories = 0;
+	int losses = 0;
+	UserStats* stats = new UserStats();
+	FILE* statsI;
+	fopen_s(&statsI, "data/save.dat", "rb");
+	if (statsI) {
+		fread(stats, sizeof(UserStats), 1, statsI);
+		fclose(statsI);
+	}
 
-}
+	stats->victories += victory;
+	stats->losses += loss;
+	stats->kills = kills;
+	stats->totalKills += kills;
 
-void Player::removeInventoryItem(string name) {
-
-	inventory[name]--;
-	((LevelScene*)SceneManager::getCurrentScene())->updatePlayerInventory(inventory[KEY_ID], inventory[HEALTH_POTION_ID], inventory[HEALTH_POTION_SMALL_ID]);
+	FILE* statsO;
+	fopen_s(&statsO, "data/save.dat", "wb");
+	if (!statsO)
+		return;
+	fwrite(stats, sizeof(UserStats), 1, statsO);
+	fclose(statsO);
 
 }
 
