@@ -1,11 +1,17 @@
 #include "Panel.h"
 
 Panel::Panel() {
-
+	backgroundColor = Color(0, 0, 0, 0);
 }
 
 Panel::Panel(Vector2f pos) {
 	worldPosition = pos;
+	backgroundColor = Color(0, 0, 0, 0);
+}
+
+Panel::Panel(Vector2f pos, Color bgColor) {
+	worldPosition = pos;
+	backgroundColor = bgColor;
 }
 
 void Panel::update(Vector2f mousePosition) {
@@ -15,6 +21,10 @@ void Panel::update(Vector2f mousePosition) {
 }
 
 void Panel::draw(RWindow* render) {
+	RectangleShape background(Vector2f(render->getSize().x, render->getSize().y));
+	background.setFillColor(backgroundColor);
+	background.setPosition(worldPosition);
+	render->draw(background);
 	for (UIComponent* component : components) {
 		component->draw(render);
 	}

@@ -9,6 +9,7 @@
 #include <gameObject/Door.h>
 #include <gameObject/Ladder.h>
 #include <item/HealthPotion.h>
+#include <scene/SceneManager.h>
 
 LevelScene::LevelScene(int level, float accCamZoom, int playerHealth) : Scene(accCamZoom) {
 	this->level = level;
@@ -24,6 +25,9 @@ LevelScene::LevelScene(int level, float accCamZoom, int playerHealth) : Scene(ac
 }
 
 void LevelScene::update(Vector2f mousePosition) {
+
+	if (Keyboard::isKeyPressed(Keyboard::Escape))
+		SceneManager::pauseGame();
 
 	GUIPanel.update(mousePosition);
 

@@ -13,6 +13,7 @@ private:
 	static Scene* mainScene;
 	static Scene* auxScene;
 	static bool loadingNextLevel;
+	static bool gamePaused;
 public:
 	static void init();
 	static void loadScene(Scene* scene);
@@ -20,6 +21,7 @@ public:
 	static void gotoNextLevel();
 	static void startGame();
 	static void quitGame();
+	static void pauseGame();
 	static void update(Vector2f mousePosition);
 	static void draw(RWindow* render);
 	static Scene* getCurrentScene();

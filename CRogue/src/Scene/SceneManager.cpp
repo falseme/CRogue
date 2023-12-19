@@ -2,18 +2,22 @@
 
 #include "LevelScene.h"
 #include "MenuScene.h"
+#include "PauseMenu.h"
 
 Scene* SceneManager::mainScene = nullptr;
 Scene* SceneManager::auxScene = nullptr;
 int SceneManager::currentLevel = 1;
 const int SceneManager::MAX_LEVEL = 3;
 bool SceneManager::loadingNextLevel = false;
+bool SceneManager::gamePaused = false;
 
 void SceneManager::init() {
+	currentLevel = 1;
 	auxScene = new LevelScene(currentLevel, 0.15f, 0);
 	loadScene(auxScene);
 	mainScene = new MenuScene();
 	loadScene(mainScene);
+	gamePaused = false;
 }
 
 void SceneManager::loadScene(Scene* scene) {
@@ -52,6 +56,20 @@ void SceneManager::startGame() {
 
 void SceneManager::quitGame() {
 	exit(0);
+}
+
+void SceneManager::pauseGame() {
+	if (gamePaused) {
+		mainScene = auxScene;
+		auxScene = nullptr;
+		gamePaused = false;
+	}
+	else {
+		auxScene = mainScene;
+		mainScene = new PauseMenu();
+		loadScene(mainScene);
+		gamePaused = true;
+	}
 }
 
 void SceneManager::update(Vector2f mousePosition) {
