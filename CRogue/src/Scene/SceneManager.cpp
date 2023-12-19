@@ -34,11 +34,16 @@ void SceneManager::loadNextLevel() {
 		return;
 	}
 
-	currentLevel++;
-	if (currentLevel > MAX_LEVEL)
-		currentLevel--;
-
 	Player* pl = (Player*)mainScene->find("player");
+
+	currentLevel++;
+	if (currentLevel > MAX_LEVEL) {
+		pl->saveStats(true, false);
+		showStats();
+		loadingNextLevel = false;
+		return;
+	}
+
 	LevelScene* ls = new LevelScene(currentLevel, mainScene->getAccCamZoom(), pl->getHealth(), pl->getKeyCount(), pl->getPotionCount(), pl->getPotionSmallCount(), pl->getKills());
 	loadScene(ls);
 

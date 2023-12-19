@@ -7,7 +7,5 @@ public:
 	StatsScene(string title);
 	void update(Vector2f mousePosition) override;
 	void loadScene() override;
-private:
-	bool died;
 };
 
