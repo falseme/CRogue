@@ -93,12 +93,12 @@
       <AdditionalIncludeDirectories>[SFML/include absolute path];[CRogue/src absolute path]</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>[SFML/lib absolute path]</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);sfml-graphics-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);sfml-graphics-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-system-s.lib;sfml-main.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,6 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\scene\PauseMenu.cpp" />
+    <ClCompile Include="src\ui\SpriteImage.cpp" />
+    <ClCompile Include="src\ui\Button.cpp" />
+    <ClCompile Include="src\scene\MenuScene.cpp" />
+    <ClCompile Include="src\ui\Label.cpp" />
+    <ClCompile Include="src\ui\Panel.cpp" />
+    <ClCompile Include="src\gameObject\Ladder.cpp" />
+    <ClCompile Include="src\gameObject\Door.cpp" />
+    <ClCompile Include="src\gameObject\SceneObject.cpp" />
     <ClCompile Include="src\util\Mathv.cpp" />
     <ClCompile Include="src\collision\BoxCollider.cpp" />
     <ClCompile Include="src\scene\LevelScene.cpp" />
@@ -145,8 +154,19 @@
     <ClCompile Include="src\ui\RWindow.cpp" />
     <ClCompile Include="src\gameObject\GameObject.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\util\Timef.cpp" />
+    <ClCompile Include="src\scene\StatsScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\scene\PauseMenu.h" />
+    <ClInclude Include="src\ui\SpriteImage.h" />
+    <ClInclude Include="src\ui\Button.h" />
+    <ClInclude Include="src\scene\MenuScene.h" />
+    <ClInclude Include="src\ui\Label.h" />
+    <ClInclude Include="src\ui\Panel.h" />
+    <ClInclude Include="src\gameObject\Ladder.h" />
+    <ClInclude Include="src\gameObject\Door.h" />
+    <ClInclude Include="src\gameObject\SceneObject.h" />
     <ClInclude Include="src\util\Mathv.h" />
     <ClInclude Include="src\collision\BoxCollider.h" />
     <ClInclude Include="src\scene\LevelScene.h" />
@@ -161,6 +181,9 @@
     <ClInclude Include="src\scene\SceneManager.h" />
     <ClInclude Include="src\ui\RWindow.h" />
     <ClInclude Include="src\gameObject\GameObject.h" />
+    <ClInclude Include="src\util\Timef.h" />
+    <ClInclude Include="src\ui\UIComponent.h" />
+    <ClInclude Include="src\scene\StatsScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
