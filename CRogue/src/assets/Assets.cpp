@@ -37,9 +37,12 @@ Texture* Assets::skelyDeadSW_pow = nullptr;
 
 map<string, vector<Texture*>> Assets::tilemap;
 
+Texture* Assets::ladder = nullptr;
 Texture* Assets::doorClosed = nullptr;
 vector<Texture*> Assets::doorOpen;
-Texture* Assets::ladder = nullptr;
+vector<Texture*> Assets::flag;
+vector<Texture*> Assets::torch;
+vector<Texture*> Assets::torch_side;
 
 Texture* Assets::key = nullptr;
 Texture* Assets::healthPotion = nullptr;
@@ -98,9 +101,12 @@ void Assets::load() {
 	Loader::loadTileMap(tilemap, keys, "data/assets/textures/tileset/dungeon_tileset_v.png", 16);
 
 	//SCENE OBJECTS
-	doorClosed = Loader::loadTexture("data/assets/textures/scene_objects/door/closed.png");
-	doorOpen = Loader::loadSpriteSheet("data/assets/textures/scene_objects/door/open.png", 32, 16);
-	ladder = Loader::loadTexture("data/assets/textures/scene_objects/ladder/ladder.png");
+	ladder = Loader::loadTexture("data/assets/textures/scene_objects/ladder.png");
+	doorClosed = Loader::loadTexture("data/assets/textures/scene_objects/door_closed.png");
+	doorOpen = Loader::loadSpriteSheet("data/assets/textures/scene_objects/door_open.png", 32, 16);
+	flag = Loader::loadSpriteSheet("data/assets/textures/scene_objects/flag.png", 16,16);
+	torch = Loader::loadSpriteSheet("data/assets/textures/scene_objects/torch.png", 16, 16);
+	torch_side = Loader::loadSpriteSheet("data/assets/textures/scene_objects/torch_side.png", 16, 16);
 
 	// ITEMS
 	key = Loader::loadTexture("data/assets/textures/items/key.png");

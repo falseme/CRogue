@@ -44,9 +44,12 @@ public:
 
 	static map<string, vector<Texture*>> tilemap;
 
+	static Texture* ladder;
 	static Texture* doorClosed;
 	static vector<Texture*> doorOpen;
-	static Texture* ladder;
+	static vector<Texture*> flag;
+	static vector<Texture*> torch;
+	static vector<Texture*> torch_side;
 
 	static Texture* key;
 	static Texture* healthPotion;

@@ -12,7 +12,7 @@ public:
 	void update(Vector2f mousePosition) override;
 	void loadScene() override;
 
-	void loadGameObject(char key, int x, int y);
+	string loadGameObject(char key, int x, int y);
 
 	void checkCollision(GameObject* gameObject);
 	void checkTileCollision(GameObject* gameObject);

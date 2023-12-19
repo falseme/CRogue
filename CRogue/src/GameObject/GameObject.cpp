@@ -54,6 +54,10 @@ string GameObject::getName() {
 	return name;
 }
 
+Sprite& GameObject::getSprite() {
+	return sprite;
+}
+
 bool GameObject::comp(GameObject* g) {
 	if (g->pos.y > pos.y)
 		return 1;

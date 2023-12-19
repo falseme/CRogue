@@ -22,7 +22,7 @@ void Enemy::update() {
 		speed = Vector2f(0, 0);
 
 		if (animations[currentAnimation].ended() || pl == nullptr) {
-			int nDeg = (rand() % 45) * (rand() % 8);
+			int nDeg = 45 * (rand() % 8);
 			float x = cos(nDeg * M_PI / 180);
 			float y = sin(nDeg * M_PI / 180);
 			speed = Vector2f(x, y);

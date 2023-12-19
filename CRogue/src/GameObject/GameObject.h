@@ -30,6 +30,7 @@ public:
 	BoxCollider getCollider();
 	Vector2f getPos();
 	string getName();
+	Sprite& getSprite();
 
 	bool comp(GameObject* g);
 };

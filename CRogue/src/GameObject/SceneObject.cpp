@@ -7,6 +7,7 @@ SceneObject::SceneObject(Vector2f pos, vector<Animation> anim, BoxCollider colli
 void SceneObject::update() {
 
 	animations[currentAnimation].play();
+	sprite.setTexture(*animations[currentAnimation].getFrame());
 
 }
 

@@ -6,7 +6,7 @@
 Scene* SceneManager::mainScene = nullptr;
 Scene* SceneManager::auxScene = nullptr;
 int SceneManager::currentLevel = 1;
-const int SceneManager::MAX_LEVEL = 2;
+const int SceneManager::MAX_LEVEL = 3;
 bool SceneManager::loadingNextLevel = false;
 
 void SceneManager::init() {

@@ -67,12 +67,14 @@ void LevelScene::loadScene() {
 				continue;
 			}
 
-			if (tileKey.front() == '&') {
-				loadGameObject(tileKey.back(), px, py);
-				tileKey = "O0";
-			}
+			if (tileKey.front() == '&')
+				tileKey = loadGameObject(tileKey.back(), px, py);
 
 			bool collider = tileKey.front() == '#' ? true : false;
+			if (Assets::tilemap[tileKey].size() == 0) {
+				px += 16;
+				continue;
+			}
 			int texIndex = rand() % Assets::tilemap[tileKey].size();
 
 			addTile(new Tile(Vector2f(px, py), Assets::tilemap[tileKey][texIndex], collider));
@@ -88,6 +90,8 @@ void LevelScene::loadScene() {
 
 	// GIVE KEYS TO ENEMIES
 	vector<GameObject*> enemies = findAll("enemy");
+	if (enemies.empty())
+		return;
 	int n = rand() % enemies.size();
 	((Enemy*)enemies[n])->addItem(new Item(Assets::key, "key"));
 
@@ -102,32 +106,62 @@ void LevelScene::loadScene() {
 
 }
 
-void LevelScene::loadGameObject(char key, int x, int y) {
+string LevelScene::loadGameObject(char key, int x, int y) {
+
+	string newTileKey;
+	SceneObject* so = nullptr;
 
 	switch (key) {
 	case '0':
 		addGameObject(new Player(Vector2f(x, y), Player::MAX_HEALTH, 2, 1.5f));
 		cameraFollow(Vector2f(x, y));
+		newTileKey = "O0";
 		break;
 	case '1':
 		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdle), Animation(0.6f, Assets::skelyRun), Animation(0.6f, Assets::skelyAttack), Animation(0.5f, Assets::skelyStunned), Animation(0.5f, Assets::skelyHeal), Animation(Assets::skelyDead) }, 8, 2, 0.8f, 20, 90, 1.1f));
+		newTileKey = "O0";
 		break;
 	case '2':
 		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdleSW), Animation(0.6f, Assets::skelyRunSW), Animation(0.55f, Assets::skelyAttackSW), Animation(0.5f, Assets::skelyStunnedSW), Animation(0.5f, Assets::skelyHealSW), Animation(Assets::skelyDeadSW) }, 6, 1, 0.9f, 18, 90, 0.95f));
+		newTileKey = "O0";
 		break;
 	case '3':
 		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdle_pow), Animation(0.6f, Assets::skelyRun_pow), Animation(0.55f, Assets::skelyAttack_pow), Animation(0.5f, Assets::skelyStunned_pow), Animation(0.5f, Assets::skelyHeal_pow), Animation(Assets::skelyDead_pow) }, 12, 3, 1.05f, 20, 100, 0.85));
+		newTileKey = "O0";
 		break;
 	case '4':
-		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.5f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(0.5f, Assets::skelyHealSW_pow), Animation(Assets::skelyDeadSW_pow) }, 10, 2, 1.12f, 20, 100, 0.65f));
+		addGameObject(new Enemy(Vector2f(x, y), { Animation(1.2f, Assets::skelyIdleSW_pow), Animation(0.6f, Assets::skelyRunSW_pow), Animation(0.5f, Assets::skelyAttackSW_pow), Animation(0.5f, Assets::skelyStunnedSW_pow), Animation(0.5f, Assets::skelyHealSW_pow), Animation(Assets::skelyDeadSW_pow) }, 10, 2, 1.12f, 20, 100, 0.75f));
+		newTileKey = "O0";
 		break;
 	case '6':
 		addGameObject(new Door(Vector2f(x + 8, y)));
+		newTileKey = "O0";
 		break;
 	case '7':
+		addGameObject(new SceneObject(Vector2f(x, y), { Animation(0.8f, Assets::flag) }, BoxCollider()));
+		newTileKey = "#0";
+		break;
+	case '8':
+		addGameObject(new SceneObject(Vector2f(x, y), { Animation(0.7f, Assets::torch) }, BoxCollider()));
+		newTileKey = "#0";
+		break;
+	case '9':
+		addGameObject(new SceneObject(Vector2f(x, y), { Animation(0.7f, Assets::torch_side) }, BoxCollider()));
+		newTileKey = "O7";
+		break;
+	case 'A':
+		so = new SceneObject(Vector2f(x, y), { Animation(0.7f, Assets::torch_side) }, BoxCollider());
+		so->getSprite().setScale(-1, 1);
+		addGameObject(so);
+		newTileKey = "O8";
+		break;
+	case 'B':
 		addGameObject(new Ladder(Vector2f(x, y)));
+		newTileKey = "O0";
 		break;
 	}
+
+	return newTileKey;
 
 }
 
