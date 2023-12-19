@@ -10,7 +10,7 @@
 #include <gameObject/Ladder.h>
 #include <scene/SceneManager.h>
 
-LevelScene::LevelScene(int level, float accCamZoom, int playerHealth) : Scene(accCamZoom) {
+LevelScene::LevelScene(int level, float accCamZoom, int playerHealth, int keyCount, int potionCount, int smallPotionCount) : Scene(accCamZoom) {
 	this->level = level;
 	for (int i = 0; i < 4; i++) {
 		SpriteImage* si = new SpriteImage(Assets::heart, Vector2f(275 + 12 * i, 210), Vector2f(0.75f, 0.75f), Vector2f(0, 0));
@@ -21,6 +21,9 @@ LevelScene::LevelScene(int level, float accCamZoom, int playerHealth) : Scene(ac
 		updateGUIHealth(playerHealth);
 	else
 		this->playerHealth = Player::MAX_HEALTH;
+	playerKeys = keyCount;
+	playerPotions = potionCount;
+	playerSmallPotions = smallPotionCount;
 }
 
 void LevelScene::update(Vector2f mousePosition) {
@@ -100,15 +103,15 @@ void LevelScene::loadScene() {
 	if (enemies.empty())
 		return;
 	int n = rand() % enemies.size();
-	((Enemy*)enemies[n])->addInventoryItem(Enemy::KEY_ID);
+	((Enemy*)enemies[n])->addInventoryItem(Entity::KEY_ID, 1);
 
 	// GIVE HEAL POTIONS TO ENEMIES
 	for (int i = 0; i < enemies.size(); i++) {
 		int healProbability = rand() % 100;
-		if (healProbability < 10)
-			((Enemy*)enemies[i])->addInventoryItem(Enemy::HEALTH_POTION_ID);
-		else if (healProbability < 90) // 25% (35-10)
-			((Enemy*)enemies[i])->addInventoryItem(Enemy::HEALTH_POTION_SMALL_ID);
+		if (healProbability < 10) // 10%
+			((Enemy*)enemies[i])->addInventoryItem(Entity::HEALTH_POTION_ID, 1);
+		else if (healProbability < 35) // 25% (35-10)
+			((Enemy*)enemies[i])->addInventoryItem(Entity::HEALTH_POTION_SMALL_ID, 1);
 	}
 
 }
@@ -120,7 +123,7 @@ string LevelScene::loadGameObject(char key, int x, int y) {
 
 	switch (key) {
 	case '0':
-		addGameObject(new Player(Vector2f(x, y), playerHealth, 2, 1.5f));
+		addGameObject(new Player(Vector2f(x, y), playerHealth, 2, 1.5f, playerKeys, playerPotions, playerSmallPotions));
 		cameraFollow(Vector2f(x, y));
 		newTileKey = "O0";
 		break;
@@ -214,6 +217,24 @@ void LevelScene::updateGUIHealth(int health) {
 
 }
 
+void LevelScene::updatePlayerInventory(int playerKeys, int playerPotions, int playerSmallPotions) {
+	this->playerKeys = playerKeys;
+	this->playerPotions = playerPotions;
+	this->playerSmallPotions = playerSmallPotions;
+}
+
 int LevelScene::getPlayerHealth() {
 	return playerHealth;
+}
+
+int LevelScene::getPlayerKeys() {
+	return playerKeys;
+}
+
+int LevelScene::getPlayerPotions() {
+	return playerPotions;
+}
+
+int LevelScene::getPlayerSmallPotions() {
+	return playerSmallPotions;
 }

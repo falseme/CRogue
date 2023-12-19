@@ -26,9 +26,9 @@ public:
 	void playStateAnimation();
 	state getSelfState() const;
 
-	void addInventoryItem(string name);
+	virtual void addInventoryItem(string name, int count);
+	virtual void removeInventoryItem(string name);
 	bool hasItem(string name);
-	void removeInventoryItem(string name);
 	bool useHealthPotion();
 	void giveItems(Entity* en);
 

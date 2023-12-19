@@ -11,8 +11,13 @@
 
 const int Player::MAX_HEALTH;
 
-Player::Player(Vector2f pos, int h, int d, float speed) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, MAX_HEALTH, d, speed, 16, 0.9f) {
+Player::Player(Vector2f pos, int h, int d, float speed, int keys, int potions, int smallPotions) : Entity(pos, "player", { Animation(1.2f, Assets::playerIdle), Animation(0.6f, Assets::playerRun), Animation(0.36f, Assets::playerAttack), Animation(0.4f, Assets::playerStunned), Animation(0.4f, Assets::playerHeal), Animation(Assets::playerDead) }, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, MAX_HEALTH, d, speed, 16, 0.9f) {
+
 	showInventory = false;
+	inventory[KEY_ID] = keys;
+	inventory[HEALTH_POTION_ID] = potions;
+	inventory[HEALTH_POTION_SMALL_ID] = smallPotions;
+
 }
 
 void Player::update() {
@@ -157,6 +162,20 @@ bool Player::healing() {
 	}
 
 	return false;
+
+}
+
+void Player::addInventoryItem(string name, int count) {
+
+	inventory[name] += count;
+	((LevelScene*)SceneManager::getCurrentScene())->updatePlayerInventory(inventory[KEY_ID], inventory[HEALTH_POTION_ID], inventory[HEALTH_POTION_SMALL_ID]);
+
+}
+
+void Player::removeInventoryItem(string name) {
+
+	inventory[name]--;
+	((LevelScene*)SceneManager::getCurrentScene())->updatePlayerInventory(inventory[KEY_ID], inventory[HEALTH_POTION_ID], inventory[HEALTH_POTION_SMALL_ID]);
 
 }
 

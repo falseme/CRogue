@@ -93,8 +93,8 @@ Entity::state Entity::getSelfState() const {
 	return selfState;
 }
 
-void Entity::addInventoryItem(string name) {
-	inventory[name]++;
+void Entity::addInventoryItem(string name, int count) {
+	inventory[name] += count;
 }
 
 bool Entity::hasItem(string name) {
@@ -128,9 +128,9 @@ bool Entity::useHealthPotion() {
 }
 
 void Entity::giveItems(Entity* en) {
-	en->inventory[KEY_ID] += inventory[KEY_ID];
-	en->inventory[HEALTH_POTION_ID] += inventory[HEALTH_POTION_ID];
-	en->inventory[HEALTH_POTION_SMALL_ID] += inventory[HEALTH_POTION_SMALL_ID];
+	en->addInventoryItem(KEY_ID, inventory[KEY_ID]);
+	en->addInventoryItem(HEALTH_POTION_ID, inventory[HEALTH_POTION_ID]);
+	en->addInventoryItem(HEALTH_POTION_SMALL_ID, inventory[HEALTH_POTION_SMALL_ID]);
 	inventory.clear();
 }
 

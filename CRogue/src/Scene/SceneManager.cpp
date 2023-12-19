@@ -13,7 +13,7 @@ bool SceneManager::gamePaused = false;
 
 void SceneManager::init() {
 	currentLevel = 1;
-	auxScene = new LevelScene(currentLevel, 0.15f, 0);
+	auxScene = new LevelScene(currentLevel, 0.15f, 0, 0, 0, 0);
 	loadScene(auxScene);
 	mainScene = new MenuScene();
 	loadScene(mainScene);
@@ -36,10 +36,11 @@ void SceneManager::loadNextLevel() {
 	if (currentLevel > MAX_LEVEL)
 		currentLevel--;
 
-	LevelScene* ls = new LevelScene(currentLevel, mainScene->getAccCamZoom(), ((LevelScene*)mainScene)->getPlayerHealth());
+	LevelScene* prev = ((LevelScene*)mainScene);
+	LevelScene* ls = new LevelScene(currentLevel, mainScene->getAccCamZoom(), prev->getPlayerHealth(), prev->getPlayerKeys(), prev->getPlayerPotions(), prev->getPlayerSmallPotions());
 	loadScene(ls);
 
-	delete mainScene;
+	delete prev;
 	mainScene = ls;
 	loadingNextLevel = false;
 
