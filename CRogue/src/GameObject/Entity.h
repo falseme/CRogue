@@ -1,11 +1,13 @@
 #pragma once
 
 #include "GameObject.h"
-#include <item/Item.h>
 
-class Entity :public GameObject {
+class Entity : public GameObject {
 public:
 	static const enum state { idle, run, attack, stunned, heal, dead };
+	static const string HEALTH_POTION_ID;
+	static const string HEALTH_POTION_SMALL_ID;
+	static const string KEY_ID;
 
 	Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, int h, int mh, int d, float speed, int attackDistance, float cooldownLimit);
 
@@ -24,9 +26,11 @@ public:
 	void playStateAnimation();
 	state getSelfState() const;
 
-	void addItem(Item* i);
-	Item* getItem(string name);
-	void removeItem(Item* i);
+	void addInventoryItem(string name);
+	bool hasItem(string name);
+	void removeInventoryItem(string name);
+	bool useHealthPotion();
+	void giveItems(Entity* en);
 
 protected:
 	int health;
@@ -40,7 +44,7 @@ protected:
 	float sp; // speed vector mod
 	Vector2f speed;
 
-	list<Item*> inventory;
+	map<string, int> inventory;
 	void drawInventory(RWindow* render, bool background);
 	void drawCooldown(RWindow* render);
 

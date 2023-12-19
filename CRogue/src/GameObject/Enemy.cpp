@@ -4,7 +4,6 @@
 #include <scene/SceneManager.h>
 #include <util/Mathv.h>
 #include <util/Timef.h>
-#include <item/HealthPotion.h>
 
 Enemy::Enemy(Vector2f pos, vector<Animation> anim, float h, float d, float speed, int attackDistance, int followDistance, float cooldownLimit) : Entity(pos, "enemy", anim, BoxCollider(Vector2f(12, 12), Vector2f(0, 2)), h, h, d, speed, attackDistance, cooldownLimit) {
 	this->followDistance = followDistance;
@@ -72,7 +71,7 @@ void Enemy::update() {
 		move(speed);
 		if (animations[currentAnimation].ended()) {
 			int n = rand() % 100;
-			if (n < 5 && getItem("health_potion"))
+			if (n < 5 && useHealthPotion())
 				selfState = heal;
 			else
 				selfState = idle;
@@ -81,26 +80,15 @@ void Enemy::update() {
 				selfState = dead;
 				collider = BoxCollider();
 				speed = { 0,0 };
-				for (Item* i : inventory)
-					murderer->addItem(i);
-				inventory.clear();
+				giveItems(murderer);
 			}
 		}
 
 		break;
 	case heal:
 
-		if (animations[currentAnimation].ended()) {
-			HealthPotion* p = (HealthPotion*)getItem("health_potion");
-			if (p) {
-				health += p->getHealing();
-				if (health > maxHealth)
-					health = maxHealth;
-				inventory.remove(p);
-			}
-			delete p;
+		if (animations[currentAnimation].ended())
 			selfState = idle;
-		}
 
 		break;
 	}

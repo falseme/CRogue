@@ -8,7 +8,6 @@
 #include <scene/LevelScene.h>
 #include <util/Mathv.h>
 #include <util/Timef.h>
-#include <item/HealthPotion.h>
 
 const int Player::MAX_HEALTH;
 
@@ -77,20 +76,8 @@ void Player::update() {
 
 		speed = { 0,0 };
 
-		if (animations[currentAnimation].ended()) {
-
-			HealthPotion* p = (HealthPotion*)getItem("health_potion");
-			if (p) {
-				health += p->getHealing();
-				if (health > MAX_HEALTH)
-					health = MAX_HEALTH;
-				((LevelScene*)SceneManager::getCurrentScene())->updateGUIHealth(health);
-				inventory.remove(p);
-			}
-			delete p;
-
+		if (animations[currentAnimation].ended())
 			selfState = idle;
-		}
 
 		break;
 	}
@@ -164,8 +151,11 @@ bool Player::attacking() {
 
 bool Player::healing() {
 
-	if (Keyboard::isKeyPressed(Keyboard::H) && getItem("health_potion"))
+	if (Keyboard::isKeyPressed(Keyboard::H) && useHealthPotion()) {
+		((LevelScene*)SceneManager::getCurrentScene())->updateGUIHealth(health);
 		return true;
+	}
+
 	return false;
 
 }

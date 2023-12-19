@@ -24,14 +24,11 @@ void Door::onCollision(BoxCollider other, Vector2f delta) {
 		return;
 	if (pl->getCollider() != other)
 		return;
-	Item* key = pl->getItem("key");
-	if (key) {
-		pl->removeItem(key); // remove from inventory & delete
+
+	if (pl->hasItem(Player::KEY_ID)) {
+		pl->removeInventoryItem(Player::KEY_ID);
 		open = true;
 		currentAnimation = 1;
-	}
-	else {
-		delete key;
 	}
 
 }

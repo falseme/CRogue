@@ -8,7 +8,6 @@
 #include <gameObject/Enemy.h>
 #include <gameObject/Door.h>
 #include <gameObject/Ladder.h>
-#include <item/HealthPotion.h>
 #include <scene/SceneManager.h>
 
 LevelScene::LevelScene(int level, float accCamZoom, int playerHealth) : Scene(accCamZoom) {
@@ -101,15 +100,15 @@ void LevelScene::loadScene() {
 	if (enemies.empty())
 		return;
 	int n = rand() % enemies.size();
-	((Enemy*)enemies[n])->addItem(new Item(Assets::key, "key"));
+	((Enemy*)enemies[n])->addInventoryItem(Enemy::KEY_ID);
 
 	// GIVE HEAL POTIONS TO ENEMIES
 	for (int i = 0; i < enemies.size(); i++) {
 		int healProbability = rand() % 100;
 		if (healProbability < 10)
-			((Enemy*)enemies[i])->addItem(new HealthPotion(Assets::healthPotion, "health_potion", 2));
+			((Enemy*)enemies[i])->addInventoryItem(Enemy::HEALTH_POTION_ID);
 		else if (healProbability < 90) // 25% (35-10)
-			((Enemy*)enemies[i])->addItem(new HealthPotion(Assets::healthPotion_small, "health_potion", 1));
+			((Enemy*)enemies[i])->addInventoryItem(Enemy::HEALTH_POTION_SMALL_ID);
 	}
 
 }

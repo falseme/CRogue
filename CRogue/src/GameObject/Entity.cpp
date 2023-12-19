@@ -4,6 +4,10 @@
 #include <util/Timef.h>
 #include <scene/SceneManager.h>
 
+const string Entity::HEALTH_POTION_ID = "health";
+const string Entity::HEALTH_POTION_SMALL_ID = "health_small";
+const string Entity::KEY_ID = "key";
+
 Entity::Entity(Vector2f pos, string name, vector<Animation> anim, BoxCollider collider, int h, int mh, int d, float speed, int attackDistance, float cooldownLimit) : GameObject(pos, name, anim, collider) {
 	health = h;
 	maxHealth = mh;
@@ -89,24 +93,45 @@ Entity::state Entity::getSelfState() const {
 	return selfState;
 }
 
-void Entity::addItem(Item* i) {
-	inventory.push_back(i);
+void Entity::addInventoryItem(string name) {
+	inventory[name]++;
 }
 
-Item* Entity::getItem(string name) {
+bool Entity::hasItem(string name) {
+	return inventory[name] > 0;
+}
 
-	for (Item* i : this->inventory) {
-		if (i->getName() == name)
-			return i;
+void Entity::removeInventoryItem(string name) {
+	inventory[name]--;
+}
+
+bool Entity::useHealthPotion() {
+
+	if (hasItem(HEALTH_POTION_ID)) {
+		removeInventoryItem(HEALTH_POTION_ID);
+		health += 2;
+		if (health > maxHealth)
+			health = maxHealth;
+		return true;
 	}
 
-	return nullptr;
+	if (hasItem(HEALTH_POTION_SMALL_ID)) {
+		removeInventoryItem(HEALTH_POTION_SMALL_ID);
+		health += 1;
+		if (health > maxHealth)
+			health = maxHealth;
+		return true;
+	}
+
+	return false;
 
 }
 
-void Entity::removeItem(Item* i) {
-	inventory.remove(i);
-	delete i;
+void Entity::giveItems(Entity* en) {
+	en->inventory[KEY_ID] += inventory[KEY_ID];
+	en->inventory[HEALTH_POTION_ID] += inventory[HEALTH_POTION_ID];
+	en->inventory[HEALTH_POTION_SMALL_ID] += inventory[HEALTH_POTION_SMALL_ID];
+	inventory.clear();
 }
 
 void Entity::drawInventory(RWindow* render, bool background) {
@@ -114,20 +139,39 @@ void Entity::drawInventory(RWindow* render, bool background) {
 	if (inventory.empty())
 		return;
 
-	float w = inventory.front()->getSprite().getLocalBounds().width * inventory.front()->getSprite().getScale().x;
-	float x = pos.x - w * inventory.size() / 2;
+	float w = 8;
+	int inventorySize = (inventory[KEY_ID] + inventory[HEALTH_POTION_ID] + inventory[HEALTH_POTION_SMALL_ID]);
+	float x = pos.x - w * inventorySize / 2;
 	float y = pos.y - sprite.getLocalBounds().height * 2 / 3;
 
 	if (background) {
-		RectangleShape rs(Vector2f(w * inventory.size(), w));
+		RectangleShape rs(Vector2f(w * inventorySize, w));
 		rs.setPosition(x, y);
 		rs.setFillColor(Color(40, 20, 30, 100));
 		render->draw(rs);
 	}
 
-	for (Item* i : inventory) {
-		i->getSprite().setPosition(x, y);
-		render->draw(i->getSprite());
+	for (int i = 0; i < inventory[KEY_ID]; i++) {
+		Sprite spr(*Assets::key);
+		spr.setPosition(x, y);
+		spr.setScale(0.5f, 0.5f);
+		render->draw(spr);
+		x += w;
+	}
+
+	for (int i = 0; i < inventory[HEALTH_POTION_ID]; i++) {
+		Sprite spr(*Assets::healthPotion);
+		spr.setPosition(x, y);
+		spr.setScale(0.5f, 0.5f);
+		render->draw(spr);
+		x += w;
+	}
+
+	for (int i = 0; i < inventory[HEALTH_POTION_SMALL_ID]; i++) {
+		Sprite spr(*Assets::healthPotion_small);
+		spr.setPosition(x, y);
+		spr.setScale(0.5f, 0.5f);
+		render->draw(spr);
 		x += w;
 	}
 
