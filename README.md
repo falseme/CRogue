@@ -7,7 +7,7 @@
 	</a>
 	<br>
 	<img src="https://img.shields.io/github/issues/falseme/CRogue?style=for-the-badge&label=issues" alt="CRogue issues">
-	<img src="https://img.shields.io/github/license/falseme/CRogue?style=for-the-badge&label=license" alt="CRogue license">
+	<img src="https://img.shields.io/github/license/falseme/CRogue?style=for-the-badge" alt="CRogue license">
 	<img src="https://img.shields.io/github/v/tag/falseme/CRogue?style=for-the-badge&label=version" alt="CRogue release">
 </div>
 
