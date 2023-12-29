@@ -1,5 +1,5 @@
 <div align=center>
-	<img src="CRogue/data/assets/textures/animations/player/player_idle0.png" width="150" height="150" alt="Tasky logo">
+	<img src="icon.png" width="150" height="150" alt="Tasky logo">
 	<br>
 	<h1 style="font-size:30px">CROGUE</h1>
 	<a href="https://github.com/falseme/CRogue/releases/tag/v-0.1-alpha">
