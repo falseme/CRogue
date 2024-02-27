@@ -22,4 +22,8 @@ Se descarga un `.rar` con el ejecutable y la carpeta `data` los cuales deben per
 
 ### Licencias
 
-Los assets los robé de un montón de lugares diferentes y me olvidé los nombres, pero principalmente utilicé los de [Pixel Poem](https://pixel-poem.itch.io/dungeon-assetpuck).
+La mayoría de los assets pertenecen a [Pixel Poem](https://pixel-poem.itch.io/dungeon-assetpuck).
+
+### Actualización
+
+El desarrollo de *CRogue* se encuentra finalizado. No se realizará ninguna actualización. Sin embargo, se utilizará lo aprendido para desarrollar un nuevo motor con otra librería o framework y dará pie a un nuevo y más ambicioso proyecto.
